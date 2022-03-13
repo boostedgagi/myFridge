@@ -1,0 +1,22 @@
+@import "colors";
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: $cream;
+}
+.hamburger {
+    display: block;
+    background-color: #6C757D;
+    width: 22px;
+    height: 3px;
+    margin: 4px 0;
+    transition: 0.2s ease-in-out;
+}
+#review {
+    display: flex;
+    justify-content: center;
+}
+.bg-color {
+    background-color: $yellow;
+}
