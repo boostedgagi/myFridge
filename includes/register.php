@@ -16,7 +16,7 @@
                     aria-label="Close"
                 ></button>
                 <!-- REGISTER FORM -->
-                <form>
+                <form action="actions/registerAction.php" enctype="multipart/form-data" method="post">
                     <h1 class="text-center mb-5">Register</h1>
                     <div class="container">
                         <div class="row">
@@ -26,6 +26,7 @@
                                         type="text"
                                         class="form-control"
                                         id="name"
+                                        name="reg-f-name"
                                         placeholder="name"
                                     />
                                     <label for="name">First Name</label>
@@ -37,6 +38,7 @@
                                         type="text"
                                         class="form-control"
                                         id="lastname"
+                                        name="reg-l-name"
                                         placeholder="lastname"
                                     />
                                     <label for="lastname">Last name</label>
@@ -48,6 +50,7 @@
                                         type="email"
                                         class="form-control"
                                         id="register-email"
+                                        name="reg-email"
                                         placeholder="email"
                                     />
                                     <label for="email">Email</label>
@@ -59,6 +62,7 @@
                                         type="password"
                                         class="form-control"
                                         id="register-password"
+                                        name="reg-pwd"
                                         placeholder="password"
                                     />
                                     <label for="password">Password</label>
@@ -70,6 +74,7 @@
                                         type="password"
                                         class="form-control"
                                         id="confirmpassword"
+                                        name="reg-pwd-repeat"
                                         placeholder="confirmpassword"
                                     />
                                     <label for="confirmpassword">Confirm password</label>
@@ -95,6 +100,7 @@
                                         type="text"
                                         class="form-control"
                                         id="phone"
+                                        name="reg-phone"
                                         placeholder="phone"
                                     />
                                     <label for="phone">Phone number</label>
@@ -102,12 +108,13 @@
                             </div>
                             <div class="col-10">
                                 <label for="formFile" class="form-label">Choose profile picture (Up to 5MB)</label>
-                                <input class="form-control" type="file" id="formFile">
+                                <input class="form-control" type="file" name="reg-prof-img-path" id="formFile">
                             </div>
                             <div>
                                 <button
                                     type="submit"
                                     class="btn-lg btn-primary my-3 rounded-pill"
+                                    name = 'regsubmit'
                                 >
                                     Register
                                 </button>

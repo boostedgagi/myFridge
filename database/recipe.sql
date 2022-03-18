@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2022 at 11:06 PM
+-- Generation Time: Mar 18, 2022 at 12:57 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -21,17 +21,38 @@ SET time_zone = "+00:00";
 -- Database: `recipe`
 --
 
--- --------------------------------------------------------
-
+DELIMITER $$
 --
--- Table structure for table `activatedaccounts`
+-- Procedures
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertUsers` (IN `regFName` VARCHAR(30), IN `regLName` VARCHAR(40), IN `regPhone` VARCHAR(10), IN `regEmail` VARCHAR(320), IN `regHashPwd` VARCHAR(255), IN `regCountry` VARCHAR(30), IN `regCity` VARCHAR(20), IN `regProfPicPath` VARCHAR(255), IN `regVerCode` INT(10))  BEGIN
+    insert into users (
+        firstName,
+        lastName,
+        phoneNumber,
+        email,
+        hashedPassword,
+        country,
+        city,
+        profilePicturePath,
+        verifyingCode,
+        accType    
+)       
+        values(
+        regFName,
+        regLname,
+        regPhone,
+        regEmail,
+        regHashPwd,
+        regCountry,
+        regCity,
+        regProfPicPath,
+        regVerCode,
+        'user'
+        );
+END$$
 
-CREATE TABLE `activatedaccounts` (
-  `activationID` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `activationDate` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -219,19 +240,24 @@ CREATE TABLE `users` (
   `hashedPassword` varchar(255) NOT NULL,
   `country` varchar(30) DEFAULT NULL,
   `city` varchar(20) DEFAULT NULL,
-  `profilePicturePath` varchar(255) DEFAULT NULL
+  `profilePicturePath` varchar(255) DEFAULT NULL,
+  `verifyingCode` int(10) UNSIGNED DEFAULT NULL,
+  `verified` int(1) UNSIGNED DEFAULT NULL,
+  `accType` enum('admin','user') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`userID`, `firstName`, `lastName`, `phoneNumber`, `email`, `hashedPassword`, `country`, `city`, `profilePicturePath`, `verifyingCode`, `verified`, `accType`) VALUES
+(7, 'Dragan', 'Jelic', '0649310515', 'dragan.02@gmail.com', '$2y$10$lsT3VOjMJxn.64P8I21Lb.BHWqyrbs8s7YznQAizcxyu.sL8fTknS', '', '', 'profilePictures/6233aaffd0a6f5.27465359.jpg', 2147483647, NULL, 'admin'),
+(12, 'Dane', 'Guzvica', '0987878788', 'daneguzvicamaci@gmail.com', '$2y$10$Uns.G754ISkXGsO/.YapduoJgLG6XSEtLU3acyulbG4EV1PDHLJjy', '', '', 'images/johnDoe.png', 2147483647, NULL, 'user'),
+(13, 'David', 'Jurcek', '0649876534', 'jurcekdavid@gmail.com', '$2y$10$jmmHod4uwmgctT2fHQYK0OPIMYa5soBNqFBNHbkuo6Io/NYy06gcS', '', '', 'images/johnDoe.png', 2147483647, NULL, 'user');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `activatedaccounts`
---
-ALTER TABLE `activatedaccounts`
-  ADD PRIMARY KEY (`activationID`),
-  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `amounts`
@@ -334,12 +360,6 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `activatedaccounts`
---
-ALTER TABLE `activatedaccounts`
-  MODIFY `activationID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `amounts`
 --
 ALTER TABLE `amounts`
@@ -415,17 +435,11 @@ ALTER TABLE `units`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `activatedaccounts`
---
-ALTER TABLE `activatedaccounts`
-  ADD CONSTRAINT `activatedaccounts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`userID`);
 
 --
 -- Constraints for table `amounts`
