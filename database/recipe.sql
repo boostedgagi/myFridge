@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2022 at 12:57 AM
+-- Generation Time: Mar 18, 2022 at 06:43 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -50,6 +50,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insertUsers` (IN `regFName` VARCHAR
         regVerCode,
         'user'
         );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `verifyRegisteredUser` (IN `emailAddress` VARCHAR(320), IN `verificationCode` INT(10))  BEGIN
+    UPDATE users SET verified=1, verifyingCode = 0 where email=emailAddress and verifyingCode=verificationCode;
 END$$
 
 DELIMITER ;
@@ -251,9 +255,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`userID`, `firstName`, `lastName`, `phoneNumber`, `email`, `hashedPassword`, `country`, `city`, `profilePicturePath`, `verifyingCode`, `verified`, `accType`) VALUES
-(7, 'Dragan', 'Jelic', '0649310515', 'dragan.02@gmail.com', '$2y$10$lsT3VOjMJxn.64P8I21Lb.BHWqyrbs8s7YznQAizcxyu.sL8fTknS', '', '', 'profilePictures/6233aaffd0a6f5.27465359.jpg', 2147483647, NULL, 'admin'),
-(12, 'Dane', 'Guzvica', '0987878788', 'daneguzvicamaci@gmail.com', '$2y$10$Uns.G754ISkXGsO/.YapduoJgLG6XSEtLU3acyulbG4EV1PDHLJjy', '', '', 'images/johnDoe.png', 2147483647, NULL, 'user'),
-(13, 'David', 'Jurcek', '0649876534', 'jurcekdavid@gmail.com', '$2y$10$jmmHod4uwmgctT2fHQYK0OPIMYa5soBNqFBNHbkuo6Io/NYy06gcS', '', '', 'images/johnDoe.png', 2147483647, NULL, 'user');
+(7, 'Dragan', 'Jelic', '0649310515', 'dragan.02@gmail.com', '$2y$10$lsT3VOjMJxn.64P8I21Lb.BHWqyrbs8s7YznQAizcxyu.sL8fTknS', '', '', 'profilePictures/6233aaffd0a6f5.27465359.jpg', 0, 1, 'admin'),
+(26, 'Filip', 'Marjanovic', '0978877886', 'cofi1123@gmail.com', '$2y$10$oPXvvAcp3IqgxQ28dtyWa.MxpACFib8G74Em1OUvVa4OC27fqU7RO', '', '', 'images/johnDoe.png', 0, 1, 'user'),
+(32, 'Dragan', 'Jelic', '0987878784', 'dragan02.jelic@gmail.com', '$2y$10$cAUUowfyCoy8JCtq3RrE5eja9JzSHDBahKijer64v2fK3q.eMJeuS', '', '', 'images/johnDoe.png', 2147483647, NULL, 'user');
 
 --
 -- Indexes for dumped tables
@@ -435,7 +439,7 @@ ALTER TABLE `units`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Constraints for dumped tables

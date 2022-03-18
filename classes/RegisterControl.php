@@ -74,7 +74,6 @@ class RegisterControl extends Register
             $this->profilePicturePath,
             $this->tenDigitVerifyingCode
         );
-
     }
 
 //echo '<script type="text/javascript">alert("Username and password incorrect!");     window.location="login.php";</script>'; //trebace
@@ -83,6 +82,12 @@ class RegisterControl extends Register
     {
         $this->profilePicturePath = $path;
     }
+
+    public function setVerifyingCode($code)
+    {
+        $this->tenDigitVerifyingCode = $code;
+    }
+
 
     private function emptyEntries(): bool
     {

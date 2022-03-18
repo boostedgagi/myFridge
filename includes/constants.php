@@ -9,3 +9,7 @@ define('FNAME_LENGTH',30);
 define('LNAME_LENGTH',40);
 define('PHONE_NUMBER-LENGTHS',array(9,10));
 define('NO_PROF_PIC_PIC','images/johnDoe.png');
+//define('CODE_MIN',1000000000);
+//define('CODE_MAX',9999999999);
+
+

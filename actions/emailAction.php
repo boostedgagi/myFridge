@@ -1,14 +1,20 @@
 <?php
 
-if(isset( $_GET['email'])&&isset( $_GET['verifyingCode'])){
+if(isset($_GET['email'])&&isset($_GET['verifyCode'])){
 
 $email = $_GET['email'];
-$verifyingCode = $_GET['verifyingCode'];
+$verCode = $_GET['verifyCode'];
 
-// sve u svemu ovo ce da se uradi preko objekta(klasa activation)
-//sldece je sredjivanje xampa za slanje mejla
+include "../classes/Database.php";
+include "../classes/EmailVerification.php";
 
+$verification = new EmailVerification($email,$verCode);
+$verification->activateUserAccount($email,$verCode);
+header("location:../index.php?verification_successful");
 
+//$query = "UPDATE users SET verified=1, verifyingCode = 0 where email='".$email."' and verifyingCode='".$verCode."';";
+//if(mysqli_query($conn, $query))
+//header("location:../index.php?verification_successful");
 
 
 

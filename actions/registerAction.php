@@ -1,4 +1,5 @@
 <?php
+
 if (isset($_POST['regsubmit'])) {
     $firstName = $_POST['reg-f-name'];
     $lastName = $_POST['reg-l-name'];
@@ -10,7 +11,13 @@ if (isset($_POST['regsubmit'])) {
     $country = "";
 //$city=$_POST['reg-city'];
     $city = "";
-    $verifyingCode = rand(1000000000, 9999999999);
+
+    function makeCode($min,$max){
+        return random_int($min,$max);
+    }
+    $verifyingCode = makeCode(1000000000,9999999999);
+
+
     $file = $_FILES['reg-prof-img-path'];
 
     $fileName = $_FILES['reg-prof-img-path']['name'];
@@ -26,16 +33,15 @@ if (isset($_POST['regsubmit'])) {
 
     $profilePicturePath = $registration->profilePictureLocation($fileName, $tempFileName, $fileError, $fileSize);
     $registration->setProfilePicturePath($profilePicturePath);
+    //$registration->setVerifyingCode($verifyingCode);
 
     $registration->registerNewUser();
     header("location: ../index.php?registered_successfully");
 
-    //ovde iza uspesne registracije, ubaciti slanje aktivacionog koda
-
     $message = "Please confirm your email address on this link here: 
-    http://localhost/myFridge/actions/emailAction.php?email=$email&verifyingCode=$verifyingCode";
+    http://localhost/myFridge/actions/emailAction.php?email=$email&verifyCode=$verifyingCode";
 
     mail($email,'Email verification',$message);
-    echo '<script>alert("Registration complete! Please confirm your email address.")</script>';
+//    echo '<script>alert("Registration complete! Please confirm your email address.")</script>';
 
 }

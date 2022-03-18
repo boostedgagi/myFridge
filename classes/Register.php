@@ -3,14 +3,14 @@
 class Register extends Database
 {
 
-    protected function registerUserWithQuery($firstName, $lastName, $phone, $email, $password, $country, $city, $profPicPath, $verifyingCode)
+    protected function registerUserWithQuery($firstName, $lastName, $phone, $email, $password, $country, $city, $profPicPath, $verifyCode)
     {
         $insertNewUser = $this->connect()->prepare('call insertUsers(?,?,?,?,?,?,?,?,?)');
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-        if (!$insertNewUser->execute(array($firstName, $lastName, $phone, $email, $passwordHash, $country, $city, $profPicPath, $verifyingCode))) {
+        if (!$insertNewUser->execute(array($firstName, $lastName, $phone, $email, $passwordHash, $country, $city, $profPicPath, $verifyCode))) {
             $insertNewUser = null;
-            header("location: ../includes/register.php?error=insert_failed");
+            header("location: ../index.php?error_insert_failed");
             exit();
         }
     }
