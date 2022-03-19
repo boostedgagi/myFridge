@@ -12,7 +12,7 @@ class RegisterControl extends Register
     private string $country;
     private string $city;
     private string $profilePicturePath;
-    private int $tenDigitVerifyingCode;
+    private int $nineDigitVerificationCode;
 
     public function __construct($firstName, $lastName, $phone, $email, $password, $passwordRepeat, $country, $city, $profilePicturePath, $tenDigitVerifyingCode)
     {
@@ -25,7 +25,7 @@ class RegisterControl extends Register
         $this->country = $country;
         $this->city = $city;
         $this->profilePicturePath = $profilePicturePath;
-        $this->tenDigitVerifyingCode = $tenDigitVerifyingCode;
+        $this->nineDigitVerificationCode = $tenDigitVerifyingCode;
     }
 
     public function registerNewUser()
@@ -72,7 +72,7 @@ class RegisterControl extends Register
             $this->country,
             $this->city,
             $this->profilePicturePath,
-            $this->tenDigitVerifyingCode
+            $this->nineDigitVerificationCode
         );
     }
 
@@ -85,7 +85,7 @@ class RegisterControl extends Register
 
     public function setVerifyingCode($code)
     {
-        $this->tenDigitVerifyingCode = $code;
+        $this->nineDigitVerificationCode = $code;
     }
 
 

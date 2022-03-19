@@ -2,7 +2,7 @@
 
 class EmailVerification extends Database
 {
-    public function activateUserAccount($email,$verificationCode){
+    protected function activateAccount($email,$verificationCode){
 
         $verifyRegisteredUser = $this->connect()->prepare('call verifyRegisteredUser(?,?);');
 
@@ -13,5 +13,27 @@ class EmailVerification extends Database
         }
     }
 
+    protected function checkForExistingActivation($email):bool
+    {
+        $check = $this->connect()->prepare('select verifyingCode from users where email=?');
+        $check->execute(array($email));
 
+        $codeCheck = $check->fetch();
+        if($codeCheck!==0){
+            return true;
+        }
+        return false;
+    }
+
+    protected function checkForInvalidActivationData($email,$verificationCode):bool
+    {
+        $check = $this->connect()->prepare('select verifyingCode from users where email=? and verifyingCode=?');
+        $check->execute(array($email,$verificationCode));
+
+        $codeCheck = $check->fetch();
+        if($codeCheck){
+            return true;
+        }
+        return false;
+    }
 }

@@ -23,6 +23,7 @@
                             type="email"
                             class="form-control"
                             id="login-email"
+                            name="login-email"
                             placeholder="email"
                         />
                         <label for="email">Email address</label>
@@ -32,6 +33,7 @@
                             type="password"
                             class="form-control"
                             id="login-password"
+                            name="login-pwd"
                             placeholder="password"
                         />
                         <label for="password">Password</label>
@@ -39,6 +41,7 @@
                     </div>
                     <button
                         type="submit"
+                        name="login-submit"
                         class="btn-lg btn-primary my-3 rounded-pill"
                     >
                         Log In

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2022 at 06:43 PM
+-- Generation Time: Mar 19, 2022 at 07:42 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -255,9 +255,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`userID`, `firstName`, `lastName`, `phoneNumber`, `email`, `hashedPassword`, `country`, `city`, `profilePicturePath`, `verifyingCode`, `verified`, `accType`) VALUES
-(7, 'Dragan', 'Jelic', '0649310515', 'dragan.02@gmail.com', '$2y$10$lsT3VOjMJxn.64P8I21Lb.BHWqyrbs8s7YznQAizcxyu.sL8fTknS', '', '', 'profilePictures/6233aaffd0a6f5.27465359.jpg', 0, 1, 'admin'),
-(26, 'Filip', 'Marjanovic', '0978877886', 'cofi1123@gmail.com', '$2y$10$oPXvvAcp3IqgxQ28dtyWa.MxpACFib8G74Em1OUvVa4OC27fqU7RO', '', '', 'images/johnDoe.png', 0, 1, 'user'),
-(32, 'Dragan', 'Jelic', '0987878784', 'dragan02.jelic@gmail.com', '$2y$10$cAUUowfyCoy8JCtq3RrE5eja9JzSHDBahKijer64v2fK3q.eMJeuS', '', '', 'images/johnDoe.png', 2147483647, NULL, 'user');
+(1, 'Dragan', 'Jelic', '0649310515', 'dragan.02jelic@gmail.com', '$2y$10$lsT3VOjMJxn.64P8I21Lb.BHWqyrbs8s7YznQAizcxyu.sL8fTknS', '', '', 'profilePictures/6233aaffd0a6f5.27465359.jpg', 0, 1, 'admin'),
+(43, 'Goran', 'Paskaljevic', '9090909090', 'gagimanijak@outlook.com', '$2y$10$rWRyuuYqQA8j1dbhXM8iHevSD0RoFuibXzG9t6cSUJ35TRdtduTie', '', '', 'images/johnDoe.png', 0, 1, 'user');
 
 --
 -- Indexes for dumped tables
@@ -439,7 +438,7 @@ ALTER TABLE `units`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- Constraints for dumped tables
