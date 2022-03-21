@@ -39,6 +39,4 @@ class LoginControl extends Login{
         }
         return true;
     }
-
-
 }

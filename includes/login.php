@@ -16,7 +16,7 @@
                     aria-label="Close"
                 ></button>
                 <!-- LOGIN FORM -->
-                <form action="../actions/loginAction.php" enctype="multipart/form-data" method="post">
+                <form action="actions/loginAction.php" enctype="multipart/form-data" method="post">
                     <h1 class="text-center mb-5">Log In</h1>
                     <div class="form-floating mb-3">
                         <input

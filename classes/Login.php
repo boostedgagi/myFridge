@@ -1,7 +1,7 @@
 <?php
 
-class Login extends Database{
-
+class Login extends Database
+{
     protected function logInUserBase($email, $password)
     {
         $logInStatement = $this->connect()->prepare('select hashedPassword from users where email=?;');
@@ -20,12 +20,24 @@ class Login extends Database{
 
         $passwordHash = $logInStatement->fetchAll(PDO::FETCH_ASSOC);
 
-        if (password_verify($password, $passwordHash[0]["hashedPassword"]) === false) {
+        if (password_verify($password, $passwordHash[0]["hashedPassword"]) === false)
+        {
             $logInStatement = null;
             header("location: ../index.php?error=wrong_password");
             exit();
         }
-        else if (password_verify($password, $passwordHash[0]["hashedPassword"]) === true) {
+        else if (password_verify($password, $passwordHash[0]["hashedPassword"]) === true)
+        {
+            $checkForVerified = $this->connect()->prepare('select verified from users where email = ? and hashedPassword = ?;');
+            $checkForVerified->execute(array($email,$passwordHash[0]["hashedPassword"]));
+            $check = $checkForVerified->fetchColumn();
+
+            if ($check != 1) {
+                $checkForVerified = null;
+                header("location: ../index.php?error=account_is_not_validated_$check");
+                exit();
+            }
+
             $logInStatement = $this->connect()->prepare('select * from users where email=? and hashedPassword=?;');
 
             if (!$logInStatement->execute(array($email, $passwordHash[0]["hashedPassword"]))) {
@@ -38,18 +50,11 @@ class Login extends Database{
                 header("location: ../index.php?error=user_not_found");
                 exit();
             }
-
             $userdata = $logInStatement->fetchAll(PDO::FETCH_ASSOC);
 
-            if($userdata[0]["verified"]===1){
-                session_start();
-                $_SESSION["verified"] = $userdata[0]["verified"];
-                $_SESSION["userFirstName"] = $userdata[0]["firstName"];
-                $_SESSION["userLastName"] = $userdata[0]["lastName"];
-                $_SESSION["userEmail"] = $userdata[0]["email"];
-                $_SESSION["userPassword"] = $userdata[0]["hashedPassword"];
-                $_SESSION["userProfilePicture"] = $userdata[0]["profilePicturePath"];
-            }
+            $_SESSION["userEmail"] = $userdata[0]["email"];
+            $_SESSION["userPassword"] = $userdata[0]["hashedPassword"];
+            $_SESSION["userProfilePicture"] = $userdata[0]["profilePicturePath"];
 
             $logInStatement = null;
         }
