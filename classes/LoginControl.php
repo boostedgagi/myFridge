@@ -10,6 +10,8 @@ class LoginControl extends Login{
         $this->password=$password;
     }
 
+
+
     public function logInUser()
     {
         if ($this->emptyEntriesForLogin() === false) {
@@ -39,4 +41,6 @@ class LoginControl extends Login{
         }
         return true;
     }
+
+
 }

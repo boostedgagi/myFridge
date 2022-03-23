@@ -51,11 +51,12 @@ class Login extends Database
                 exit();
             }
             $userdata = $logInStatement->fetchAll(PDO::FETCH_ASSOC);
-
+            session_start();
             $_SESSION["userEmail"] = $userdata[0]["email"];
             $_SESSION["userPassword"] = $userdata[0]["hashedPassword"];
+            $_SESSION["userFirstName"] = $userdata[0]["firstName"];
             $_SESSION["userProfilePicture"] = $userdata[0]["profilePicturePath"];
-
+            $_SESSION["accountType"] = $userdata[0]["accType"];
             $logInStatement = null;
         }
     }

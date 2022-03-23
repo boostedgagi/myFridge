@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <nav class="navbar navbar-expand-md navbar-light">
     <div class="container-xxl">
         <a href="#top" class="navbar-brand">
@@ -34,33 +37,66 @@
                 <li class="nav-item ms-1">
                     <a href="#" class="nav-link text-black">Nesto2</a>
                 </li>
-                <li class="nav-item d-inline d-md-none ms-1">
+                <!--li class="nav-item d-inline d-md-none ms-1">
                     <a
                             href="#"
                             class="nav-link btn text-black"
                             data-bs-toggle="modal"
-                            data-bs-target="#loginmodal"
-                    >LogIn</a
-                    >
-                </li>
+                            data-bs-target="#loginmodal">
+                        LogIn
+                    </a>
+                </li-->
+                <?php
+                if(!isset($_SESSION["userEmail"])){
+                ?>
                 <li class="nav-item d-none d-md-inline ms-1">
                     <a
                             href="#"
                             class="nav-link btn bg-orange text-cream"
                             data-bs-toggle="modal"
-                            data-bs-target="#loginmodal"
-                    >LogIn</a
-                    >
+                            data-bs-target="#loginmodal">
+                        LogIn
+                    </a>
                 </li>
+                <?php
+                }
+                else{
+                ?>
+                <li class="nav-item d-none d-md-inline ms-1">
+                    <a
+                            href="includes/logout.php"
+                            class="nav-link btn bg-orange text-cream">
+                        Logout
+                    </a>
+                </li>
+                <?php
+                }
+                ?>
+                <?php
+                    if(!isset($_SESSION["userEmail"])){
+                ?>
                 <li class="nav-item d-none d-md-inline ms-1">
                     <a
                             href="#"
                             class="nav-link btn bg-orange text-cream"
                             data-bs-toggle="modal"
-                            data-bs-target="#registermodal"
-                    >Register</a
-                    >
+                            data-bs-target="#registermodal">
+                        Register
+                    </a>
                 </li>
+                <?php
+                }
+                else{
+                ?>
+                    <li class="nav-item d-none d-md-inline ms-1">
+                        <a href="user.php"
+                           class="nav-link btn bg-orange text-cream">
+                            <?php echo $_SESSION["userFirstName"]."'s profile" ?>
+                        </a>
+                    </li>
+                <?php
+                }
+                ?>
             </ul>
         </div>
     </div>

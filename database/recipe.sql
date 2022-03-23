@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2022 at 06:55 PM
+-- Generation Time: Mar 23, 2022 at 05:35 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -50,6 +50,18 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insertUsers` (IN `regFName` VARCHAR
         regVerCode,
         'user'
         );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `recordLog` (IN `emailAddress` VARCHAR(320))  BEGIN
+insert into logevidence(
+    user_id,
+    logDate,
+    logTime)
+values(
+	(select users.userID from users where users.email=emailAddress),
+    (select CURDATE()),
+    (select CURRENT_TIME)
+);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `verifyRegisteredUser` (IN `emailAddress` VARCHAR(320), IN `verificationCode` INT(10))  BEGIN
@@ -157,6 +169,14 @@ CREATE TABLE `logevidence` (
   `logTime` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `logevidence`
+--
+
+INSERT INTO `logevidence` (`logID`, `user_id`, `logDate`, `logTime`) VALUES
+(1, 1, '2022-03-23', '17:18:40'),
+(2, 46, '2022-03-23', '17:32:50');
+
 -- --------------------------------------------------------
 
 --
@@ -255,7 +275,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`userID`, `firstName`, `lastName`, `phoneNumber`, `email`, `hashedPassword`, `country`, `city`, `profilePicturePath`, `verifyingCode`, `verified`, `accType`) VALUES
-(1, 'Dragan', 'Jelic', '0649310515', 'dragan.02jelic@gmail.com', '$2y$10$lsT3VOjMJxn.64P8I21Lb.BHWqyrbs8s7YznQAizcxyu.sL8fTknS', '', '', 'profilePictures/6233aaffd0a6f5.27465359.jpg', 0, 1, 'admin');
+(1, 'Dragan', 'Jelic', '0649310515', 'dragan.02jelic@gmail.com', '$2y$10$lsT3VOjMJxn.64P8I21Lb.BHWqyrbs8s7YznQAizcxyu.sL8fTknS', '', '', 'profilePictures/6233aaffd0a6f5.27465359.jpg', 0, 1, 'admin'),
+(46, 'Milos', 'Milivojevic', '0641057698', 'gagimanijak@outlook.com', '$2y$10$QXezgVhV3vfh4H3VE6c23O17FgQ3PUcECcDErcFxyVXXE3Jei6kY2', '', '', 'images/johnDoe.png', 0, 1, 'user');
 
 --
 -- Indexes for dumped tables
@@ -407,7 +428,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `logevidence`
 --
 ALTER TABLE `logevidence`
-  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `meals`
@@ -437,7 +458,7 @@ ALTER TABLE `units`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- Constraints for dumped tables
