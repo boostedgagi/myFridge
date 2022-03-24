@@ -1,0 +1,29 @@
+@import "colors";
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: $cream;
+}
+.hamburger {
+  display: block;
+  background-color: $gray;
+  width: 22px;
+  height: 3px;
+  margin: 4px 0;
+  transition: 0.2s ease-in-out;
+}
+.navbar-toggler {
+  border: $gray;
+}
+.dropdown-item:hover, .dropdown-item:active {
+  color: $cream;
+  background-color: $orange;
+}
+
+.dropdown-toggle {
+  color: $black;
+}
+#navbarDropdown:focus, #navbarDropdown:hover {
+  color: $orange;
+}

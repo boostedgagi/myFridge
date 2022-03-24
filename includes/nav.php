@@ -8,7 +8,7 @@ session_start();
         </a>
         <!-- Nav for mobile -->
         <button
-                class="navbar-toggler"
+                class="navbar-toggler bg-yellow"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#main-nav"

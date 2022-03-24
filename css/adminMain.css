@@ -56,33 +56,20 @@ body {
   transition: 0.2s ease-in-out;
 }
 
-#review {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+.navbar-toggler {
+  border: #6C757D;
 }
 
-.bg-color {
-  background-color: #F4C95D;
+.dropdown-item:hover, .dropdown-item:active {
+  color: #E7E393;
+  background-color: #DD7230;
 }
 
-#footer {
-  height: auto;
-  background-image: url("images/wave(1).svg");
+.dropdown-toggle {
+  color: #04030F;
 }
 
-.logo {
-  width: 100%;
-  height: auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  padding: 20px 50px;
+#navbarDropdown:focus, #navbarDropdown:hover {
+  color: #DD7230;
 }
-/*# sourceMappingURL=main.css.map */
+/*# sourceMappingURL=adminMain.css.map */
