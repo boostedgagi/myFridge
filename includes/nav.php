@@ -73,7 +73,7 @@ session_start();
                 }
                 ?>
                 <?php
-                    if(!isset($_SESSION["userEmail"])){
+                    if(!isset($_SESSION["accountType"])){
                 ?>
                 <li class="nav-item d-none d-md-inline ms-1">
                     <a
@@ -86,7 +86,7 @@ session_start();
                 </li>
                 <?php
                 }
-                else{
+                else if(isset($_SESSION["accountType"]) and $_SESSION["accountType"]==="user"){
                 ?>
                     <li class="nav-item d-none d-md-inline ms-1">
                         <a href="user.php"
@@ -96,7 +96,18 @@ session_start();
                     </li>
                 <?php
                 }
+                else{
                 ?>
+                <li class="nav-item d-none d-md-inline ms-1">
+                    <a href="admin.php"
+                       class="nav-link btn bg-orange text-cream">
+                        <?php echo "Admin page"; ?>
+                    </a>
+                </li>
+                    <?php
+                }
+                ?>
+                
             </ul>
         </div>
     </div>

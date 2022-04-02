@@ -36,8 +36,8 @@
                             name="login-pwd"
                             placeholder="password"
                         />
-                        <label for="password">Password</label>
-                        <a href="#" class="mt-3">Forgot password?</a>
+                        <label for="login-password">Password</label>
+                        <a href="passwordRecovery/passwordRecovery.php" class="mt-3">Forgot password?</a>
                     </div>
                     <button
                         type="submit"

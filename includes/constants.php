@@ -11,5 +11,7 @@ define('PHONE_NUMBER-LENGTHS',array(9,10));
 define('NO_PROF_PIC_PIC','images/johnDoe.png');
 define('CODE_MIN',100000000);
 define('CODE_MAX',999999999);
+define('HOUR_IN_SECONDS',1800);
+
 
 

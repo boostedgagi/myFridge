@@ -128,7 +128,7 @@ class RegisterControl extends Register
             header("location: ../index.php?error=upload_failed");
             exit();
         }
-        if ($fileSize > 5000) {
+        if ($fileSize > 5000000) {
             header("location: ../index.php?error=profile_picture_is_too_big");
             exit();
         }

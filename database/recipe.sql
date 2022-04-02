@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2022 at 05:35 PM
+-- Generation Time: Apr 02, 2022 at 06:22 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -25,6 +25,25 @@ DELIMITER $$
 --
 -- Procedures
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteTokenIfExists` (IN `email` VARCHAR(320))  BEGIN
+delete from passwordreset where pwdResetEmail=email;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertDataForPasswordRecovery` (IN `email` VARCHAR(320), IN `selector` TEXT, IN `token` LONGTEXT, IN `expires` VARCHAR(20))  BEGIN
+    insert into passwordreset ( 
+		pwdResetEmail,
+    	pwdResetSelector,
+    	pwdResetToken,
+    	pwdResetExpiringDate
+    )       
+    values(
+        email,
+        selector,
+        token,
+        expires
+    );
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertUsers` (IN `regFName` VARCHAR(30), IN `regLName` VARCHAR(40), IN `regPhone` VARCHAR(10), IN `regEmail` VARCHAR(320), IN `regHashPwd` VARCHAR(255), IN `regCountry` VARCHAR(30), IN `regCity` VARCHAR(20), IN `regProfPicPath` VARCHAR(255), IN `regVerCode` INT(10))  BEGIN
     insert into users (
         firstName,
@@ -62,6 +81,15 @@ values(
     (select CURDATE()),
     (select CURRENT_TIME)
 );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `resetPasswordWithDelete` (IN `pwd` VARCHAR(255), IN `selector` TEXT, IN `token` LONGTEXT)  BEGIN
+    update users set hashedPassword = pwd where email = (select pwdResetEmail from passwordreset where pwdResetSelector = selector and pwdResetToken = token);
+    delete from passwordreset where pwdResetEmail = email;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `resetPasswordWithoutDelete` (IN `pwd` VARCHAR(255), IN `selector` TEXT, IN `token` LONGTEXT)  BEGIN
+    update users set hashedPassword = pwd where email = (select pwdResetEmail from passwordreset where pwdResetSelector = selector and pwdResetToken = token);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `verifyRegisteredUser` (IN `emailAddress` VARCHAR(320), IN `verificationCode` INT(10))  BEGIN
@@ -175,7 +203,14 @@ CREATE TABLE `logevidence` (
 
 INSERT INTO `logevidence` (`logID`, `user_id`, `logDate`, `logTime`) VALUES
 (1, 1, '2022-03-23', '17:18:40'),
-(2, 46, '2022-03-23', '17:32:50');
+(3, 47, '2022-03-24', '23:23:02'),
+(4, 1, '2022-03-24', '23:23:16'),
+(5, 1, '2022-03-24', '23:34:53'),
+(6, 47, '2022-03-24', '23:44:08'),
+(7, 47, '2022-03-26', '14:52:21'),
+(8, 47, '2022-03-29', '15:22:49'),
+(9, 47, '2022-04-02', '13:37:54'),
+(10, 47, '2022-04-02', '13:48:27');
 
 -- --------------------------------------------------------
 
@@ -196,6 +231,27 @@ INSERT INTO `meals` (`mealID`, `mealName`) VALUES
 (3, 'breakfast'),
 (4, 'lunch'),
 (5, 'dinner');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `passwordreset`
+--
+
+CREATE TABLE `passwordreset` (
+  `pwdResetID` int(10) UNSIGNED NOT NULL,
+  `pwdResetEmail` varchar(320) NOT NULL,
+  `pwdResetSelector` text NOT NULL,
+  `pwdResetToken` longtext NOT NULL,
+  `pwdResetExpiringDate` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `passwordreset`
+--
+
+INSERT INTO `passwordreset` (`pwdResetID`, `pwdResetEmail`, `pwdResetSelector`, `pwdResetToken`, `pwdResetExpiringDate`) VALUES
+(10, 'gagimanijak@outlook.com', '377e7049bc7c8eb2', '$2y$10$4rNpLmi6zIkaB0Hv0VOU9e3ZmyMvChFkcWh6huCFjfpwc/syQrtXu', '1648902602');
 
 -- --------------------------------------------------------
 
@@ -276,7 +332,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`userID`, `firstName`, `lastName`, `phoneNumber`, `email`, `hashedPassword`, `country`, `city`, `profilePicturePath`, `verifyingCode`, `verified`, `accType`) VALUES
 (1, 'Dragan', 'Jelic', '0649310515', 'dragan.02jelic@gmail.com', '$2y$10$lsT3VOjMJxn.64P8I21Lb.BHWqyrbs8s7YznQAizcxyu.sL8fTknS', '', '', 'profilePictures/6233aaffd0a6f5.27465359.jpg', 0, 1, 'admin'),
-(46, 'Milos', 'Milivojevic', '0641057698', 'gagimanijak@outlook.com', '$2y$10$QXezgVhV3vfh4H3VE6c23O17FgQ3PUcECcDErcFxyVXXE3Jei6kY2', '', '', 'images/johnDoe.png', 0, 1, 'user');
+(47, 'Milos', 'Milivojevic', '0987287878', 'gagimanijak@outlook.com', '$2y$10$eziESqtpyUSh17ntD3uMCuGvL8tMSkYE1R.KaTdYEfCC95gOpaB6y', '', '', 'profilePictures/623cef07aef1a7.27172149.jpg', 0, 1, 'user');
 
 --
 -- Indexes for dumped tables
@@ -347,6 +403,12 @@ ALTER TABLE `logevidence`
 --
 ALTER TABLE `meals`
   ADD PRIMARY KEY (`mealID`);
+
+--
+-- Indexes for table `passwordreset`
+--
+ALTER TABLE `passwordreset`
+  ADD PRIMARY KEY (`pwdResetID`);
 
 --
 -- Indexes for table `recipes`
@@ -428,13 +490,19 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `logevidence`
 --
 ALTER TABLE `logevidence`
-  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `meals`
 --
 ALTER TABLE `meals`
   MODIFY `mealID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `passwordreset`
+--
+ALTER TABLE `passwordreset`
+  MODIFY `pwdResetID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `recipes`
@@ -458,7 +526,7 @@ ALTER TABLE `units`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- Constraints for dumped tables
@@ -503,7 +571,7 @@ ALTER TABLE `ingredients`
 -- Constraints for table `logevidence`
 --
 ALTER TABLE `logevidence`
-  ADD CONSTRAINT `logevidence_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`userID`);
+  ADD CONSTRAINT `logevidence_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `recipes`

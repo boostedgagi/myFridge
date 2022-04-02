@@ -1,7 +1,7 @@
 <?php
-
+include "../includes/constants.php";
 if (isset($_POST['regsubmit'])) {
-    include "../includes/constants.php";
+    //include "../includes/constants.php";
     $firstName = $_POST['reg-f-name'];
     $lastName = $_POST['reg-l-name'];
     $phone = $_POST['reg-phone'];
