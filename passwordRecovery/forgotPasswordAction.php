@@ -1,12 +1,12 @@
 <?php
 include "../includes/constants.php";
 
-if (isset($_POST["sendRecoveryLinkSubmit"])and isset($_POST["forgotPwdEmail"])) {
+if (isset($_POST["sendRecoveryLinkSubmit"]) and isset($_POST["forgotPwdEmail"])) {
     $selector = bin2hex(random_bytes(8));
     $token = random_bytes(32);
     $hashedToken = password_hash($token,PASSWORD_DEFAULT);
     $email = $_POST["forgotPwdEmail"];
-    $url = "http://localhost/myFridge/passwordRecovery/createNewPassword.php?selector=$selector&validator=".bin2hex($hashedToken);
+    $url = "http://localhost/myFridge/passwordRecovery/createNewPassword.php?selector=".$selector."&validator=".$hashedToken;
     $expiringDate = date("U")+THIRTY_MINUTES_IN_SECONDS;
 //    $expiringDate = date("U")+ONE_MINUTE_IN_SECONDS;
 

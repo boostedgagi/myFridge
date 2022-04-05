@@ -6,11 +6,12 @@ $token = $_GET["validator"];
 if (empty($selector) and empty($token)) {
     header("location: passwordRecovery.php?error=problem_occurred_with_database_entries");
     exit();
-} else {include "../includes/header.php";
+} else {
+    include "../includes/header.php";
     include "../includes/nav.php";
     include "../includes/footer.php";
-    if (ctype_xdigit($selector) !== false and ctype_xdigit($token) !== false) {
-        ?>
+//    if (!(ctype_xdigit($selector) !== false and ctype_xdigit($token) !== false)) {
+    {?>
             <form action="newPasswordAction.php" method="post">
                 <input type="hidden" name="selector" value="<?php echo $selector; ?>">
                 <input type="hidden" name="token" value="<?php echo $token; ?>">

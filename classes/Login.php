@@ -60,4 +60,9 @@ class Login extends Database
             $logInStatement = null;
         }
     }
+
+    protected function checkIfUserIsBanned(){
+
+    }
+
 }
