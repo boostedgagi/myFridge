@@ -6,13 +6,15 @@ class ResetPasswordControl extends ResetPassword
     private string $token;
     private string $pwd;
     private string $pwdRepeat;
+    private string $expires;
 
-    public function __construct($selector, $token, $pwd, $pwdRepeat)
+    public function __construct($selector, $token, $pwd, $pwdRepeat,$expires)
     {
         $this->selector = $selector;
         $this->token = $token;
         $this->pwd = $pwd;
         $this->pwdRepeat = $pwdRepeat;
+        $this->expires=$expires;
     }
 
     public function resetPassword()
@@ -25,6 +27,10 @@ class ResetPasswordControl extends ResetPassword
         if($this->hiddenEntriesEmpty()===false){
             header("location: createNewPassword.php?selector=".$this->selector."&validator=".$this->token);
             //echo "<script>alert('error with validators');</script>";
+            exit();
+        }
+        if($this->checkIfTokenIsValid($this->selector,$this->token,$this->expires)===false){
+            header("location: createNewPassword.php?selector=".$this->selector."&validator=".$this->token);
             exit();
         }
         $this->resetPasswordBase($this->pwd,$this->selector,$this->token);

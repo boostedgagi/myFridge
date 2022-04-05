@@ -7,7 +7,8 @@ if (isset($_POST["sendRecoveryLinkSubmit"])and isset($_POST["forgotPwdEmail"])) 
     $hashedToken = password_hash($token,PASSWORD_DEFAULT);
     $email = $_POST["forgotPwdEmail"];
     $url = "http://localhost/myFridge/passwordRecovery/createNewPassword.php?selector=$selector&validator=".bin2hex($hashedToken);
-    $expiringDate = date("U")+HOUR_IN_SECONDS;
+    $expiringDate = date("U")+THIRTY_MINUTES_IN_SECONDS;
+//    $expiringDate = date("U")+ONE_MINUTE_IN_SECONDS;
 
     include "../classes/Database.php";
     include "../classes/PasswordRecovery.php";

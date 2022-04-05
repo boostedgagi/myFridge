@@ -7,18 +7,18 @@ class ResetPassword extends Database{
         $hashedPwd = password_hash($pwd,PASSWORD_DEFAULT);
         if(!$resetPasswordBase->execute(array($hashedPwd,$selector,$token))){
             $resetPasswordBase=null;
-            header("location: ../ingitdex.php?error=password_reset_failed");
+            header("location: ../index.php?error=password_reset_failed");
             exit();
         }
     }
 
-    protected function checkIfTokenIsValid($selector,$token):bool{
-        $row = $this->connect()->prepare('select * from passwordreset where pwdResetSelector = ? and pwdResetExpiringDate >= ?;');
-        $row->execute(array($selector,$token));
-        $row->fetch();
+    protected function checkIfTokenIsValid($selector,$token,$expires):bool{
+        $row = $this->connect()->prepare('select * from passwordreset where pwdResetSelector = ? and pwdResetExpiringDate <= ?;');
+        $row->execute(array($selector,$expires));
+        $row->fetchAll();
         $tokenBin = hex2bin($token);
         $tokenCheck = password_verify($tokenBin,$row["pwdResetToken"]);
-        if(!$tokenCheck === false){
+        if($tokenCheck === false){
             return false;
         }
         return true;

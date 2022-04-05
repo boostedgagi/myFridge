@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2022 at 06:22 PM
+-- Generation Time: Apr 05, 2022 at 02:09 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -101,15 +101,17 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `amounts`
+-- Stand-in structure for view `actualgroceries`
+-- (See below for the actual view)
 --
-
-CREATE TABLE `amounts` (
-  `amID` int(10) UNSIGNED NOT NULL,
-  `grocerie_id` int(10) UNSIGNED NOT NULL,
-  `amount` int(10) NOT NULL,
-  `unit_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `actualgroceries` (
+`grocerieID` int(10) unsigned
+,`grocerieName` varchar(20)
+,`grocerieAmount` int(10) unsigned
+,`suggGrocUnit` enum('teaspoon','tablespoon','cup','ml','l','oz','g')
+,`user_id` int(10) unsigned
+,`fridge_id` int(10) unsigned
+);
 
 -- --------------------------------------------------------
 
@@ -166,6 +168,7 @@ CREATE TABLE `grocerielocation` (
 CREATE TABLE `groceries` (
   `grocerieID` int(10) UNSIGNED NOT NULL,
   `grocerieName` varchar(20) NOT NULL,
+  `grocerieAmount` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `fridge_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -180,8 +183,7 @@ CREATE TABLE `ingredients` (
   `ingID` int(10) UNSIGNED NOT NULL,
   `recipe_id` int(10) UNSIGNED NOT NULL,
   `grocerie_id` int(10) UNSIGNED NOT NULL,
-  `amount` int(10) NOT NULL,
-  `unit_id` int(10) UNSIGNED NOT NULL
+  `amount` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -210,7 +212,13 @@ INSERT INTO `logevidence` (`logID`, `user_id`, `logDate`, `logTime`) VALUES
 (7, 47, '2022-03-26', '14:52:21'),
 (8, 47, '2022-03-29', '15:22:49'),
 (9, 47, '2022-04-02', '13:37:54'),
-(10, 47, '2022-04-02', '13:48:27');
+(10, 47, '2022-04-02', '13:48:27'),
+(11, 47, '2022-04-04', '11:46:09'),
+(12, 47, '2022-04-04', '12:24:23'),
+(13, 1, '2022-04-04', '15:10:56'),
+(14, 47, '2022-04-04', '15:11:16'),
+(15, 47, '2022-04-04', '15:13:14'),
+(16, 1, '2022-04-04', '16:26:02');
 
 -- --------------------------------------------------------
 
@@ -251,7 +259,7 @@ CREATE TABLE `passwordreset` (
 --
 
 INSERT INTO `passwordreset` (`pwdResetID`, `pwdResetEmail`, `pwdResetSelector`, `pwdResetToken`, `pwdResetExpiringDate`) VALUES
-(10, 'gagimanijak@outlook.com', '377e7049bc7c8eb2', '$2y$10$4rNpLmi6zIkaB0Hv0VOU9e3ZmyMvChFkcWh6huCFjfpwc/syQrtXu', '1648902602');
+(20, 'gagimanijak@outlook.com', '39b186e28917de3f', '$2y$10$4YEPpAl75j2QdK2JxBsMTOlnnlPG8mb3crF1jMTpSb7CJh7KvXFUq', '1649084039');
 
 -- --------------------------------------------------------
 
@@ -275,6 +283,20 @@ CREATE TABLE `recipes` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `reviewID` int(10) UNSIGNED NOT NULL,
+  `reviewText` text NOT NULL,
+  `recipe_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `mark` enum('1','2','3','4','5') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `roommates`
 --
 
@@ -287,23 +309,14 @@ CREATE TABLE `roommates` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `units`
+-- Table structure for table `suggestedgroceries`
 --
 
-CREATE TABLE `units` (
-  `unitID` int(10) UNSIGNED NOT NULL,
-  `unitName` varchar(20) NOT NULL
+CREATE TABLE `suggestedgroceries` (
+  `suggGrocID` int(10) UNSIGNED NOT NULL,
+  `suggGrocName` varchar(25) NOT NULL,
+  `suggGrocUnit` enum('teaspoon','tablespoon','cup','ml','l','oz','g') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `units`
---
-
-INSERT INTO `units` (`unitID`, `unitName`) VALUES
-(1, 'gram'),
-(2, 'kilogram'),
-(3, 'liter'),
-(4, 'piece');
 
 -- --------------------------------------------------------
 
@@ -334,17 +347,18 @@ INSERT INTO `users` (`userID`, `firstName`, `lastName`, `phoneNumber`, `email`, 
 (1, 'Dragan', 'Jelic', '0649310515', 'dragan.02jelic@gmail.com', '$2y$10$lsT3VOjMJxn.64P8I21Lb.BHWqyrbs8s7YznQAizcxyu.sL8fTknS', '', '', 'profilePictures/6233aaffd0a6f5.27465359.jpg', 0, 1, 'admin'),
 (47, 'Milos', 'Milivojevic', '0987287878', 'gagimanijak@outlook.com', '$2y$10$eziESqtpyUSh17ntD3uMCuGvL8tMSkYE1R.KaTdYEfCC95gOpaB6y', '', '', 'profilePictures/623cef07aef1a7.27172149.jpg', 0, 1, 'user');
 
+-- --------------------------------------------------------
+
+--
+-- Structure for view `actualgroceries`
+--
+DROP TABLE IF EXISTS `actualgroceries`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `actualgroceries`  AS SELECT `g`.`grocerieID` AS `grocerieID`, `g`.`grocerieName` AS `grocerieName`, `g`.`grocerieAmount` AS `grocerieAmount`, `suggestedgroceries`.`suggGrocUnit` AS `suggGrocUnit`, `g`.`user_id` AS `user_id`, `g`.`fridge_id` AS `fridge_id` FROM (`groceries` `g` join `suggestedgroceries` on(`g`.`grocerieName` = `suggestedgroceries`.`suggGrocName`)) ;
+
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `amounts`
---
-ALTER TABLE `amounts`
-  ADD PRIMARY KEY (`amID`),
-  ADD KEY `grocerie_id` (`grocerie_id`),
-  ADD KEY `unit_id` (`unit_id`);
 
 --
 -- Indexes for table `categories`
@@ -388,8 +402,7 @@ ALTER TABLE `groceries`
 ALTER TABLE `ingredients`
   ADD PRIMARY KEY (`ingID`),
   ADD KEY `recipe_id` (`recipe_id`),
-  ADD KEY `grocerie_id` (`grocerie_id`),
-  ADD KEY `unit_id` (`unit_id`);
+  ADD KEY `grocerie_id` (`grocerie_id`);
 
 --
 -- Indexes for table `logevidence`
@@ -420,6 +433,15 @@ ALTER TABLE `recipes`
   ADD KEY `meal_id` (`meal_id`);
 
 --
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`reviewID`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `user_id_2` (`user_id`),
+  ADD KEY `recipe_id` (`recipe_id`);
+
+--
 -- Indexes for table `roommates`
 --
 ALTER TABLE `roommates`
@@ -428,10 +450,10 @@ ALTER TABLE `roommates`
   ADD KEY `user2_id` (`user2_id`);
 
 --
--- Indexes for table `units`
+-- Indexes for table `suggestedgroceries`
 --
-ALTER TABLE `units`
-  ADD PRIMARY KEY (`unitID`);
+ALTER TABLE `suggestedgroceries`
+  ADD PRIMARY KEY (`suggGrocID`);
 
 --
 -- Indexes for table `users`
@@ -443,12 +465,6 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `amounts`
---
-ALTER TABLE `amounts`
-  MODIFY `amID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -490,7 +506,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `logevidence`
 --
 ALTER TABLE `logevidence`
-  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `meals`
@@ -502,7 +518,7 @@ ALTER TABLE `meals`
 -- AUTO_INCREMENT for table `passwordreset`
 --
 ALTER TABLE `passwordreset`
-  MODIFY `pwdResetID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `pwdResetID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `recipes`
@@ -511,16 +527,22 @@ ALTER TABLE `recipes`
   MODIFY `recipeID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `reviewID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `roommates`
 --
 ALTER TABLE `roommates`
   MODIFY `rmID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `units`
+-- AUTO_INCREMENT for table `suggestedgroceries`
 --
-ALTER TABLE `units`
-  MODIFY `unitID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `suggestedgroceries`
+  MODIFY `suggGrocID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -531,13 +553,6 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `amounts`
---
-ALTER TABLE `amounts`
-  ADD CONSTRAINT `amounts_ibfk_1` FOREIGN KEY (`grocerie_id`) REFERENCES `groceries` (`grocerieID`),
-  ADD CONSTRAINT `amounts_ibfk_2` FOREIGN KEY (`unit_id`) REFERENCES `units` (`unitID`);
 
 --
 -- Constraints for table `fridgeowners`
@@ -580,6 +595,13 @@ ALTER TABLE `recipes`
   ADD CONSTRAINT `recipes_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`categoryID`),
   ADD CONSTRAINT `recipes_ibfk_2` FOREIGN KEY (`meal_id`) REFERENCES `meals` (`mealID`),
   ADD CONSTRAINT `recipes_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`userID`);
+
+--
+-- Constraints for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`recipeID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `roommates`
