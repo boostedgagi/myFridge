@@ -61,7 +61,7 @@ class Login extends Database
         }
     }
 
-    protected function checkIfUserIsBannedFromDatabase($email):bool
+    protected function checkIfUserIsAllowedToAccessWebsite($email):bool
     {
         $checkUserStatus = $this->connect()->prepare('select count(email) as counter from usersallowedbyadmin where email=?;');
         $checkUserStatus->execute(array($email));

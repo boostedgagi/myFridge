@@ -46,7 +46,7 @@ class LoginControl extends Login{
     }
 
     private function checkForUserAllowanceStatus():bool{
-        if($this->checkIfUserIsBannedFromDatabase($this->email)===false){
+        if($this->checkIfUserIsAllowedToAccessWebsite($this->email)===false){
             return false;
         }
         return true;
