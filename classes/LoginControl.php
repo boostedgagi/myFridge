@@ -19,10 +19,13 @@ class LoginControl extends Login{
             exit();
         }
         if ($this->checkIfMailIsValid() === false) {
-            header("location:../index.php?error=empty_entries");
+            header("location:../index.php?error=email_format_is_invalid");
             exit();
         }
-
+        if($this->checkForUserAllowanceStatus()===false){
+            header("location:../index.php?error=you_are_not_allowed_to_log_in");
+            exit();
+        }
         $this->logInUserBase($this->email, $this->password);
     }
 
@@ -42,5 +45,10 @@ class LoginControl extends Login{
         return true;
     }
 
-
+    private function checkForUserAllowanceStatus():bool{
+        if($this->checkIfUserIsBannedFromDatabase($this->email)===false){
+            return false;
+        }
+        return true;
+    }
 }
