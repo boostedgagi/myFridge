@@ -18,7 +18,7 @@
         <label for="forgotPwdEmail" class="h4">Email:</label>
         <input type="text" name="forgotPwdEmail" id="forgotPwdEmail" class="form-control" placeholder="Enter your email" autofocus><br>
 <!--    <submit></submit>-->
-    <button type="submit" name="sendRecoveryLinkSubmit" class="btn bg-orange" onclick="Validate(document.email.forgotPwdEmail)">Send recovery link</button>
+    <button type="submit" name="sendRecoveryLinkSubmit" class="btn bg-orange">Send recovery link</button>
 </form>
 </div>
 </body>
