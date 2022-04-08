@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2022 at 02:09 AM
+-- Generation Time: Apr 07, 2022 at 01:00 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -85,7 +85,7 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `resetPasswordWithDelete` (IN `pwd` VARCHAR(255), IN `selector` TEXT, IN `token` LONGTEXT)  BEGIN
     update users set hashedPassword = pwd where email = (select pwdResetEmail from passwordreset where pwdResetSelector = selector and pwdResetToken = token);
-    delete from passwordreset where pwdResetEmail = email;
+    delete from passwordreset where pwdResetToken = token;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `resetPasswordWithoutDelete` (IN `pwd` VARCHAR(255), IN `selector` TEXT, IN `token` LONGTEXT)  BEGIN
@@ -112,6 +112,25 @@ CREATE TABLE `actualgroceries` (
 ,`user_id` int(10) unsigned
 ,`fridge_id` int(10) unsigned
 );
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `allowedusers`
+--
+
+CREATE TABLE `allowedusers` (
+  `allowedUsersID` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `allowedusers`
+--
+
+INSERT INTO `allowedusers` (`allowedUsersID`, `user_id`) VALUES
+(5, 1),
+(7, 47);
 
 -- --------------------------------------------------------
 
@@ -218,7 +237,23 @@ INSERT INTO `logevidence` (`logID`, `user_id`, `logDate`, `logTime`) VALUES
 (13, 1, '2022-04-04', '15:10:56'),
 (14, 47, '2022-04-04', '15:11:16'),
 (15, 47, '2022-04-04', '15:13:14'),
-(16, 1, '2022-04-04', '16:26:02');
+(16, 1, '2022-04-04', '16:26:02'),
+(17, 47, '2022-04-05', '13:17:22'),
+(18, 47, '2022-04-05', '13:22:22'),
+(19, 47, '2022-04-05', '13:33:10'),
+(20, 47, '2022-04-05', '13:38:49'),
+(21, 47, '2022-04-05', '13:54:13'),
+(22, 47, '2022-04-05', '14:38:52'),
+(23, 47, '2022-04-05', '14:53:01'),
+(24, 47, '2022-04-05', '15:58:47'),
+(25, 47, '2022-04-05', '21:46:24'),
+(26, 47, '2022-04-06', '14:59:43'),
+(27, 1, '2022-04-06', '17:21:25'),
+(28, 1, '2022-04-06', '17:23:21'),
+(29, 47, '2022-04-06', '17:27:57'),
+(30, 1, '2022-04-06', '17:35:16'),
+(31, 47, '2022-04-06', '17:35:29'),
+(32, 1, '2022-04-06', '17:37:40');
 
 -- --------------------------------------------------------
 
@@ -253,13 +288,6 @@ CREATE TABLE `passwordreset` (
   `pwdResetToken` longtext NOT NULL,
   `pwdResetExpiringDate` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `passwordreset`
---
-
-INSERT INTO `passwordreset` (`pwdResetID`, `pwdResetEmail`, `pwdResetSelector`, `pwdResetToken`, `pwdResetExpiringDate`) VALUES
-(20, 'gagimanijak@outlook.com', '39b186e28917de3f', '$2y$10$4YEPpAl75j2QdK2JxBsMTOlnnlPG8mb3crF1jMTpSb7CJh7KvXFUq', '1649084039');
 
 -- --------------------------------------------------------
 
@@ -345,7 +373,18 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`userID`, `firstName`, `lastName`, `phoneNumber`, `email`, `hashedPassword`, `country`, `city`, `profilePicturePath`, `verifyingCode`, `verified`, `accType`) VALUES
 (1, 'Dragan', 'Jelic', '0649310515', 'dragan.02jelic@gmail.com', '$2y$10$lsT3VOjMJxn.64P8I21Lb.BHWqyrbs8s7YznQAizcxyu.sL8fTknS', '', '', 'profilePictures/6233aaffd0a6f5.27465359.jpg', 0, 1, 'admin'),
-(47, 'Milos', 'Milivojevic', '0987287878', 'gagimanijak@outlook.com', '$2y$10$eziESqtpyUSh17ntD3uMCuGvL8tMSkYE1R.KaTdYEfCC95gOpaB6y', '', '', 'profilePictures/623cef07aef1a7.27172149.jpg', 0, 1, 'user');
+(47, 'Milos', 'Milivojevic', '0987287878', 'gagimanijak@outlook.com', '$2y$10$r8T8Z3IHPhsRZGQN7Q6EcO0FZIJCfQM4PPgjQyM2ExDSvuvdMVbl6', '', '', 'profilePictures/623cef07aef1a7.27172149.jpg', 0, 1, 'user');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `usersallowedbyadmin`
+-- (See below for the actual view)
+--
+CREATE TABLE `usersallowedbyadmin` (
+`email` varchar(320)
+,`user_id` int(10) unsigned
+);
 
 -- --------------------------------------------------------
 
@@ -356,9 +395,26 @@ DROP TABLE IF EXISTS `actualgroceries`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `actualgroceries`  AS SELECT `g`.`grocerieID` AS `grocerieID`, `g`.`grocerieName` AS `grocerieName`, `g`.`grocerieAmount` AS `grocerieAmount`, `suggestedgroceries`.`suggGrocUnit` AS `suggGrocUnit`, `g`.`user_id` AS `user_id`, `g`.`fridge_id` AS `fridge_id` FROM (`groceries` `g` join `suggestedgroceries` on(`g`.`grocerieName` = `suggestedgroceries`.`suggGrocName`)) ;
 
+-- --------------------------------------------------------
+
+--
+-- Structure for view `usersallowedbyadmin`
+--
+DROP TABLE IF EXISTS `usersallowedbyadmin`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `usersallowedbyadmin`  AS SELECT `u`.`email` AS `email`, `allowedusers`.`user_id` AS `user_id` FROM (`users` `u` join `allowedusers` on(`u`.`userID` = `allowedusers`.`user_id`)) ;
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `allowedusers`
+--
+ALTER TABLE `allowedusers`
+  ADD PRIMARY KEY (`allowedUsersID`),
+  ADD UNIQUE KEY `user_id_2` (`user_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `categories`
@@ -467,6 +523,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `allowedusers`
+--
+ALTER TABLE `allowedusers`
+  MODIFY `allowedUsersID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
@@ -506,7 +568,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `logevidence`
 --
 ALTER TABLE `logevidence`
-  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `meals`
@@ -518,7 +580,7 @@ ALTER TABLE `meals`
 -- AUTO_INCREMENT for table `passwordreset`
 --
 ALTER TABLE `passwordreset`
-  MODIFY `pwdResetID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `pwdResetID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `recipes`
@@ -548,11 +610,17 @@ ALTER TABLE `suggestedgroceries`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `allowedusers`
+--
+ALTER TABLE `allowedusers`
+  ADD CONSTRAINT `allowedusers_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `fridgeowners`
