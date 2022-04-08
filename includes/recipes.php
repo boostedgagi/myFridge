@@ -13,7 +13,7 @@
                 <p class="lead text-muted">Choose one of our popular recipes</p>
             </div>
             <div class="row my-5 align-items-center justify-content-center g-4">
-                <div class="col-8 col-md-7 col-xl-4">
+                <div class=" col-md-7 col-xl-4">
                     <div class="card">
                         <img
                                 src="images/slika2.jpg"
@@ -31,7 +31,7 @@
                     </div>
                 </div>
 
-                <div class="col-8 col-md-7 col-xl-4">
+                <div class=" col-md-7 col-xl-4">
                     <div class="card">
                         <img
                                 src="images/Slika3.jpg"
@@ -49,7 +49,7 @@
                     </div>
                 </div>
 
-                <div class="col-8 col-md-7 col-xl-4">
+                <div class=" col-md-7 col-xl-4">
                     <div class="card">
                         <img
                                 src="images/Slika4.jpg"
