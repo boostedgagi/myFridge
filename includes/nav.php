@@ -35,7 +35,7 @@ session_start();
                     <a href="#" class="nav-link text-black">Nesto1</a>
                 </li>
                 <li class="nav-item ms-1">
-                    <a href="#" class="nav-link text-black">Nesto2</a>
+                    <a href="roommates.php" class="nav-link text-black">Roommates</a>
                 </li>
                 <!--li class="nav-item d-inline d-md-none ms-1">
                     <a
