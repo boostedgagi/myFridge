@@ -4,9 +4,15 @@ include "includes/nav.php";
 include "includes/userPageAuthentication.php";
 
 include "classes/Database.php";
-$dbObj = new Database();
+$dbObj1 = new Database();
 $usernamesListForAutocomplete = array();
-$usernamesListForAutocomplete = $dbObj->getAllUsernames();
+$usernamesListForAutocomplete = $dbObj1->getAllUsernames();
+
+$dbObj2 = new Database();
+$newRoommateRequests = array();
+$newRoommateRequests =$dbObj2->checkForNewRoommateRequests();
+
+echo $newRoommateRequests["senderID"];
 ?>
     <p>Add your roommate, and cook together with him!</p>
     <!--riki ovo ces
