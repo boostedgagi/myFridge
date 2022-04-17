@@ -13,4 +13,22 @@ class Database{
             die();
         }
     }
+
+    public function getAllUsernames():array{
+        $usernames = $this->connect()->prepare("select email from users;");
+        $usernames->execute();
+
+        $tempArray=array();
+        $result = $usernames->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($result as $item) {
+            $tempItem = explode(",",$item["email"]);
+            foreach ($tempItem as $temp) {
+                array_push($tempArray,trim($temp));
+            }
+        }
+        return $tempArray;
+    }
+
+
 }
