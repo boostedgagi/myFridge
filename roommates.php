@@ -11,8 +11,10 @@ $usernamesListForAutocomplete = $dbObj1->getAllUsernames();
 $dbObj2 = new Database();
 $newRoommateRequests = array();
 $newRoommateRequests =$dbObj2->checkForNewRoommateRequests();
-
-echo $newRoommateRequests["senderID"];
+echo "Your newest roommate request!<br>";
+foreach ($newRoommateRequests as $request){
+    echo "<img src='".$request['pppath']."' height='50px' width='auto'>".$request["senderEmail"]."<a href='roommatesRequests.php?requestID=".$request["requestID"]."'>Accept request here.</a>"."<br>";
+}
 ?>
     <p>Add your roommate, and cook together with him!</p>
     <!--riki ovo ces

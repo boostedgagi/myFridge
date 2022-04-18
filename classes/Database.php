@@ -15,8 +15,10 @@ class Database{
     }
 
     public function getAllUsernames():array{
-        $usernames = $this->connect()->prepare("select email from users;");
-        $usernames->execute();
+        $currentLoggedUser= $_SESSION["userEmail"];
+
+        $usernames = $this->connect()->prepare("select email from users where not email = ?;");
+        $usernames->execute(array($currentLoggedUser));
 
         $tempArray=array();
         $result = $usernames->fetchAll(PDO::FETCH_ASSOC);
@@ -31,15 +33,25 @@ class Database{
     }
 
     public function checkForNewRoommateRequests():array{
-
-        $query = "select fr.frireqID as requestID,fr.senderID as senderID,fr.receiverID as receiverID,fr.ignored as ignored from friendrequest fr 
-            left join users u ON
-            fr.receiverID=u.userID
-            where u.email=?
-            and ignored = 0;";   //ovde uzeti u obzir ako bude trebalo da se doda ako je korisnik ignorisao zaahtev
+        $receiverEmail= $_SESSION["userEmail"];
+        $query = "
+            select 
+	        fr.frireqID as requestID,
+            u.profilePicturePath as pppath,
+	        u.email as senderEmail,
+            fr.requestDateTime
+            from users u
+            left join friendrequest fr
+            on u.userID=fr.senderID
+            where fr.receiverID=(select us.userID from users us where us.email=?)
+            and fr.ignored=0
+            ORDER BY
+            fr.requestDateTime
+            DESC
+            limit 1;";   //ovde uzeti u obzir ako bude trebalo da se doda ako je korisnik ignorisao zaahtev
 
         $roommateRequests = $this->connect()->prepare($query);
-        $roommateRequests->execute(array($_SESSION["userEmail"]));
+        $roommateRequests->execute(array($receiverEmail));
 
         $result = $roommateRequests->fetchAll(PDO::FETCH_ASSOC);
         return $result;
