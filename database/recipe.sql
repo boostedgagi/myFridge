@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2022 at 01:00 AM
+-- Generation Time: Apr 17, 2022 at 03:28 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -92,6 +92,19 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `resetPasswordWithoutDelete` (IN `pw
     update users set hashedPassword = pwd where email = (select pwdResetEmail from passwordreset where pwdResetSelector = selector and pwdResetToken = token);
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sendRoommateRequest` (IN `senderEmail` VARCHAR(320), IN `receiverEmail` VARCHAR(320))  BEGIN
+    insert into friendrequest(
+        senderID,
+        receiverID,
+        ignored
+    )    
+    values(
+        (select userID from users where email = senderEmail),
+        (select userID from users where email = receiverEmail),
+        0
+    );
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `verifyRegisteredUser` (IN `emailAddress` VARCHAR(320), IN `verificationCode` INT(10))  BEGIN
     UPDATE users SET verified=1, verifyingCode = 0 where email=emailAddress and verifyingCode=verificationCode;
 END$$
@@ -130,7 +143,7 @@ CREATE TABLE `allowedusers` (
 
 INSERT INTO `allowedusers` (`allowedUsersID`, `user_id`) VALUES
 (5, 1),
-(7, 47);
+(8, 47);
 
 -- --------------------------------------------------------
 
@@ -165,6 +178,26 @@ CREATE TABLE `fridges` (
   `fridgeID` int(10) UNSIGNED NOT NULL,
   `fridgeName` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `friendrequest`
+--
+
+CREATE TABLE `friendrequest` (
+  `frireqID` int(10) UNSIGNED NOT NULL,
+  `senderID` int(10) UNSIGNED NOT NULL,
+  `receiverID` int(10) UNSIGNED NOT NULL,
+  `ignored` tinyint(1) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `friendrequest`
+--
+
+INSERT INTO `friendrequest` (`frireqID`, `senderID`, `receiverID`, `ignored`) VALUES
+(1, 47, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -253,7 +286,15 @@ INSERT INTO `logevidence` (`logID`, `user_id`, `logDate`, `logTime`) VALUES
 (29, 47, '2022-04-06', '17:27:57'),
 (30, 1, '2022-04-06', '17:35:16'),
 (31, 47, '2022-04-06', '17:35:29'),
-(32, 1, '2022-04-06', '17:37:40');
+(32, 1, '2022-04-06', '17:37:40'),
+(33, 1, '2022-04-07', '01:17:52'),
+(34, 47, '2022-04-07', '01:18:00'),
+(35, 1, '2022-04-07', '11:42:03'),
+(36, 47, '2022-04-07', '11:42:23'),
+(37, 47, '2022-04-13', '15:16:36'),
+(38, 47, '2022-04-14', '12:21:23'),
+(39, 47, '2022-04-17', '12:15:56'),
+(40, 47, '2022-04-17', '13:13:20');
 
 -- --------------------------------------------------------
 
@@ -373,7 +414,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`userID`, `firstName`, `lastName`, `phoneNumber`, `email`, `hashedPassword`, `country`, `city`, `profilePicturePath`, `verifyingCode`, `verified`, `accType`) VALUES
 (1, 'Dragan', 'Jelic', '0649310515', 'dragan.02jelic@gmail.com', '$2y$10$lsT3VOjMJxn.64P8I21Lb.BHWqyrbs8s7YznQAizcxyu.sL8fTknS', '', '', 'profilePictures/6233aaffd0a6f5.27465359.jpg', 0, 1, 'admin'),
-(47, 'Milos', 'Milivojevic', '0987287878', 'gagimanijak@outlook.com', '$2y$10$r8T8Z3IHPhsRZGQN7Q6EcO0FZIJCfQM4PPgjQyM2ExDSvuvdMVbl6', '', '', 'profilePictures/623cef07aef1a7.27172149.jpg', 0, 1, 'user');
+(47, 'Milos', 'Milivojevic', '0987287878', 'gagimanijak@outlook.com', '$2y$10$volp8.3HbF1dxdoqDoTWHuT0vTzzAJ9bGSbsPz.drcn5C89vnchzq', '', '', 'profilePictures/623cef07aef1a7.27172149.jpg', 0, 1, 'user');
 
 -- --------------------------------------------------------
 
@@ -435,6 +476,12 @@ ALTER TABLE `fridgeowners`
 --
 ALTER TABLE `fridges`
   ADD PRIMARY KEY (`fridgeID`);
+
+--
+-- Indexes for table `friendrequest`
+--
+ALTER TABLE `friendrequest`
+  ADD PRIMARY KEY (`frireqID`);
 
 --
 -- Indexes for table `grocerielocation`
@@ -526,7 +573,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `allowedusers`
 --
 ALTER TABLE `allowedusers`
-  MODIFY `allowedUsersID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `allowedUsersID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -545,6 +592,12 @@ ALTER TABLE `fridgeowners`
 --
 ALTER TABLE `fridges`
   MODIFY `fridgeID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `friendrequest`
+--
+ALTER TABLE `friendrequest`
+  MODIFY `frireqID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `grocerielocation`
@@ -568,7 +621,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `logevidence`
 --
 ALTER TABLE `logevidence`
-  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `meals`
@@ -580,7 +633,7 @@ ALTER TABLE `meals`
 -- AUTO_INCREMENT for table `passwordreset`
 --
 ALTER TABLE `passwordreset`
-  MODIFY `pwdResetID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `pwdResetID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `recipes`
