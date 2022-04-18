@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2022 at 03:28 PM
+-- Generation Time: Apr 18, 2022 at 11:43 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -96,12 +96,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sendRoommateRequest` (IN `senderEma
     insert into friendrequest(
         senderID,
         receiverID,
-        ignored
+        ignored,
+        requestDateTime
     )    
     values(
         (select userID from users where email = senderEmail),
         (select userID from users where email = receiverEmail),
-        0
+        0,
+        (select CURRENT_TIMESTAMP)
     );
 END$$
 
@@ -143,7 +145,8 @@ CREATE TABLE `allowedusers` (
 
 INSERT INTO `allowedusers` (`allowedUsersID`, `user_id`) VALUES
 (5, 1),
-(8, 47);
+(8, 47),
+(9, 49);
 
 -- --------------------------------------------------------
 
@@ -189,15 +192,18 @@ CREATE TABLE `friendrequest` (
   `frireqID` int(10) UNSIGNED NOT NULL,
   `senderID` int(10) UNSIGNED NOT NULL,
   `receiverID` int(10) UNSIGNED NOT NULL,
-  `ignored` tinyint(1) UNSIGNED NOT NULL
+  `ignored` tinyint(1) UNSIGNED NOT NULL,
+  `requestDateTime` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `friendrequest`
 --
 
-INSERT INTO `friendrequest` (`frireqID`, `senderID`, `receiverID`, `ignored`) VALUES
-(1, 47, 1, 0);
+INSERT INTO `friendrequest` (`frireqID`, `senderID`, `receiverID`, `ignored`, `requestDateTime`) VALUES
+(6, 49, 1, 0, '2022-04-18 00:05:32.000000'),
+(7, 47, 1, 0, '2022-04-18 00:05:57.000000'),
+(8, 49, 1, 0, '2022-04-18 00:06:24.000000');
 
 -- --------------------------------------------------------
 
@@ -294,7 +300,23 @@ INSERT INTO `logevidence` (`logID`, `user_id`, `logDate`, `logTime`) VALUES
 (37, 47, '2022-04-13', '15:16:36'),
 (38, 47, '2022-04-14', '12:21:23'),
 (39, 47, '2022-04-17', '12:15:56'),
-(40, 47, '2022-04-17', '13:13:20');
+(40, 47, '2022-04-17', '13:13:20'),
+(41, 47, '2022-04-17', '15:31:25'),
+(42, 1, '2022-04-17', '15:45:31'),
+(43, 1, '2022-04-17', '18:27:03'),
+(44, 47, '2022-04-17', '18:27:29'),
+(45, 1, '2022-04-17', '18:33:32'),
+(46, 1, '2022-04-17', '18:33:45'),
+(47, 47, '2022-04-17', '18:34:11'),
+(48, 49, '2022-04-17', '23:33:19'),
+(49, 1, '2022-04-17', '23:33:36'),
+(50, 1, '2022-04-17', '23:33:56'),
+(51, 49, '2022-04-18', '00:05:28'),
+(52, 1, '2022-04-18', '00:05:40'),
+(53, 47, '2022-04-18', '00:05:52'),
+(54, 1, '2022-04-18', '00:06:05'),
+(55, 49, '2022-04-18', '00:06:20'),
+(56, 1, '2022-04-18', '00:06:30');
 
 -- --------------------------------------------------------
 
@@ -414,7 +436,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`userID`, `firstName`, `lastName`, `phoneNumber`, `email`, `hashedPassword`, `country`, `city`, `profilePicturePath`, `verifyingCode`, `verified`, `accType`) VALUES
 (1, 'Dragan', 'Jelic', '0649310515', 'dragan.02jelic@gmail.com', '$2y$10$lsT3VOjMJxn.64P8I21Lb.BHWqyrbs8s7YznQAizcxyu.sL8fTknS', '', '', 'profilePictures/6233aaffd0a6f5.27465359.jpg', 0, 1, 'admin'),
-(47, 'Milos', 'Milivojevic', '0987287878', 'gagimanijak@outlook.com', '$2y$10$volp8.3HbF1dxdoqDoTWHuT0vTzzAJ9bGSbsPz.drcn5C89vnchzq', '', '', 'profilePictures/623cef07aef1a7.27172149.jpg', 0, 1, 'user');
+(47, 'Milos', 'Milivojevic', '0987287878', 'gagimanijak@outlook.com', '$2y$10$volp8.3HbF1dxdoqDoTWHuT0vTzzAJ9bGSbsPz.drcn5C89vnchzq', '', '', 'profilePictures/623cef07aef1a7.27172149.jpg', 0, 1, 'user'),
+(49, 'Janika', 'Balaz', '0909876767', 'janika7@janika.bal', '$2y$10$OumObfOTlf8AOU90vMV8quCgt.n67d4km1zI/lr9omTwcuRgpW8AO', '', '', 'profilePictures/625c86b1ec3701.04899110.jpg', 0, 1, 'user');
 
 -- --------------------------------------------------------
 
@@ -573,7 +596,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `allowedusers`
 --
 ALTER TABLE `allowedusers`
-  MODIFY `allowedUsersID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `allowedUsersID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -597,7 +620,7 @@ ALTER TABLE `fridges`
 -- AUTO_INCREMENT for table `friendrequest`
 --
 ALTER TABLE `friendrequest`
-  MODIFY `frireqID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `frireqID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `grocerielocation`
@@ -621,7 +644,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `logevidence`
 --
 ALTER TABLE `logevidence`
-  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `meals`
@@ -663,7 +686,7 @@ ALTER TABLE `suggestedgroceries`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- Constraints for dumped tables
