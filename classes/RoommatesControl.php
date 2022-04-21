@@ -10,13 +10,17 @@ class RoommatesControl extends Roommates{
         $this->receiverEmail=$receiverEmail;
     }
 
-    public function sendRequestToARoommate(){
+    public function sendRequestToARoommate():void{
         if($this->checkMails()===false){
             header("location: ../roommates.php?error=incorrect_mail");
             exit();
         }
         if($this->checkForSelfRoommating()===false){
             header("location: ../roommates.php?error=you_cannot_send_request_to_yourself");
+            exit();
+        }
+        if($this->checkIfSameRoommateRequestAlreadyExist($this->senderEmail,$this->receiverEmail)===false){
+            header("location: ../roommates.php?error=you_already_sent_request_to_this_person");
             exit();
         }
         $this->sendRequestToARoommateBase($this->senderEmail,$this->receiverEmail);
