@@ -56,4 +56,6 @@ class Database{
         $result = $roommateRequests->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+
 }
