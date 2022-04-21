@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2022 at 11:43 AM
+-- Generation Time: Apr 21, 2022 at 12:22 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -166,9 +166,10 @@ CREATE TABLE `categories` (
 --
 
 CREATE TABLE `fridgeowners` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `friOwnID` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
-  `fridge_id` int(10) UNSIGNED NOT NULL
+  `fridge_id` int(10) UNSIGNED NOT NULL,
+  `is_main_owner` tinyint(1) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -181,6 +182,19 @@ CREATE TABLE `fridges` (
   `fridgeID` int(10) UNSIGNED NOT NULL,
   `fridgeName` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `fridgeusersall`
+-- (See below for the actual view)
+--
+CREATE TABLE `fridgeusersall` (
+`friOwnID` int(10) unsigned
+,`fridgeName` varchar(20)
+,`email` varchar(320)
+,`is_main_owner` tinyint(1) unsigned
+);
 
 -- --------------------------------------------------------
 
@@ -201,9 +215,19 @@ CREATE TABLE `friendrequest` (
 --
 
 INSERT INTO `friendrequest` (`frireqID`, `senderID`, `receiverID`, `ignored`, `requestDateTime`) VALUES
-(6, 49, 1, 0, '2022-04-18 00:05:32.000000'),
-(7, 47, 1, 0, '2022-04-18 00:05:57.000000'),
-(8, 49, 1, 0, '2022-04-18 00:06:24.000000');
+(6, 49, 1, 1, '2022-04-18 00:05:32.000000'),
+(11, 47, 1, 1, '2022-04-20 13:30:05.000000');
+
+--
+-- Triggers `friendrequest`
+--
+DELIMITER $$
+CREATE TRIGGER `insertIntoRoommatesBeforeDeleteRequest` BEFORE DELETE ON `friendrequest` FOR EACH ROW BEGIN
+    INSERT INTO roommates(user1_id,user2_id)
+    VALUES(OLD.senderID,OLD.receiverID);
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -316,7 +340,23 @@ INSERT INTO `logevidence` (`logID`, `user_id`, `logDate`, `logTime`) VALUES
 (53, 47, '2022-04-18', '00:05:52'),
 (54, 1, '2022-04-18', '00:06:05'),
 (55, 49, '2022-04-18', '00:06:20'),
-(56, 1, '2022-04-18', '00:06:30');
+(56, 1, '2022-04-18', '00:06:30'),
+(57, 47, '2022-04-18', '11:44:35'),
+(58, 1, '2022-04-18', '11:45:03'),
+(59, 1, '2022-04-18', '16:52:52'),
+(60, 1, '2022-04-19', '15:25:29'),
+(61, 1, '2022-04-19', '20:10:25'),
+(62, 49, '2022-04-20', '10:13:20'),
+(63, 47, '2022-04-20', '10:13:38'),
+(64, 1, '2022-04-20', '10:13:55'),
+(65, 47, '2022-04-20', '10:14:22'),
+(66, 47, '2022-04-20', '10:15:42'),
+(67, 1, '2022-04-20', '10:26:10'),
+(68, 47, '2022-04-20', '13:29:56'),
+(69, 1, '2022-04-20', '13:30:24'),
+(70, 49, '2022-04-20', '13:31:56'),
+(71, 47, '2022-04-20', '19:14:11'),
+(72, 49, '2022-04-20', '19:15:30');
 
 -- --------------------------------------------------------
 
@@ -397,6 +437,15 @@ CREATE TABLE `roommates` (
   `user2_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `roommates`
+--
+
+INSERT INTO `roommates` (`rmID`, `user1_id`, `user2_id`) VALUES
+(4, 47, 1),
+(5, 1, 49),
+(6, 47, 49);
+
 -- --------------------------------------------------------
 
 --
@@ -462,6 +511,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
+-- Structure for view `fridgeusersall`
+--
+DROP TABLE IF EXISTS `fridgeusersall`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `fridgeusersall`  AS SELECT `fo`.`friOwnID` AS `friOwnID`, `fri`.`fridgeName` AS `fridgeName`, `u`.`email` AS `email`, `fo`.`is_main_owner` AS `is_main_owner` FROM ((`fridgeowners` `fo` left join `users` `u` on(`u`.`userID` = `fo`.`user_id`)) left join `fridges` `fri` on(`fri`.`fridgeID` = `fo`.`fridge_id`)) ;
+
+-- --------------------------------------------------------
+
+--
 -- Structure for view `usersallowedbyadmin`
 --
 DROP TABLE IF EXISTS `usersallowedbyadmin`;
@@ -490,7 +548,7 @@ ALTER TABLE `categories`
 -- Indexes for table `fridgeowners`
 --
 ALTER TABLE `fridgeowners`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`friOwnID`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `fridge_id` (`fridge_id`);
 
@@ -596,7 +654,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `allowedusers`
 --
 ALTER TABLE `allowedusers`
-  MODIFY `allowedUsersID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `allowedUsersID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -608,7 +666,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `fridgeowners`
 --
 ALTER TABLE `fridgeowners`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `friOwnID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `fridges`
@@ -620,7 +678,7 @@ ALTER TABLE `fridges`
 -- AUTO_INCREMENT for table `friendrequest`
 --
 ALTER TABLE `friendrequest`
-  MODIFY `frireqID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `frireqID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `grocerielocation`
@@ -644,7 +702,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `logevidence`
 --
 ALTER TABLE `logevidence`
-  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `meals`
@@ -674,7 +732,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `roommates`
 --
 ALTER TABLE `roommates`
-  MODIFY `rmID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `rmID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `suggestedgroceries`
