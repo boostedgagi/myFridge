@@ -1,6 +1,6 @@
 <!-- FOOTER -->
-<section id="footer" class="bg-yellow">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+<section id="footer" class="bg-yellow mt-auto">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200">
             <path fill="#E7E393" fill-opacity="1"
                   d="M0,192L120,165.3C240,139,480,85,720,85.3C960,85,1200,139,1320,165.3L1440,192L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z"></path>
         </svg>
@@ -41,6 +41,7 @@
             <img src="images/fridge2.png" alt="logo" width="50px" height="50px" onclick="location.href = '#';">
         </div>
     </section>
+</section>
 </body>
 <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -49,4 +50,12 @@
 ></script>
 <script src="js/main.js"></script>
 <script src="js/api.js"></script>
+<script>
+
+    let main = document.querySelector('#main').offsetHeight;
+    if(main < 965){
+        document.querySelector('#main').style.height = 100 + 'vh';
+    }
+
+</script>
 </html>

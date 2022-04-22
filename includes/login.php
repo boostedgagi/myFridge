@@ -16,7 +16,7 @@
                     aria-label="Close"
                 ></button>
                 <!-- LOGIN FORM -->
-                <form action="actions/loginAction.php" enctype="multipart/form-data" method="post">
+                <form onsubmit="return validation()" action="actions/loginAction.php" enctype="multipart/form-data" method="post" >
                     <h1 class="text-center mb-5">Log In</h1>
                     <div class="form-floating mb-3">
                         <input
@@ -25,9 +25,14 @@
                             id="login-email"
                             name="login-email"
                             placeholder="email"
+                            aria-describedby="login-email"
                         />
+                        <div id="login-email" class="invalid-feedback">
+                            Please fill the email.
+                        </div>
                         <label for="email">Email address</label>
                     </div>
+
                     <div class="form-floating">
                         <input
                             type="password"
@@ -35,7 +40,11 @@
                             id="login-password"
                             name="login-pwd"
                             placeholder="password"
+                            aria-describedby="login-password"
                         />
+                        <div id="login-password" class="invalid-feedback">
+                            Please fill the password.
+                        </div>
                         <label for="login-password">Password</label>
                         <a href="passwordRecovery/passwordRecovery.php" class="mt-3">Forgot password?</a>
                     </div>

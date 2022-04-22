@@ -10,8 +10,29 @@ let rotating = function () {
     hamburger[1].style.transform = "scale(1)";
     hamburger[0].style.transform = "rotate(0deg)";
     hamburger[2].style.transform = "rotate(0deg)";
-
     clicked = false;
   }
 };
 
+function validation(){
+  let email = document.querySelector("#login-email");
+  let passwd = document.querySelector('#login-password');
+  if(email.value === ""){
+    email.classList.add('is-invalid');
+  }
+  else {
+    email.classList.remove('is-invalid');
+  }
+  if(passwd.value === ""){
+    passwd.classList.add('is-invalid');
+  }
+  else {
+    passwd.classList.remove('is-invalid');
+  }
+  if(email.value !== "" && passwd.value !== ""){
+    return true;
+  }
+  else {
+    return false;
+  }
+}

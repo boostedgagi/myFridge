@@ -3,7 +3,7 @@ session_start();
 ?>
 <nav class="navbar navbar-expand-md navbar-light">
     <div class="container-xxl">
-        <a href="#top" class="navbar-brand">
+        <a href="index.php" class="navbar-brand">
             <span class="fw-bold text-black"> MyFridge </span>
         </a>
         <!-- Nav for mobile -->
@@ -29,7 +29,7 @@ session_start();
         >
             <ul class="navbar-nav text-center">
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-black">Home</a>
+                    <a href="index.php" class="nav-link text-black">Home</a>
                 </li>
                 <li class="nav-item ms-1">
                     <a href="#" class="nav-link text-black">Nesto1</a>
