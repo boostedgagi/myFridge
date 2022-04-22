@@ -29,10 +29,5 @@ function validation(){
   else {
     passwd.classList.remove('is-invalid');
   }
-  if(email.value !== "" && passwd.value !== ""){
-    return true;
-  }
-  else {
-    return false;
-  }
+  return email.value !== "" && passwd.value !== "";
 }
