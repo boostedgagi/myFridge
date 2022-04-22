@@ -1,9 +1,13 @@
 @import "colors";
-body {
+body, html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     background-color: $cream;
+    height: auto;
+}
+#main {
+    height: auto;
 }
 .hamburger {
     display: block;
@@ -21,8 +25,8 @@ body {
     background-color: $yellow;
 }
 #footer {
-    height: auto;
     background-image: url("images/wave(1).svg");
+    margin-top:auto;
 }
 .logo {
     width: 100%;
@@ -30,4 +34,10 @@ body {
     display: flex;
     justify-content: flex-end;
     padding: 20px 50px;
+}
+
+#resultDiv {
+    ul {
+        list-style: none;
+    }
 }

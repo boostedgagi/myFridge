@@ -22,3 +22,4 @@
     <title>Fridge</title>
 </head>
 <body>
+<section id="main" class="d-flex flex-column">

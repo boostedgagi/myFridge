@@ -14,17 +14,17 @@ $newRoommateRequests =$dbObj2->checkForNewRoommateRequests();
 
 echo $newRoommateRequests["senderID"];
 ?>
-    <p>Add your roommate, and cook together with him!</p>
+    <h3 class="text-center my-3">Add your roommate, and cook together with him!</h3>
     <!--riki ovo ces
     ovde ti da menjas i da trpas sve na sredinu, ja sam stavio minimalmo stvari koje su mi potrebne za izradu funkcionalnosti-->
 
-    <div id="roommateSearch" style="display: flex; justify-content: center">
+    <div id="roommateSearch" style="display: flex; justify-content: center;">
         <input type="email" id="roommateEmailIInput" onkeyup="showResults(this.value)">
         <button type="submit">
             <img src="images/roommateSearchIcon.png" height="32" width="32" border="0px">
         </button>
     </div>
-    <div id="resultDiv">
+    <div id="resultDiv" class="text-center mt-3">
 
     </div>
     <!--script src="js/roommates.js"-->
@@ -53,9 +53,9 @@ echo $newRoommateRequests["senderID"];
             let i=0;
             list+='';
             for (i; i < terms.length; i++) {
-                list += '<tr><td>Add your roommate here: <a href="actions/addnewroommateaction.php?receiverEmail='+terms[i]+'">' + terms[i] + '</a></td></tr>';
+                list += '<li class="my-2">Add your roommate here: <a href="actions/addnewroommateaction.php?receiverEmail='+terms[i]+'">' + terms[i] + '</a></li>';
             }
-            result.innerHTML = '<table>' + list + '</table>';
+            result.innerHTML = '<ul>' + list + '</ul>';
         }
     </script>
 <?php
