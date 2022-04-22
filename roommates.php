@@ -5,14 +5,19 @@ include "includes/userPageAuthentication.php";
 
 include "classes/Database.php";
 $dbObj1 = new Database();
-$usernamesListForAutocomplete = array();
+//$usernamesListForAutocomplete = array();
 $usernamesListForAutocomplete = $dbObj1->getAllUsernames();
 
 $dbObj2 = new Database();
-$newRoommateRequests = array();
+//$newRoommateRequests = array();
 $newRoommateRequests =$dbObj2->checkForNewRoommateRequests();
+echo "Your newest roommate request!<br>";
 
-echo $newRoommateRequests["senderID"];
+foreach ($newRoommateRequests as $request){
+    echo "<img src='".$request['pppath']."' height='50px' width='auto'>".$request["senderEmail"]."<a href='actions/approveAndDenyRoommateRequestAction.php?requestID=".$request["requestID"]."&operation=accept' style='color:blue'>Accept</a><a href='actions/approveAndDenyRoommateRequestAction.php?requestID=".$request["requestID"]."&operation=deny' style='color:red'>Deny</a>"."<br>";
+}
+echo "<a href='roommatesRequests.php'>check all request</a>";
+
 ?>
     <p>Add your roommate, and cook together with him!</p>
     <!--riki ovo ces
