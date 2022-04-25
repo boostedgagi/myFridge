@@ -33,7 +33,7 @@ class Database{
     }
 
     public function checkForNewRoommateRequests():array{
-<<<<<<< HEAD
+
 
         $query = "select 
         fr.frireqID as requestID,
@@ -45,7 +45,7 @@ class Database{
         fr.receiverID=u.userID
         where u.email=?
         and ignored = 0;";   //ovde uzeti u obzir ako bude trebalo da se doda ako je korisnik ignorisao zaahtev
-=======
+
         $receiverEmail= $_SESSION["userEmail"];
         $query = "
             select 
@@ -62,7 +62,7 @@ class Database{
             fr.requestDateTime
             DESC
             limit 1;";   //ovde uzeti u obzir ako bude trebalo da se doda ako je korisnik ignorisao zaahtev
->>>>>>> main
+
 
         $roommateRequests = $this->connect()->prepare($query);
         $roommateRequests->execute(array($receiverEmail));
