@@ -29,5 +29,14 @@ function validation(){
   else {
     passwd.classList.remove('is-invalid');
   }
+<<<<<<< HEAD
   return email.value !== "" && passwd.value !== "";
+=======
+  if(email.value !== "" && passwd.value !== ""){
+    return true;
+  }
+  else {
+    return false;
+  }
+>>>>>>> main
 }
