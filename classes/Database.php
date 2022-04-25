@@ -32,11 +32,16 @@ class Database{
 
     public function checkForNewRoommateRequests():array{
 
-        $query = "select fr.frireqID as requestID,fr.senderID as senderID,fr.receiverID as receiverID,fr.ignored as ignored from friendrequest fr 
-            left join users u ON
-            fr.receiverID=u.userID
-            where u.email=?
-            and ignored = 0;";   //ovde uzeti u obzir ako bude trebalo da se doda ako je korisnik ignorisao zaahtev
+        $query = "select 
+        fr.frireqID as requestID,
+        fr.senderID as senderID,
+        fr.receiverID as receiverID,
+        fr.ignored as ignored 
+        from friendrequest fr 
+        left join users u ON
+        fr.receiverID=u.userID
+        where u.email=?
+        and ignored = 0;";   //ovde uzeti u obzir ako bude trebalo da se doda ako je korisnik ignorisao zaahtev
 
         $roommateRequests = $this->connect()->prepare($query);
         $roommateRequests->execute(array($_SESSION["userEmail"]));

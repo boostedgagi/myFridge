@@ -5,11 +5,11 @@ include "includes/userPageAuthentication.php";
 
 include "classes/Database.php";
 $dbObj1 = new Database();
-$usernamesListForAutocomplete = array();
+//$usernamesListForAutocomplete = array();
 $usernamesListForAutocomplete = $dbObj1->getAllUsernames();
 
 $dbObj2 = new Database();
-$newRoommateRequests = array();
+//$newRoommateRequests = array();
 $newRoommateRequests =$dbObj2->checkForNewRoommateRequests();
 
 echo $newRoommateRequests["senderID"];
