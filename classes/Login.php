@@ -52,6 +52,7 @@ class Login extends Database
             }
             $userdata = $logInStatement->fetchAll(PDO::FETCH_ASSOC);
             session_start();
+            $_SESSION["userID"] = $userdata[0]["userID"];
             $_SESSION["userEmail"] = $userdata[0]["email"];
             $_SESSION["userPassword"] = $userdata[0]["hashedPassword"];
             $_SESSION["userFirstName"] = $userdata[0]["firstName"];
