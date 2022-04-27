@@ -45,9 +45,8 @@ class Database{
             on u.userID=fr.senderID
             where fr.receiverID=(select us.userID from users us where us.email=?)
             and fr.ignored=0
-            ORDER BY
-            fr.requestDateTime
-            DESC
+            and fr.requestDateTime > DATE_SUB(NOW(), INTERVAL 24 HOUR)
+            order by fr.requestDateTime desc
             limit 1;";   //ovde uzeti u obzir ako bude trebalo da se doda ako je korisnik ignorisao zaahtev
 
         $roommateRequests = $this->connect()->prepare($query);
