@@ -1,6 +1,7 @@
 <?php
-
+//session_start();
 class Database{
+
     protected function connect()
     {
         try {
@@ -34,8 +35,7 @@ class Database{
 
     public function checkForNewRoommateRequests():array{
         $receiverEmail= $_SESSION["userEmail"];
-        $query = "
-            select 
+        $query = 'select 
 	        fr.frireqID as requestID,
             u.profilePicturePath as pppath,
 	        u.email as senderEmail,
@@ -46,14 +46,32 @@ class Database{
             where fr.receiverID=(select us.userID from users us where us.email=?)
             and fr.ignored=0
             and fr.requestDateTime > DATE_SUB(NOW(), INTERVAL 24 HOUR)
-            order by fr.requestDateTime desc
-            limit 1;";   //ovde uzeti u obzir ako bude trebalo da se doda ako je korisnik ignorisao zaahtev
+            order by fr.requestDateTime desc limit 1;';//ovde uzeti u obzir ako bude trebalo da se doda ako je korisnik ignorisao zaahtev
 
         $roommateRequests = $this->connect()->prepare($query);
         $roommateRequests->execute(array($receiverEmail));
 
-        $result = $roommateRequests->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $roommateRequests->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function checkForAllRoommateRequests():array{
+        $receiverEmail= $_SESSION["userEmail"];
+        $query = 'select 
+	        fr.frireqID as requestID,
+            u.profilePicturePath as pppath,
+	        u.email as senderEmail,
+            fr.requestDateTime,
+            fr.ignored as ignored
+            from users u
+            left join friendrequest fr
+            on u.userID=fr.senderID
+            where fr.receiverID=(select us.userID from users us where us.email=?)
+            order by fr.requestDateTime desc;';//ovde uzeti u obzir ako bude trebalo da se doda ako je korisnik ignorisao zaahtev
+
+        $roommateRequests = $this->connect()->prepare($query);
+        $roommateRequests->execute(array($receiverEmail));
+
+        return $roommateRequests->fetchAll(PDO::FETCH_ASSOC);
     }
 
 

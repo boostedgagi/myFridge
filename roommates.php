@@ -10,14 +10,14 @@ $usernamesListForAutocomplete = $dbObj1->getAllUsernames();
 
 $dbObj2 = new Database();
 //$newRoommateRequests = array();
-$newRoommateRequests =$dbObj2->checkForNewRoommateRequests();
+$newRoommateRequests =$dbObj2->checkForNewRoommateRequests(" limit 1");
 
 
 foreach ($newRoommateRequests as $request){
     echo "Your newest roommate request!<br>";
     echo "<img src='".$request['pppath']."' height='50px' width='50px'>".$request["senderEmail"]."<a href='actions/approveAndDenyRoommateRequestAction.php?requestID=".$request["requestID"]."&operation=accept' style='color:blue'>Accept</a><a href='actions/approveAndDenyRoommateRequestAction.php?requestID=".$request["requestID"]."&operation=deny' style='color:red'>Deny</a>"."<br>";
 }
-echo "<a href='roommatesRequests.php'>check all request</a>";
+echo "<a href='roommatesRequests.php'>check all requests</a>";
 
 ?>
     <h3 class="text-center my-3">Add your roommate, and cook together with him!</h3>
