@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2022 at 12:22 PM
+-- Generation Time: May 04, 2022 at 04:34 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -42,6 +42,17 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insertDataForPasswordRecovery` (IN 
         token,
         expires
     );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertNewFridge` (IN `fridgeNameByUser` VARCHAR(30), IN `emailAddress` VARCHAR(320))  BEGIN
+insert into fridges(
+    fridgeName,
+    user_id1
+)
+values(
+    fridgeNameByUser,
+	(select users.userID from users where users.email=emailAddress)
+);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertUsers` (IN `regFName` VARCHAR(30), IN `regLName` VARCHAR(40), IN `regPhone` VARCHAR(10), IN `regEmail` VARCHAR(320), IN `regHashPwd` VARCHAR(255), IN `regCountry` VARCHAR(30), IN `regCity` VARCHAR(20), IN `regProfPicPath` VARCHAR(255), IN `regVerCode` INT(10))  BEGIN
@@ -90,6 +101,24 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `resetPasswordWithoutDelete` (IN `pwd` VARCHAR(255), IN `selector` TEXT, IN `token` LONGTEXT)  BEGIN
     update users set hashedPassword = pwd where email = (select pwdResetEmail from passwordreset where pwdResetSelector = selector and pwdResetToken = token);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `returnAvailableUsersForRequest` (`currentUserEmail` VARCHAR(320))  BEGIN
+ SELECT
+    email
+FROM
+    users
+WHERE NOT
+    email = currentUserEmail
+AND NOT 
+	email IN(
+    SELECT
+        senderEmail
+    FROM
+        roommatestempfullemail
+    WHERE
+        senderEmail = currentUserEmail
+);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sendRoommateRequest` (IN `senderEmail` VARCHAR(320), IN `receiverEmail` VARCHAR(320))  BEGIN
@@ -180,8 +209,25 @@ CREATE TABLE `fridgeowners` (
 
 CREATE TABLE `fridges` (
   `fridgeID` int(10) UNSIGNED NOT NULL,
-  `fridgeName` varchar(20) NOT NULL
+  `fridgeName` varchar(30) NOT NULL,
+  `user_id1` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Triggers `fridges`
+--
+DELIMITER $$
+CREATE TRIGGER `cascadeFridgeDeletion` BEFORE DELETE ON `fridges` FOR EACH ROW BEGIN
+    delete from fridgeowners where fridgeowners.fridge_id=OLD.fridgeID;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `insertIntoFridgeOwnersAfterFridgeInsert` AFTER INSERT ON `fridges` FOR EACH ROW BEGIN
+    INSERT INTO fridgeowners(user_id,fridge_id,is_main_owner)VALUES(NEW.user_id1, NEW.fridgeID, 1);
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -191,7 +237,7 @@ CREATE TABLE `fridges` (
 --
 CREATE TABLE `fridgeusersall` (
 `friOwnID` int(10) unsigned
-,`fridgeName` varchar(20)
+,`fridgeName` varchar(30)
 ,`email` varchar(320)
 ,`is_main_owner` tinyint(1) unsigned
 );
@@ -209,14 +255,6 @@ CREATE TABLE `friendrequest` (
   `ignored` tinyint(1) UNSIGNED NOT NULL,
   `requestDateTime` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `friendrequest`
---
-
-INSERT INTO `friendrequest` (`frireqID`, `senderID`, `receiverID`, `ignored`, `requestDateTime`) VALUES
-(6, 49, 1, 1, '2022-04-18 00:05:32.000000'),
-(11, 47, 1, 1, '2022-04-20 13:30:05.000000');
 
 --
 -- Triggers `friendrequest`
@@ -356,7 +394,57 @@ INSERT INTO `logevidence` (`logID`, `user_id`, `logDate`, `logTime`) VALUES
 (69, 1, '2022-04-20', '13:30:24'),
 (70, 49, '2022-04-20', '13:31:56'),
 (71, 47, '2022-04-20', '19:14:11'),
-(72, 49, '2022-04-20', '19:15:30');
+(72, 49, '2022-04-20', '19:15:30'),
+(73, 1, '2022-04-21', '12:25:28'),
+(74, 1, '2022-04-22', '13:45:32'),
+(75, 49, '2022-04-22', '13:45:50'),
+(76, 1, '2022-04-25', '22:20:10'),
+(77, 49, '2022-04-25', '22:39:11'),
+(78, 1, '2022-04-27', '11:59:09'),
+(79, 49, '2022-04-27', '12:27:13'),
+(80, 47, '2022-04-27', '12:38:33'),
+(81, 49, '2022-04-27', '12:39:51'),
+(82, 1, '2022-04-27', '12:43:52'),
+(83, 49, '2022-04-27', '13:01:35'),
+(84, 1, '2022-04-27', '13:11:13'),
+(85, 1, '2022-04-27', '13:20:51'),
+(86, 49, '2022-04-27', '13:24:54'),
+(87, 1, '2022-04-27', '13:42:29'),
+(88, 49, '2022-04-27', '13:43:30'),
+(89, 1, '2022-04-27', '13:49:31'),
+(90, 47, '2022-04-27', '14:04:36'),
+(91, 1, '2022-04-27', '14:14:14'),
+(92, 1, '2022-04-27', '14:16:09'),
+(93, 49, '2022-04-27', '14:16:31'),
+(94, 1, '2022-04-27', '14:21:41'),
+(95, 49, '2022-04-27', '14:22:02'),
+(96, 47, '2022-04-27', '14:29:37'),
+(97, 49, '2022-04-27', '14:41:20'),
+(98, 1, '2022-04-27', '14:49:54'),
+(99, 1, '2022-04-27', '14:50:08'),
+(100, 49, '2022-04-27', '14:57:06'),
+(101, 1, '2022-04-27', '14:57:55'),
+(102, 47, '2022-04-27', '14:59:57'),
+(103, 1, '2022-04-27', '15:01:01'),
+(104, 49, '2022-04-27', '17:40:52'),
+(105, 1, '2022-04-27', '17:49:09'),
+(106, 47, '2022-04-27', '17:49:46'),
+(107, 1, '2022-04-27', '17:54:03'),
+(108, 47, '2022-04-27', '18:06:59'),
+(109, 49, '2022-04-29', '12:36:34'),
+(110, 1, '2022-04-29', '12:36:51'),
+(111, 47, '2022-04-29', '13:03:43'),
+(112, 1, '2022-04-29', '13:06:34'),
+(113, 47, '2022-04-29', '13:07:10'),
+(114, 49, '2022-04-29', '14:16:07'),
+(115, 1, '2022-04-29', '14:16:15'),
+(116, 1, '2022-04-29', '17:52:07'),
+(117, 1, '2022-04-29', '17:58:44'),
+(118, 49, '2022-04-29', '18:04:10'),
+(119, 1, '2022-04-29', '19:10:40'),
+(120, 47, '2022-04-29', '19:11:16'),
+(121, 49, '2022-04-29', '19:12:54'),
+(122, 1, '2022-05-04', '16:13:58');
 
 -- --------------------------------------------------------
 
@@ -436,15 +524,6 @@ CREATE TABLE `roommates` (
   `user1_id` int(10) UNSIGNED NOT NULL,
   `user2_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `roommates`
---
-
-INSERT INTO `roommates` (`rmID`, `user1_id`, `user2_id`) VALUES
-(4, 47, 1),
-(5, 1, 49),
-(6, 47, 49);
 
 -- --------------------------------------------------------
 
@@ -556,7 +635,8 @@ ALTER TABLE `fridgeowners`
 -- Indexes for table `fridges`
 --
 ALTER TABLE `fridges`
-  ADD PRIMARY KEY (`fridgeID`);
+  ADD PRIMARY KEY (`fridgeID`),
+  ADD KEY `user_id` (`user_id1`);
 
 --
 -- Indexes for table `friendrequest`
@@ -666,19 +746,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `fridgeowners`
 --
 ALTER TABLE `fridgeowners`
-  MODIFY `friOwnID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `friOwnID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `fridges`
 --
 ALTER TABLE `fridges`
-  MODIFY `fridgeID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `fridgeID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `friendrequest`
 --
 ALTER TABLE `friendrequest`
-  MODIFY `frireqID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `frireqID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `grocerielocation`
@@ -702,7 +782,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `logevidence`
 --
 ALTER TABLE `logevidence`
-  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 
 --
 -- AUTO_INCREMENT for table `meals`
@@ -732,7 +812,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `roommates`
 --
 ALTER TABLE `roommates`
-  MODIFY `rmID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `rmID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `suggestedgroceries`
@@ -762,6 +842,12 @@ ALTER TABLE `allowedusers`
 ALTER TABLE `fridgeowners`
   ADD CONSTRAINT `fridgeowners_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`userID`),
   ADD CONSTRAINT `fridgeowners_ibfk_2` FOREIGN KEY (`fridge_id`) REFERENCES `fridges` (`fridgeID`);
+
+--
+-- Constraints for table `fridges`
+--
+ALTER TABLE `fridges`
+  ADD CONSTRAINT `fridges_ibfk_1` FOREIGN KEY (`user_id1`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `grocerielocation`
