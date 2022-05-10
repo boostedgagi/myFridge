@@ -32,7 +32,7 @@ session_start();
                     <a href="index.php" class="nav-link text-black">Home</a>
                 </li>
                 <li class="nav-item ms-1">
-                    <a href="./fridges.php" class="nav-link text-black">Fridges</a>
+                    <a href="fridges1.php" class="nav-link text-black">Fridges</a>
                 </li>
                 <li class="nav-item ms-1">
                     <a href="roommates.php" class="nav-link text-black">Roommates</a>

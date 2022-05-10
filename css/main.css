@@ -1,1 +1,299 @@
-.bg-brown{background-color:#854D27}.bg-orange{background-color:#DD7230}.bg-yellow{background-color:#F4C95D}.bg-cream{background-color:#E7E393}.bg-black{background-color:#04030F}.text-brown{color:#854D27}.text-orange{color:#DD7230}.text-yellow{color:#F4C95D}.text-cream{color:#E7E393}.text-black{color:#04030F}body,html{margin:0;padding:0;box-sizing:border-box;background-color:#E7E393;height:auto}#main{height:auto}.hamburger{display:block;background-color:#6C757D;width:22px;height:3px;margin:4px 0;transition:0.2s ease-in-out}#review{display:flex;justify-content:center}.bg-color{background-color:#F4C95D}#footer{background-image:url("images/wave(1).svg");margin-top:auto}.logo{width:100%;height:auto;display:flex;justify-content:flex-end;padding:20px 50px}#resultDiv ul{list-style:none}
+.bg-brown {
+  background-color: #854D27;
+}
+
+.bg-orange {
+  background-color: #DD7230;
+}
+
+.bg-yellow {
+  background-color: #F4C95D;
+}
+
+.bg-cream {
+  background-color: #E7E393;
+}
+
+.bg-black {
+  background-color: #04030F;
+}
+
+.text-brown {
+  color: #854D27;
+}
+
+.text-orange {
+  color: #DD7230;
+}
+
+.text-yellow {
+  color: #F4C95D;
+}
+
+.text-cream {
+  color: #E7E393;
+}
+
+.text-black {
+  color: #04030F;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: #E7E393;
+  height: auto;
+}
+
+#main {
+  height: auto;
+}
+
+.hamburger {
+  display: block;
+  background-color: #6C757D;
+  width: 22px;
+  height: 3px;
+  margin: 4px 0;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+#review {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.review-text {
+  font-size: 25px;
+  font-family: "Playfair Display", serif;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.card {
+  height: 300px;
+}
+
+.review-text::after, .review-text::before {
+  color: #DD7230;
+  display: block;
+  font-size: 80px;
+  line-height: 30px;
+}
+
+.review-text::after {
+  content: close-quote;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.review-text::before {
+  content: open-quote;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+
+.bg-color {
+  background-color: #F4C95D;
+}
+
+#footer {
+  background-image: url("images/wave(1).svg");
+  margin-top: auto;
+}
+
+.logo {
+  width: 100%;
+  height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding: 20px 50px;
+}
+
+#resultDiv ul {
+  list-style: none;
+}
+
+#fridges {
+  width: 100%;
+  height: auto;
+}
+
+#fridges .container-lg .fridges {
+  background-color: #FFFDFA;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  margin-top: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#fridges .container-lg .fridges .fridge-list {
+  list-style: none;
+  margin: 0;
+  padding: 20px 0;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#fridges .container-lg .fridges .fridge-list .fridge-item {
+  float: left;
+  margin-left: 40px;
+  width: 100px;
+  padding: 5px 0;
+  cursor: pointer;
+}
+
+#fridges .container-lg .fridges .fridge-list .add-fridge {
+  background-color: #FF6966;
+  border-radius: 20px;
+  padding: 5px 0;
+  width: 150px;
+  cursor: pointer;
+  margin-right: 40px;
+  margin-left: auto;
+}
+
+#fridges .container-lg .fridges .fridge-list .add-fridge:hover {
+  border-radius: 20px;
+  color: #FFFDFA;
+}
+
+#fridges .container-lg .fridges .fridge-list .fridge-item:hover {
+  background-color: #DD7230;
+  border-radius: 20px;
+  color: #FFFDFA;
+}
+
+#fridges .container-lg .groceries {
+  width: 100%;
+  height: 500px;
+  margin-top: 20px;
+  background-color: #FFFDFA;
+  border-radius: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  overflow-y: auto;
+}
+
+#fridges .container-lg .groceries .menu {
+  width: 100%;
+  height: 80px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#fridges .container-lg .groceries .menu ul {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#fridges .container-lg .groceries .menu ul li {
+  margin: 20px 20px;
+  border-radius: 20px;
+  padding: 5px 20px;
+  float: left;
+  cursor: pointer;
+}
+
+#fridges .container-lg .groceries .menu ul #add {
+  background-color: #DD7230;
+  color: #FFFDFA;
+}
+
+#fridges .container-lg .groceries .menu ul #add:hover {
+  color: #04030F;
+}
+
+#fridges .container-lg .groceries .menu ul #show {
+  background-color: #FF6966;
+}
+
+#fridges .container-lg .groceries .menu ul #show:hover {
+  color: #FFFDFA;
+}
+
+#fridges .container-lg .groceries .items {
+  width: 800px;
+  height: auto;
+  padding: 10px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  overflow-y: auto;
+}
+
+#fridges .container-lg .groceries .items .item {
+  width: 150px;
+  height: 200px;
+  padding: 10px;
+  margin: 20px 20px;
+  background-color: #6C757D;
+  border-radius: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+/*# sourceMappingURL=main.css.map */

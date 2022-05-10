@@ -68,7 +68,6 @@ class Database{
             where fr.receiverID=(select us.userID from users us where us.email=?)
             order by fr.requestDateTime desc;';//ovde uzeti u obzir ako bude trebalo da se doda ako je korisnik ignorisao zaahtev
 
-
         $roommateRequests = $this->connect()->prepare($query);
         $roommateRequests->execute(array($receiverEmail));
 

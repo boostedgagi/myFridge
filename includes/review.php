@@ -31,23 +31,24 @@
                         <div class="row g-3">
                             <div class="col-md-4">
                                 <div class="card">
-                                    <img src="images/profile.jpg" width="100px" height="100px"
-                                         class="rounded-circle mt-5 ms-3" alt="profile-picture">
+                                    <!-- <img src="images/profile.jpg" width="100px" height="100px"
+                                         class="rounded-circle mt-5 ms-3" alt="profile-picture"> -->
                                     <div class="card-body">
-                                        <div class="mt-3">
+                                        <!-- <div class="mt-3">
                                             <i class="bi bi-star-fill"></i>
                                             <i class="bi bi-star-fill"></i>
                                             <i class="bi bi-star-fill"></i>
                                             <i class="bi bi-star-fill"></i>
                                             <i class="bi bi-star-fill"></i>
-                                        </div>
+                                        </div> 
                                         <div class="card-title">
                                             <h3 class="text-black">Hello</h3>
-                                        </div>
+                                        </div>-->
                                         <div class="card-text">
-                                            <p>Lorem ipsum dolor sit amet.
-
+                                            <p class="review-text mt-3">
+                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est doloribus quaerat consequatur vel veritatis consectetur.
                                             </p>
+                                            <p>David</p>
                                         </div>
                                     </div>
                                 </div>
