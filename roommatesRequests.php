@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "classes/Database.php";
+include "includes/userPageAuthentication.php";
 
 $initialDatabaseObjects = new Database();
 $allRequests = $initialDatabaseObjects->checkForAllRoommateRequests("");
