@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2022 at 04:34 PM
+-- Generation Time: May 15, 2022 at 04:51 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -201,6 +201,14 @@ CREATE TABLE `fridgeowners` (
   `is_main_owner` tinyint(1) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `fridgeowners`
+--
+
+INSERT INTO `fridgeowners` (`friOwnID`, `user_id`, `fridge_id`, `is_main_owner`) VALUES
+(6, 47, 6, 1),
+(7, 1, 7, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -212,6 +220,14 @@ CREATE TABLE `fridges` (
   `fridgeName` varchar(30) NOT NULL,
   `user_id1` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fridges`
+--
+
+INSERT INTO `fridges` (`fridgeID`, `fridgeName`, `user_id1`) VALUES
+(6, 'modalfridge1', 47),
+(7, 'fridge in restroom', 1);
 
 --
 -- Triggers `fridges`
@@ -444,7 +460,17 @@ INSERT INTO `logevidence` (`logID`, `user_id`, `logDate`, `logTime`) VALUES
 (119, 1, '2022-04-29', '19:10:40'),
 (120, 47, '2022-04-29', '19:11:16'),
 (121, 49, '2022-04-29', '19:12:54'),
-(122, 1, '2022-05-04', '16:13:58');
+(122, 1, '2022-05-04', '16:13:58'),
+(123, 1, '2022-05-10', '14:32:35'),
+(124, 47, '2022-05-10', '14:42:38'),
+(125, 47, '2022-05-11', '14:09:07'),
+(126, 47, '2022-05-11', '14:15:51'),
+(127, 49, '2022-05-11', '22:01:23'),
+(128, 47, '2022-05-12', '11:54:15'),
+(129, 1, '2022-05-12', '11:58:01'),
+(130, 1, '2022-05-12', '12:01:15'),
+(131, 47, '2022-05-12', '12:04:54'),
+(132, 1, '2022-05-13', '20:57:52');
 
 -- --------------------------------------------------------
 
@@ -524,6 +550,13 @@ CREATE TABLE `roommates` (
   `user1_id` int(10) UNSIGNED NOT NULL,
   `user2_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `roommates`
+--
+
+INSERT INTO `roommates` (`rmID`, `user1_id`, `user2_id`) VALUES
+(55, 1, 47);
 
 -- --------------------------------------------------------
 
@@ -746,19 +779,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `fridgeowners`
 --
 ALTER TABLE `fridgeowners`
-  MODIFY `friOwnID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `friOwnID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `fridges`
 --
 ALTER TABLE `fridges`
-  MODIFY `fridgeID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `fridgeID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `friendrequest`
 --
 ALTER TABLE `friendrequest`
-  MODIFY `frireqID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `frireqID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `grocerielocation`
@@ -782,7 +815,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `logevidence`
 --
 ALTER TABLE `logevidence`
-  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
 
 --
 -- AUTO_INCREMENT for table `meals`
@@ -812,7 +845,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `roommates`
 --
 ALTER TABLE `roommates`
-  MODIFY `rmID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `rmID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `suggestedgroceries`
