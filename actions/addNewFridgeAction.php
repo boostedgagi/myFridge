@@ -11,7 +11,7 @@ if(isset($_POST["fridgeName"]) and isset($_POST["newFridgeSubmit"])) {
     $fridge = new InsertNewFridgeControl($fridgeName,$currentUser);
     $fridge->insertNewFridge();
 
-    header("location: ../fridges.php?new_fridge_successfully_inserted");
+    header("location: ./fridges1.php?new_fridge_successfully_inserted");
 
 }
 

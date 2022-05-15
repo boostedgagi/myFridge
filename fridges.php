@@ -1,16 +1,86 @@
 <?php
+include "includes/addNewFridgeModal.php";
 include "includes/header.php";
 include "includes/nav.php";
-include "includes/userPageAuthentication.php";
+include "includes/login.php";
+include "includes/register.php";
+
 ?>
 
-<div style="width: 450px; padding:50px; align-self: center">
-    <form method="post" action="actions/addNewFridgeAction.php">
-        <label>Insert name of the new fridge,up to 30 characters</label>
-        <input type="text" class="form-control" name="fridgeName">
-        <button type="submit" name="newFridgeSubmit">Insert new fridge</button>
-    </form>
+<section id="fridges">
+<div class="container-lg">
+    <div class="row fridges">
+        <ul class="fridge-list">
+            <li class="fridge-item text-center">Fridge1</li>
+            <li class="fridge-item text-center">Fridge2</li>
+            <li class="fridge-item text-center">Fridge3</li>
+            <li class="fridge-item text-center">Fridge4</li>
+            <li class="add-fridge text-center">
+            <a
+                    href="#"
+                    style="color: #4f4a4a; text-decoration: none"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addNewFridgeModal">Add new fridge
+            </a>
+            </li>
+        </ul>
+    </div>
+    <div class="row groceries">
+        <div class="menu">
+        <ul>
+            <li id="add">Add new grocerie</li>
+            <li id="show">Show recipes</li>
+        </ul>
+        </div>
+        <div class="items">
+            <div class="item">
+                <img src="" alt>
+                <h3>Title</h3>
+                <p>In stock: </p>
+            </div>
+            <div class="item">
+                <img src="" alt>
+                <h3>Title</h3>
+                <p>In stock: </p>
+            </div>
+            <div class="item">
+                <img src="" alt>
+                <h3>Title</h3>
+                <p>In stock: </p>
+            </div>
+            <div class="item">
+                <img src="" alt>
+                <h3>Title</h3>
+                <p>In stock: </p>
+            </div>
+
+
+            <div class="item">
+                <img src="" alt>
+                <h3>Title</h3>
+                <p>In stock: </p>
+            </div>
+            <div class="item">
+                <img src="" alt>
+                <h3>Title</h3>
+                <p>In stock: </p>
+            </div>
+            <div class="item">
+                <img src="" alt>
+                <h3>Title</h3>
+                <p>In stock: </p>
+            </div>
+            <div class="item">
+                <img src="" alt>
+                <h3>Title</h3>
+                <p>In stock: </p>
+            </div>
+        </div>
+    </div>
 </div>
+
+</section>
+
 <?php
 include "includes/footer.php";
 ?>
