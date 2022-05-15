@@ -22,9 +22,11 @@
                         <input
                                 type="text"
                                 class="form-control"
+                                id="floatingFridge"
                                 name="fridgeName"
                                 placeholder="new fridge name"
                         >
+                        <label for="floatingFridge">Insert name</label>
                     </div>
                     <button
                         type="submit"

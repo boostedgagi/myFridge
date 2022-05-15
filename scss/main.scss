@@ -6,8 +6,18 @@ body, html {
     background-color: $cream;
     height: auto;
 }
+body::-webkit-scrollbar {
+    width: 10px;
+    background-color: $cream;
+}
+body::-webkit-scrollbar-thumb {
+    background-color: $orange;
+    border-radius: 5px;
+}
+
 #main {
     height: auto;
+    scrollbar-color: $orange $white;
 }
 .hamburger {
     display: block;
@@ -29,9 +39,6 @@ body, html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-.card {
-    height: 300px;
 }
 .review-text::after, .review-text::before {
     color: $orange;
