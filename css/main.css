@@ -47,8 +47,19 @@ body, html {
   height: auto;
 }
 
+body::-webkit-scrollbar {
+  width: 10px;
+  background-color: #E7E393;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #DD7230;
+  border-radius: 5px;
+}
+
 #main {
   height: auto;
+  scrollbar-color: #DD7230 #FFFDFA;
 }
 
 .hamburger {
@@ -88,10 +99,6 @@ body, html {
           align-items: center;
 }
 
-.card {
-  height: 300px;
-}
-
 .review-text::after, .review-text::before {
   color: #DD7230;
   display: block;
@@ -116,7 +123,6 @@ body, html {
 }
 
 #footer {
-  background-image: url("images/wave(1).svg");
   margin-top: auto;
 }
 
