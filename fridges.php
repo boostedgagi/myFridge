@@ -54,7 +54,6 @@ include "includes/register.php";
                 <p>In stock: </p>
             </div>
 
-
             <div class="item">
                 <img src="" alt>
                 <h3>Title</h3>
