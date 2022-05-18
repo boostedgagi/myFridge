@@ -74,5 +74,29 @@ class Database{
         return $roommateRequests->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getAllFridgesForCurrentUser():array{
+        $userEmail= $_SESSION["userEmail"];
+        $query = "SELECT ful.fridgeName as fridgeName,ful.email as userEmail,
+        case 
+        when ful.is_main_owner=1 then 'owner'
+        when ful.is_main_owner=0 then 'user'
+        else 'undefined'
+        end as typeOfFridgeUser
+        from fridgeusersall ful
+        where ful.email=?;";
+
+        $getAllFridges = $this->connect()->prepare($query);
+        $getAllFridges->execute(array($userEmail));
+//        if($getAllFridges->rowCount()==0){
+//            $getAllFridges=null;
+//            header("location: ./fridges.php?error=1");
+//            exit();
+//        }
+        return $getAllFridges->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function rowCountOfFridges():int{
+        return count($this->getAllFridgesForCurrentUser());
+    }
 
 }

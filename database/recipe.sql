@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2022 at 04:51 PM
+-- Generation Time: May 18, 2022 at 01:27 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -152,9 +152,10 @@ CREATE TABLE `actualgroceries` (
 `grocerieID` int(10) unsigned
 ,`grocerieName` varchar(20)
 ,`grocerieAmount` int(10) unsigned
-,`suggGrocUnit` enum('teaspoon','tablespoon','cup','ml','l','oz','g')
-,`user_id` int(10) unsigned
-,`fridge_id` int(10) unsigned
+,`grocerieUnit` enum('teaspoon','tablespoon','cup','ml','l','oz','g','piece')
+,`groceriePicture` varchar(255)
+,`userEmail` varchar(320)
+,`fridgeName` varchar(30)
 );
 
 -- --------------------------------------------------------
@@ -207,7 +208,8 @@ CREATE TABLE `fridgeowners` (
 
 INSERT INTO `fridgeowners` (`friOwnID`, `user_id`, `fridge_id`, `is_main_owner`) VALUES
 (6, 47, 6, 1),
-(7, 1, 7, 1);
+(7, 1, 7, 1),
+(14, 1, 14, 1);
 
 -- --------------------------------------------------------
 
@@ -227,7 +229,8 @@ CREATE TABLE `fridges` (
 
 INSERT INTO `fridges` (`fridgeID`, `fridgeName`, `user_id1`) VALUES
 (6, 'modalfridge1', 47),
-(7, 'fridge in restroom', 1);
+(7, 'fridge in restroom', 1),
+(14, 'fridge in bathroom', 1);
 
 --
 -- Triggers `fridges`
@@ -308,6 +311,13 @@ CREATE TABLE `groceries` (
   `user_id` int(10) UNSIGNED NOT NULL,
   `fridge_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `groceries`
+--
+
+INSERT INTO `groceries` (`grocerieID`, `grocerieName`, `grocerieAmount`, `user_id`, `fridge_id`) VALUES
+(1, 'Apple', 7, 1, 14);
 
 -- --------------------------------------------------------
 
@@ -470,7 +480,19 @@ INSERT INTO `logevidence` (`logID`, `user_id`, `logDate`, `logTime`) VALUES
 (129, 1, '2022-05-12', '11:58:01'),
 (130, 1, '2022-05-12', '12:01:15'),
 (131, 47, '2022-05-12', '12:04:54'),
-(132, 1, '2022-05-13', '20:57:52');
+(132, 1, '2022-05-13', '20:57:52'),
+(133, 47, '2022-05-15', '17:13:37'),
+(134, 1, '2022-05-15', '17:37:31'),
+(135, 49, '2022-05-15', '17:38:49'),
+(136, 1, '2022-05-15', '17:52:32'),
+(137, 1, '2022-05-16', '16:55:59'),
+(138, 49, '2022-05-16', '17:18:07'),
+(139, 1, '2022-05-16', '17:35:17'),
+(140, 1, '2022-05-17', '14:21:28'),
+(141, 1, '2022-05-18', '10:27:21'),
+(142, 1, '2022-05-18', '10:28:39'),
+(143, 49, '2022-05-18', '11:02:16'),
+(144, 1, '2022-05-18', '11:09:15');
 
 -- --------------------------------------------------------
 
@@ -556,7 +578,8 @@ CREATE TABLE `roommates` (
 --
 
 INSERT INTO `roommates` (`rmID`, `user1_id`, `user2_id`) VALUES
-(55, 1, 47);
+(55, 1, 47),
+(56, 1, 49);
 
 -- --------------------------------------------------------
 
@@ -567,8 +590,16 @@ INSERT INTO `roommates` (`rmID`, `user1_id`, `user2_id`) VALUES
 CREATE TABLE `suggestedgroceries` (
   `suggGrocID` int(10) UNSIGNED NOT NULL,
   `suggGrocName` varchar(25) NOT NULL,
-  `suggGrocUnit` enum('teaspoon','tablespoon','cup','ml','l','oz','g') DEFAULT NULL
+  `suggGrocUnit` enum('teaspoon','tablespoon','cup','ml','l','oz','g','piece') DEFAULT NULL,
+  `groceriePicturePath` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `suggestedgroceries`
+--
+
+INSERT INTO `suggestedgroceries` (`suggGrocID`, `suggGrocName`, `suggGrocUnit`, `groceriePicturePath`) VALUES
+(1, 'Apple', 'piece', NULL);
 
 -- --------------------------------------------------------
 
@@ -618,7 +649,7 @@ CREATE TABLE `usersallowedbyadmin` (
 --
 DROP TABLE IF EXISTS `actualgroceries`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `actualgroceries`  AS SELECT `g`.`grocerieID` AS `grocerieID`, `g`.`grocerieName` AS `grocerieName`, `g`.`grocerieAmount` AS `grocerieAmount`, `suggestedgroceries`.`suggGrocUnit` AS `suggGrocUnit`, `g`.`user_id` AS `user_id`, `g`.`fridge_id` AS `fridge_id` FROM (`groceries` `g` join `suggestedgroceries` on(`g`.`grocerieName` = `suggestedgroceries`.`suggGrocName`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `actualgroceries`  AS SELECT `gr`.`grocerieID` AS `grocerieID`, `gr`.`grocerieName` AS `grocerieName`, `gr`.`grocerieAmount` AS `grocerieAmount`, `sg`.`suggGrocUnit` AS `grocerieUnit`, `sg`.`groceriePicturePath` AS `groceriePicture`, `u`.`email` AS `userEmail`, `fr`.`fridgeName` AS `fridgeName` FROM (((`groceries` `gr` left join `suggestedgroceries` `sg` on(`gr`.`grocerieName` = `sg`.`suggGrocName`)) join `users` `u` on(`u`.`userID` = `gr`.`user_id`)) join `fridges` `fr` on(`fr`.`fridgeID` = `gr`.`fridge_id`)) ;
 
 -- --------------------------------------------------------
 
@@ -779,19 +810,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `fridgeowners`
 --
 ALTER TABLE `fridgeowners`
-  MODIFY `friOwnID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `friOwnID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `fridges`
 --
 ALTER TABLE `fridges`
-  MODIFY `fridgeID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `fridgeID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `friendrequest`
 --
 ALTER TABLE `friendrequest`
-  MODIFY `frireqID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `frireqID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `grocerielocation`
@@ -803,7 +834,7 @@ ALTER TABLE `grocerielocation`
 -- AUTO_INCREMENT for table `groceries`
 --
 ALTER TABLE `groceries`
-  MODIFY `grocerieID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `grocerieID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `ingredients`
@@ -815,7 +846,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `logevidence`
 --
 ALTER TABLE `logevidence`
-  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
+  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 
 --
 -- AUTO_INCREMENT for table `meals`
@@ -845,19 +876,19 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `roommates`
 --
 ALTER TABLE `roommates`
-  MODIFY `rmID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `rmID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `suggestedgroceries`
 --
 ALTER TABLE `suggestedgroceries`
-  MODIFY `suggGrocID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `suggGrocID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- Constraints for dumped tables

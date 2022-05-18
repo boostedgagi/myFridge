@@ -83,6 +83,7 @@ class RegisterControl extends Register
         $this->profilePicturePath = $path;
     }
 
+
     public function setVerifyingCode($code)
     {
         $this->nineDigitVerificationCode = $code;
@@ -114,10 +115,14 @@ class RegisterControl extends Register
         return true;
     }
 
-    public function profilePictureLocation($fileName, $tempFileName, $fileError, $fileSize): string
+    public function uploadPictureLocation($fileName, $tempFileName, $fileError, $fileSize, $path): string
     {
         if ($fileError === 4) {
-            return NO_PROF_PIC_PIC;
+            if($path===1){
+            return NO_PROF_PIC_PIC;}
+            else if($path===2){
+                return NO_PROF_PIC_PIC;
+            }
         }
 
         if ($this->checkForAllowedFormats($this->makeExtensionUsable($fileName)) === false) {
@@ -129,16 +134,22 @@ class RegisterControl extends Register
             exit();
         }
         if ($fileSize > 5000000) {
-            header("location: ../index.php?error=profile_picture_is_too_big");
+            header("location: ../index.php?error=picture_is_too_big");
             exit();
         }
 
         $actualExtension = $this->makeExtensionUsable($fileName);
         $finalDestination = "";
+//ovaj deo mora da se menja zbog uploada slika namirnica
 
         $newFileName = uniqid('', true) . "." . $actualExtension;
-        $finalDestination = SHORT_PATH . $newFileName;//FULL_PATH, SHORT_PATH su konstante iz fajla constants
-        move_uploaded_file($tempFileName, FULL_PATH . $newFileName);
+        if ($path === 1) {
+            $finalDestination = SHORT_PATH_PROF_PIC . $newFileName;//FULL_PATH, SHORT_PATH su konstante iz fajla constants, vazi za oba bloka
+            move_uploaded_file($tempFileName, FULL_PATH_PROF_PIC . $newFileName);
+        } else if ($path === 2) {
+            $finalDestination = SHORT_PATH_GROC_PIC . $newFileName;
+            move_uploaded_file($tempFileName, FULL_PATH_GROC_PIC . $newFileName);
+        }
         return $finalDestination;
     }
 

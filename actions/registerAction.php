@@ -27,9 +27,11 @@ if (isset($_POST['regsubmit'])) {
 
     $registration = new RegisterControl($firstName, $lastName, $phone, $email, $password, $passwordRepeat, $country, $city, $fileName, $verifyingCode);
 
-    $profilePicturePath = $registration->profilePictureLocation($fileName, $tempFileName, $fileError, $fileSize);
+    $profilePicturePath = $registration->uploadPictureLocation($fileName, $tempFileName, $fileError, $fileSize,1);
     $registration->setProfilePicturePath($profilePicturePath);
     //$registration->setVerifyingCode($verifyingCode);
+    
+    //ovo ce se kod unosa novih slika namirnica upisivati naknadno kao i ovde samo u klasi za upis namirnica
 
     $registration->registerNewUser();
     header("location: ../index.php?registered_successfully");
