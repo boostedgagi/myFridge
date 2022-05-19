@@ -18,6 +18,18 @@
   background-color: #04030F;
 }
 
+.bg-gray {
+  background-color: #6C757D;
+}
+
+.bg-white {
+  background-color: #FFFDFA;
+}
+
+.bg-red {
+  background-color: #FF6966;
+}
+
 .text-brown {
   color: #854D27;
 }
@@ -38,6 +50,18 @@
   color: #04030F;
 }
 
+.text-gray {
+  color: #6C757D;
+}
+
+.text-white {
+  color: #FFFDFA;
+}
+
+.text-red {
+  color: #FF6966;
+}
+
 body, html {
   margin: 0;
   padding: 0;
@@ -45,6 +69,8 @@ body, html {
           box-sizing: border-box;
   background-color: #E7E393;
   height: auto;
+  scrollbar-color: #DD7230 #E7E393;
+  scrollbar-width: thin;
 }
 
 body::-webkit-scrollbar {
@@ -59,7 +85,6 @@ body::-webkit-scrollbar-thumb {
 
 #main {
   height: auto;
-  scrollbar-color: #DD7230 #FFFDFA;
 }
 
 .hamburger {
@@ -147,14 +172,20 @@ body::-webkit-scrollbar-thumb {
   height: auto;
 }
 
+#fridges .row {
+  border-radius: 20px;
+}
+
+#fridges .row .FridgeList {
+  border-radius: 20px;
+}
+
 #fridges .container-lg .fridges {
   background-color: #FFFDFA;
   width: 100%;
-  height: auto;
   border-radius: 20px;
+  height: auto;
   margin-top: 20px;
-  overflow-y: auto;
-  overflow-x: hidden;
 }
 
 #fridges .container-lg .fridges .fridge-list {
@@ -173,27 +204,46 @@ body::-webkit-scrollbar-thumb {
   width: 100px;
   padding: 5px 0;
   cursor: pointer;
+  border-radius: 20px;
 }
 
 #fridges .container-lg .fridges .fridge-list .add-fridge {
   background-color: #FF6966;
-  border-radius: 20px;
   padding: 5px 0;
-  width: 150px;
+  width: 100px;
   cursor: pointer;
   margin-right: 40px;
   margin-left: auto;
+  border-radius: 20px;
+}
+
+#fridges .container-lg .fridges .fridge-list .add-fridge a {
+  color: #04030F;
+  text-decoration: none;
+}
+
+#fridges .container-lg .fridges .fridge-list .add-fridge a:hover {
+  color: #FFFDFA;
 }
 
 #fridges .container-lg .fridges .fridge-list .add-fridge:hover {
-  border-radius: 20px;
   color: #FFFDFA;
 }
 
 #fridges .container-lg .fridges .fridge-list .fridge-item:hover {
   background-color: #DD7230;
-  border-radius: 20px;
   color: #FFFDFA;
+}
+
+#fridges .container-lg .groceries::-webkit-scrollbar {
+  width: 10px;
+  background-color: #FFFDFA;
+  border-radius: 20px;
+}
+
+#fridges .container-lg .groceries::-webkit-scrollbar-thumb {
+  background-color: #DD7230;
+  border-radius: 20px;
 }
 
 #fridges .container-lg .groceries {
@@ -212,6 +262,8 @@ body::-webkit-scrollbar-thumb {
       -ms-flex-pack: center;
           justify-content: center;
   overflow-y: auto;
+  scrollbar-color: #DD7230 #E7E393;
+  scrollbar-width: thin;
 }
 
 #fridges .container-lg .groceries .menu {
@@ -301,5 +353,17 @@ body::-webkit-scrollbar-thumb {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+}
+
+@media screen and (max-width: 412px) {
+  #fridges .container-lg .groceries .items .item {
+    margin: 20px 10px;
+  }
+}
+
+@media screen and (max-width: 372px) {
+  #fridges .container-lg .groceries .items .item {
+    margin: 20px 5px;
+  }
 }
 /*# sourceMappingURL=main.css.map */
