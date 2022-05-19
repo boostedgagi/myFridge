@@ -1,6 +1,8 @@
+
 let hamburger = document.querySelectorAll(".hamburger");
 let clicked = false;
-let rotating = function () {
+function rotating() {
+  
   if (clicked === false) {
     hamburger[1].style.transform = "scale(0)";
     hamburger[0].style.cssText = "transform-origin: center; transform: translateY(7px) rotate(45deg); ";

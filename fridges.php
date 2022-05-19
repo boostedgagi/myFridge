@@ -1,12 +1,13 @@
 <?php
 //session_start();
 
-include "includes/addNewFridgeModal.php";
 include "includes/header.php";
 include "includes/nav.php";
 include "includes/userPageAuthentication.php";
 include "includes/login.php";
 include "includes/register.php";
+include "includes/addNewFridgeModal.php";
+include "includes/addNewGrocerieModal.php";
 
 include "classes/Database.php";
 $listOfAllFridges = new Database();
@@ -64,7 +65,7 @@ $listOfAllFridges = new Database();
             <div class="row groceries">
                 <div class="menu">
                     <ul>
-                        <li id="add" class="text-center">Add new grocerie</li>
+                        <li id="add" class="text-center" data-bs-toggle="modal" data-bs-target="#addNewGrocerieModal">Add new grocerie</li>
                         <li id="show" class="text-center">Show recipes</li>
                     </ul>
                 </div>
@@ -115,7 +116,7 @@ $listOfAllFridges = new Database();
         </div>
 
     </section>
-
+<script src="js/amount.js"></script>
 <?php
 include "includes/footer.php";
 ?>

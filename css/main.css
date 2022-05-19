@@ -310,11 +310,19 @@ body::-webkit-scrollbar-thumb {
   color: #04030F;
 }
 
+#fridges .container-lg .groceries .menu ul #add:focus {
+  color: #04030F;
+}
+
 #fridges .container-lg .groceries .menu ul #show {
   background-color: #FF6966;
 }
 
 #fridges .container-lg .groceries .menu ul #show:hover {
+  color: #FFFDFA;
+}
+
+#fridges .container-lg .groceries .menu ul #show:focus {
   color: #FFFDFA;
 }
 
@@ -365,5 +373,10 @@ body::-webkit-scrollbar-thumb {
   #fridges .container-lg .groceries .items .item {
     margin: 20px 5px;
   }
+}
+
+#amount {
+  padding: 16px 12px;
+  border: 1px solid #ced4da;
 }
 /*# sourceMappingURL=main.css.map */
