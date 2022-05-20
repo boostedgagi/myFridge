@@ -5,6 +5,9 @@ body, html {
     box-sizing: border-box;
     background-color: $cream;
     height: auto;
+    //Mozilla scrollbar
+    scrollbar-color:$orange $cream;
+    scrollbar-width: thin; 
 }
 body::-webkit-scrollbar {
     width: 10px;
@@ -17,7 +20,6 @@ body::-webkit-scrollbar-thumb {
 
 #main {
     height: auto;
-    scrollbar-color: $orange $white;
 }
 .hamburger {
     display: block;
@@ -58,7 +60,6 @@ body::-webkit-scrollbar-thumb {
     background-color: $yellow;
 }
 #footer {
-    background-image: url("images/wave(1).svg");
     margin-top:auto;
 }
 .logo {
@@ -75,17 +76,22 @@ body::-webkit-scrollbar-thumb {
     }
 }
 #fridges {
+    .row {
+        border-radius: 20px;
+        .FridgeList {
+            border-radius: 20px;
+        }
+    }
     width: 100%;
     height: auto;
     .container-lg {
     .fridges {
         background-color: $white;
         width: 100%;
-        height: auto;
         border-radius: 20px;
+        height: auto;
         margin-top: 20px;
-        overflow-y: auto;
-        overflow-x: hidden;
+        
        
         .fridge-list {
             list-style: none;
@@ -100,27 +106,42 @@ body::-webkit-scrollbar-thumb {
                 width: 100px;
                 padding: 5px 0;
                 cursor: pointer;
+                border-radius: 20px;
             }
             .add-fridge {
                 background-color: $red;
-                border-radius: 20px;
                 padding: 5px 0;
-                width: 150px;
+                width: 100px;
                 cursor: pointer;
                 margin-right: 40px;
                 margin-left: auto;
+                border-radius: 20px;
+                a {
+                    color: $black;
+                    text-decoration: none;
+                }
+                a:hover {
+                    color: $white;
+                }
             }
             .add-fridge:hover {
-                border-radius: 20px;
                 color: $white;
                 
             }
             .fridge-item:hover {
                 background-color: $orange;
-                border-radius: 20px;
                 color: $white;
             }
         }
+    }
+    .groceries::-webkit-scrollbar {
+        width: 10px;
+        background-color: $white;
+        border-radius: 20px;
+    }
+    .groceries::-webkit-scrollbar-thumb {
+        background-color: $orange;
+        border-radius: 20px;
     }
     .groceries {
         width: 100%;
@@ -132,6 +153,9 @@ body::-webkit-scrollbar-thumb {
         align-items: center;
         justify-content: center;
         overflow-y: auto;
+        //Mozilla scrollbar 
+        scrollbar-color:$orange $cream;
+        scrollbar-width: thin;
 
         .menu {
             width: 100%;
@@ -160,10 +184,16 @@ body::-webkit-scrollbar-thumb {
                 #add:hover {
                     color: $black;
                 }
+                #add:focus {
+                    color: $black;
+                }
                 #show {
                     background-color: $red;
                 }
                 #show:hover {
+                    color: $white;
+                }
+                #show:focus {
                     color: $white;
                 }
             }
@@ -187,10 +217,18 @@ body::-webkit-scrollbar-thumb {
                 justify-content: center;
                 flex-direction: column;
                 justify-content: flex-end;
+                @media screen and (max-width:412px)  {
+                    margin: 20px 10px;
+                }
+                @media screen and (max-width:372px)  {
+                    margin: 20px 5px;
+                }
             }
         }
     }
 }
 }
-
-
+#amount {
+    padding: 16px 12px;
+    border: 1px solid $border-color;
+}

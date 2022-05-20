@@ -1,4 +1,4 @@
-<!-- LOGIN MODAL -->
+<!-- Add New Fridge -->
 <div
     class="modal fade"
     id="addNewFridgeModal"

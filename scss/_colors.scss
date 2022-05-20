@@ -6,6 +6,7 @@ $black: #04030F;
 $gray: #6C757D;
 $white: #FFFDFA;
 $red: #FF6966;
+$border-color: #ced4da;
 
 .bg-brown {
   background-color: $brown;
@@ -21,6 +22,15 @@ $red: #FF6966;
 }
 .bg-black {
   background-color: $black;
+}
+.bg-gray {
+  background-color: $gray;
+}
+.bg-white {
+  background-color: $white;
+}
+.bg-red {
+  background-color: $red;
 }
 
 
@@ -38,4 +48,13 @@ $red: #FF6966;
 }
 .text-black {
   color: $black;
+}
+.text-gray {
+  color: $gray;
+}
+.text-white {
+  color: $white;
+}
+.text-red {
+  color: $red;
 }
