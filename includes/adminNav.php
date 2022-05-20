@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md nav-light">
         <div class="container-xxl">
-            <a href="index.php" class="navbar-brand">
+            <a href="../index.php" class="navbar-brand">
                 <span class="fw-bold text-black"> Administrator </span>
             </a>
             <!-- Nav for mobile -->
@@ -39,7 +39,7 @@
                         <a href="#" class="nav-link text-black">Users</a>
                     </li>
                     <li class="nav-item ms-1">
-                        <a href="#" class="nav-link text-black">Groceries</a>
+                        <a href="adminGroceries.php" class="nav-link text-black">Groceries</a>
                     </li>
                     <li class="nav-item ms-1">
                         <a href="#" class="nav-link text-black">Comments</a>

@@ -7,7 +7,7 @@ class Database{
         try {
             $username = "root";
             $password = "";
-            $databaseHandler = new PDO('mysql:host=localhost;dbname=recipe', $username, $password);
+            $databaseHandler = new PDO('mysql:host=localhost;port=3308;dbname=recipe', $username, $password);
             return $databaseHandler;
         } catch (PDOException $error) {
             print "Error: " . $error->getMessage() . "<br>";
