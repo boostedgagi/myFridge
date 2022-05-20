@@ -5,12 +5,11 @@ include "includes/userPageAuthentication.php";
 
 include "classes/Database.php";
 $dbObj1 = new Database();
-//$usernamesListForAutocomplete = array();
 $usernamesListForAutocomplete = $dbObj1->getAllUsernames();
 
 $dbObj2 = new Database();
-//$newRoommateRequests = array();
 $newRoommateRequests =$dbObj2->checkForNewRoommateRequests(" limit 1");
+
 
 
 foreach ($newRoommateRequests as $request){
@@ -64,6 +63,16 @@ echo "<a href='roommatesRequests.php'>check all requests</a>";
             result.innerHTML = '<ul>' + list + '</ul>';
         }
     </script>
+
+    <div>
+        <?php
+        $dbObj3 = new Database();
+        foreach ($dbObj3->getAllRoommates() as $actualRoommate){
+            echo "<li style='list-style: none'><img src='".$actualRoommate['roommatePppath']."' height='50px' width='50px'>".$actualRoommate["roommateEmail"]."</li>";
+        }
+
+        ?>
+    </div>
 <?php
 include "includes/footer.php";
 ?>

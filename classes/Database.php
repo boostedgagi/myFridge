@@ -1,13 +1,15 @@
 <?php
+
 //session_start();
-class Database{
+class Database
+{
 
     protected function connect()
     {
         try {
             $username = "root";
             $password = "";
-            $databaseHandler = new PDO('mysql:host=localhost;dbname=recipe', $username, $password);
+            $databaseHandler = new PDO('mysql:host=localhost;port=3308;dbname=recipe', $username, $password);
             return $databaseHandler;
         } catch (PDOException $error) {
             print "Error: " . $error->getMessage() . "<br>";
@@ -15,26 +17,28 @@ class Database{
         }
     }
 
-    public function getAllUsernames():array{
-        $currentLoggedUser= $_SESSION["userEmail"];
+    public function getAllUsernames(): array
+    {
+        $currentLoggedUser = $_SESSION["userEmail"];
 
         $usernames = $this->connect()->prepare("select email from users where not email = ?;");
         $usernames->execute(array($currentLoggedUser));
 
-        $tempArray=array();
+        $tempArray = array();
         $result = $usernames->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($result as $item) {
-            $tempItem = explode(",",$item["email"]);
+            $tempItem = explode(",", $item["email"]);
             foreach ($tempItem as $temp) {
-                array_push($tempArray,trim($temp));
+                array_push($tempArray, trim($temp));
             }
         }
         return $tempArray;
     }
 
-    public function checkForNewRoommateRequests():array{
-        $receiverEmail= $_SESSION["userEmail"];
+    public function checkForNewRoommateRequests(): array
+    {
+        $receiverEmail = $_SESSION["userEmail"];
         $query = 'select 
 	        fr.frireqID as requestID,
             u.profilePicturePath as pppath,
@@ -54,8 +58,9 @@ class Database{
         return $roommateRequests->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function checkForAllRoommateRequests():array{
-        $receiverEmail= $_SESSION["userEmail"];
+    public function checkForAllRoommateRequests(): array
+    {
+        $receiverEmail = $_SESSION["userEmail"];
         $query = 'select 
 	        fr.frireqID as requestID,
             u.profilePicturePath as pppath,
@@ -74,8 +79,9 @@ class Database{
         return $roommateRequests->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getAllFridgesForCurrentUser():array{
-        $userEmail= $_SESSION["userEmail"];
+    public function getAllFridgesForCurrentUser(): array
+    {
+        $userEmail = $_SESSION["userEmail"];
         $query = "SELECT ful.fridgeName as fridgeName,ful.email as userEmail,
         case 
         when ful.is_main_owner=1 then 'owner'
@@ -95,8 +101,30 @@ class Database{
         return $getAllFridges->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function rowCountOfFridges():int{
+    public function rowCountOfFridges(): int
+    {
         return count($this->getAllFridgesForCurrentUser());
+    }
+
+    public function getAllRoommates():array
+    {
+        $userEmail = $_SESSION["userEmail"];
+
+        $query1 = "SELECT u.email as roommateEmail,u.profilePicturePath as roommatePppath from users u 
+        INNER JOIN roommates rm ON
+        u.userID=rm.user2_id 
+        where rm.user1_id=(select u.userID from users u where u.email=?);";
+
+        $query2 = "SELECT u.email as roommateEmail,u.profilePicturePath as roommatePppath from users u 
+        INNER JOIN roommates rm ON
+        u.userID=rm.user1_id 
+        where rm.user2_id=(select u.userID from users u where u.email=?);";
+
+        $getAllRoommates1 = $this->connect()->prepare($query1);
+        $getAllRoommates2 = $this->connect()->prepare($query2);
+        $getAllRoommates1->execute(array($userEmail));
+        $getAllRoommates2->execute(array($userEmail));
+        return array_merge($getAllRoommates1->fetchAll(PDO::FETCH_ASSOC),$getAllRoommates2->fetchAll(PDO::FETCH_ASSOC));
     }
 
 }
