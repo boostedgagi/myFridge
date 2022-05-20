@@ -106,7 +106,7 @@ class Database
         return count($this->getAllFridgesForCurrentUser());
     }
 
-    public function getAllRoommates():array
+    public function getAllRoommates(): array
     {
         $userEmail = $_SESSION["userEmail"];
 
@@ -124,7 +124,43 @@ class Database
         $getAllRoommates2 = $this->connect()->prepare($query2);
         $getAllRoommates1->execute(array($userEmail));
         $getAllRoommates2->execute(array($userEmail));
-        return array_merge($getAllRoommates1->fetchAll(PDO::FETCH_ASSOC),$getAllRoommates2->fetchAll(PDO::FETCH_ASSOC));
+        return array_merge($getAllRoommates1->fetchAll(PDO::FETCH_ASSOC), $getAllRoommates2->fetchAll(PDO::FETCH_ASSOC));
     }
+
+    public function getUserData(): array
+    {
+        $query = "
+        SELECT
+            u.firstName AS firstName,
+            u.lastName AS lastName,
+            u.email AS email,
+            u.phoneNumber AS phoneNumber,
+            u.profilePicturePath as pppath
+        FROM
+            users u
+        WHERE
+            email = ?
+        ";
+        $userData = $this->connect()->prepare($query);
+        $userData->execute(array($_SESSION['userEmail']));
+
+        return $userData->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getGroceries(): array
+    {
+        $query = "
+        SELECT
+        sGr.suggGrocID as sGrID,
+        sGr.suggGrocName as sGrName,
+        sGr.groceriePicturePath as sGrPicPath FROM
+        suggestedgroceries sGr";
+
+        $groceries = $this->connect()->prepare($query);
+        $groceries->execute();
+
+        return $groceries->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
 }

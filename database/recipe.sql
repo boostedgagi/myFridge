@@ -2,8 +2,8 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 18, 2022 at 01:27 PM
+-- Host: 127.0.0.1:3308
+-- Generation Time: May 20, 2022 at 07:22 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -317,7 +317,8 @@ CREATE TABLE `groceries` (
 --
 
 INSERT INTO `groceries` (`grocerieID`, `grocerieName`, `grocerieAmount`, `user_id`, `fridge_id`) VALUES
-(1, 'Apple', 7, 1, 14);
+(1, 'Apple', 7, 1, 14),
+(2, 'Banana', 20, 1, 14);
 
 -- --------------------------------------------------------
 
@@ -492,7 +493,20 @@ INSERT INTO `logevidence` (`logID`, `user_id`, `logDate`, `logTime`) VALUES
 (141, 1, '2022-05-18', '10:27:21'),
 (142, 1, '2022-05-18', '10:28:39'),
 (143, 49, '2022-05-18', '11:02:16'),
-(144, 1, '2022-05-18', '11:09:15');
+(144, 1, '2022-05-18', '11:09:15'),
+(145, 1, '2022-05-18', '21:38:15'),
+(146, 1, '2022-05-18', '21:55:45'),
+(147, 1, '2022-05-18', '22:15:23'),
+(148, 1, '2022-05-20', '09:09:03'),
+(149, 1, '2022-05-20', '09:22:41'),
+(150, 47, '2022-05-20', '10:48:34'),
+(151, 49, '2022-05-20', '10:53:07'),
+(152, 47, '2022-05-20', '11:15:44'),
+(153, 1, '2022-05-20', '11:17:38'),
+(154, 47, '2022-05-20', '11:19:35'),
+(155, 1, '2022-05-20', '11:23:45'),
+(156, 47, '2022-05-20', '18:22:56'),
+(157, 1, '2022-05-20', '18:43:25');
 
 -- --------------------------------------------------------
 
@@ -579,7 +593,7 @@ CREATE TABLE `roommates` (
 
 INSERT INTO `roommates` (`rmID`, `user1_id`, `user2_id`) VALUES
 (55, 1, 47),
-(56, 1, 49);
+(57, 47, 49);
 
 -- --------------------------------------------------------
 
@@ -599,7 +613,8 @@ CREATE TABLE `suggestedgroceries` (
 --
 
 INSERT INTO `suggestedgroceries` (`suggGrocID`, `suggGrocName`, `suggGrocUnit`, `groceriePicturePath`) VALUES
-(1, 'Apple', 'piece', NULL);
+(1, 'Apple', 'piece', NULL),
+(2, 'Banana', 'piece', NULL);
 
 -- --------------------------------------------------------
 
@@ -822,7 +837,7 @@ ALTER TABLE `fridges`
 -- AUTO_INCREMENT for table `friendrequest`
 --
 ALTER TABLE `friendrequest`
-  MODIFY `frireqID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `frireqID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `grocerielocation`
@@ -834,7 +849,7 @@ ALTER TABLE `grocerielocation`
 -- AUTO_INCREMENT for table `groceries`
 --
 ALTER TABLE `groceries`
-  MODIFY `grocerieID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `grocerieID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `ingredients`
@@ -846,7 +861,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `logevidence`
 --
 ALTER TABLE `logevidence`
-  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
+  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
 
 --
 -- AUTO_INCREMENT for table `meals`
@@ -876,13 +891,13 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `roommates`
 --
 ALTER TABLE `roommates`
-  MODIFY `rmID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `rmID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `suggestedgroceries`
 --
 ALTER TABLE `suggestedgroceries`
-  MODIFY `suggGrocID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `suggGrocID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
