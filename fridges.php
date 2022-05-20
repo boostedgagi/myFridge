@@ -1,13 +1,16 @@
 <?php
 //session_start();
 
+
 include "includes/addNewFridgeModal.php";
+//include "includes/userPageAuthentication.php";
 include "includes/header.php";
 include "includes/nav.php";
-include "includes/userPageAuthentication.php";
 include "includes/login.php";
 include "includes/register.php";
-
+if (!isset($_SESSION["userEmail"])) {
+    header("location: index.php?error=you_are_not_logged_in");
+}
 include "classes/Database.php";
 $listOfAllFridges = new Database();
 
