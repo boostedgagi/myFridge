@@ -364,4 +364,8 @@ body::-webkit-scrollbar-thumb {
   padding: 16px 12px;
   border: 1px solid #ced4da;
 }
+
+li {
+  list-style: none;
+}
 /*# sourceMappingURL=main.css.map */
