@@ -71,6 +71,7 @@ echo "<div class='d-flex justify-content-center'><a href='roommatesRequests.php'
                 mail.forEach(mail => {
                     mail.addEventListener("click", (e)=> {
                         input.value = e.target.innerHTML.toString();
+                        
                         buttonImg.src = "images/add-user.png";
                     });
                 });  
@@ -84,11 +85,11 @@ echo "<div class='d-flex justify-content-center'><a href='roommatesRequests.php'
     </script>
 
     <div>
-        <ul class="d-flex align-items-center flex-column">
+        <ul class="d-flex align-items-center flex-column" id="roomateList">
         <?php
         $dbObj3 = new Database();
         foreach ($dbObj3->getAllRoommates() as $actualRoommate){
-            echo "<li><img src='".$actualRoommate['roommatePppath']."' height='50px' width='50px'>".$actualRoommate["roommateEmail"]."</li>";
+            echo "<li class='my-2 border-orange rounded-2 p-2 d-flex justify-content-between'><img src='".$actualRoommate['roommatePppath']."' height='50px' width='50px'><span class='align-self-center'>".$actualRoommate["roommateEmail"]."</span></li>";
         }
         ?>
         </ul>
