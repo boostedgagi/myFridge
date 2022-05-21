@@ -5,21 +5,25 @@ include "includes/userPageAuthentication.php";
 include "classes/Database.php";
 
 ?>
-    <div class="d-flex align-items-center flex-column my-3">
-        <h3>Hi <?php echo $_SESSION["userFirstName"].", this is your info."; ?></h3>
+    <h3 class="text-center">Hi <?php echo $_SESSION["userFirstName"].", this is your info."; ?></h3>
+    <div class="userInfoContainer d-flex align-items-center flex-column my-3">
+    <div class="p-3 bg-white rounded-2" id="userInfo">
+        
             <?php
             $userData = new Database();
             foreach ($userData->getUserData() as $dataRow){
-                echo "<li style='list-style: none'>".$dataRow["firstName"]." ".$dataRow["lastName"]."</li>";
-                echo "<li style='list-style: none'>".$dataRow["email"]."</li>";
-                echo "<li style='list-style: none'>".$dataRow["phoneNumber"]."</li>";
-                echo "<li style='list-style: none'><img src=".$dataRow["pppath"]." height='50px' width='50px'></li>";
+                echo "<ul class='d-flex align-items-center flex-column p-0'><li class='mb-1'><img src=".$dataRow["pppath"]." class='rounded-circle border-3 border-orange' height='80px' width='80px'></li>";
+                echo "<li class='mb-2'><h3>".$dataRow["firstName"]." ".$dataRow["lastName"]."</h3></li>";
+                echo "<li class='mb-2'>".$dataRow["email"]."</li>";
+                echo "<li class='mb-2'>".$dataRow["phoneNumber"]."</li></ul>";
             }
             ?>
+    <div class="d-flex justify-content-center">
+    <button class="btn bg-orange text-cream">Edit data</button>
     </div>
-    <div class="col-md-5 text-center text-md-start">
-    <button class="btn bg-orange btn-lg text-cream">Edit data</button>
     </div>
+    </div>
+    
 
 
 <?php
