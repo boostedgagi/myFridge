@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md nav-light">
         <div class="container-xxl">
-            <a href="../index.php" class="navbar-brand">
+            <a href="index.php" class="navbar-brand">
                 <span class="fw-bold text-black"> Administrator </span>
             </a>
             <!-- Nav for mobile -->
