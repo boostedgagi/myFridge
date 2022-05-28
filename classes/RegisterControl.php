@@ -121,7 +121,7 @@ class RegisterControl extends Register
             if($path===1){
             return NO_PROF_PIC_PIC;}
             else if($path===2){
-                return NO_PROF_PIC_PIC;
+                return NO_GROC_PIC_PIC;
             }
         }
 
@@ -165,8 +165,7 @@ class RegisterControl extends Register
     private function makeExtensionUsable($fileName): string
     {
         $extension = explode('.', $fileName);
-        $actualExtension = strtolower(end($extension));
-        return $actualExtension;
+        return strtolower(end($extension));
     }
 
     private function checkFNameLength(): bool

@@ -15,27 +15,25 @@
                         data-bs-dismiss="modal"
                         aria-label="Close"
                 ></button>
-                <!-- GROCERIE INSERT FORM -->
-                <!-- Treba dodati action -->
-                <form method="post" action="../actions/addNewGrocerieAdminAction.php">
+
+                <form method="post" action="../actions/addNewGrocerieAdminAction.php" enctype="multipart/form-data">
                     <h1 class="text-center mb-5">Add new Grocerie</h1>
                     <div class="mb-3">
-                        <label for="grocerieName" class="form-label">Grocerie Name:</label>
-                        <input type="text" class="form-control" id="grocerieName" placeholder="Apple,Banana...">
+                        <label for="grocerieNameId" class="form-label">Grocerie Name:</label>
+                        <input type="text" class="form-control" id="grocerieNameId" name="grocerieName" placeholder="Apple,Banana...">
                     </div>
                     <select class="form-select my-3" aria-label="selectUnit">
                         <option selected>Select Unit</option>
                         <?php
-
                         $units = new Database();
                         foreach ($units->getGrocerieUnits() as $unit) {
-                            echo "<option value='".$unit."'>'".$unit."'</option>";
+                            echo "<option name='grocerieUnit' value='".$unit."'>".$unit."</option>";
                         }
                         ?>
                     </select>
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Select image:</label>
-                        <input class="form-control" type="file" id="formFile">
+                        <input class="form-control" name="grocerieImage" type="file" id="formFile">
                     </div>
                     <button
                             type="submit"
