@@ -32,7 +32,7 @@ $listOfAllFridges = new Database();
                     <?php
                     if ($listOfAllFridges->rowCountOfFridges() > 0) {
                         foreach ($listOfAllFridges->getAllFridgesForCurrentUser() as $oneFridge) {
-                            echo "<li class='fridge-item text-center'>". $oneFridge["fridgeName"] ."</li>";
+                            echo "<li class='fridge-item d-flex justify-content-center align-items-center'>". $oneFridge["fridgeName"] ."</li>";
                         }
                     }
                     ?>
