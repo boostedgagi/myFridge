@@ -16,18 +16,18 @@
                         aria-label="Close"
                 ></button>
 
-                <form method="post" action="../actions/addNewGrocerieAdminAction.php" enctype="multipart/form-data">
+                <form method="post" action="./actions/addNewGrocerieAdminAction.php" enctype="multipart/form-data">
                     <h1 class="text-center mb-5">Add new Grocerie</h1>
                     <div class="mb-3">
                         <label for="grocerieNameId" class="form-label">Grocerie Name:</label>
                         <input type="text" class="form-control" id="grocerieNameId" name="grocerieName" placeholder="Apple,Banana...">
                     </div>
-                    <select class="form-select my-3" aria-label="selectUnit">
-                        <option selected>Select Unit</option>
+                    <select  name="grocerieUnit" class="form-select my-3" aria-label="selectUnit">
+                        <option selected >Select Unit</option>
                         <?php
                         $units = new Database();
                         foreach ($units->getGrocerieUnits() as $unit) {
-                            echo "<option name='grocerieUnit' value='".$unit."'>".$unit."</option>";
+                            echo "<option value='".$unit."'>".$unit."</option>";
                         }
                         ?>
                     </select>

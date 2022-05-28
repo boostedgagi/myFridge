@@ -13,10 +13,14 @@ if(isset($_POST['adminGrocerieSubmit'])){
     $fileSize = $_FILES['grocerieImage']['size'];
 
     include "../classes/Database.php";
-    include "../classes/Register.php";
-    include "../classes/RegisterControl.php";
+    include "../classes/NewGrocerieAdmin.php";
+    include "../classes/NewGrocerieAdminControl.php";
 
-    $temp = new RegisterControl();
-    $profilePicturePath = $temp->uploadPictureLocation($fileName, $tempFileName, $fileError, $fileSize,2);
-    $temp->setProfilePicturePath($profilePicturePath);
+    $newGrocerie = new NewGrocerieAdminControl($grocerieName,$grocerieUnit,$grocerieImage);
+
+    $groceriePicturePath = $newGrocerie->uploadPictureLocation($fileName, $tempFileName, $fileError, $fileSize);
+    $newGrocerie->setGrocPPPath($groceriePicturePath);
+
+    $newGrocerie->insertNewGrocerie();
+    header("location: ../adminGroceries.php?status=insert_succedded");
 }
