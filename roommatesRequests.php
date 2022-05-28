@@ -1,7 +1,8 @@
 <?php
-session_start();
-include "classes/Database.php";
+include "includes/header.php";
+include "includes/nav.php";
 include "includes/userPageAuthentication.php";
+include "classes/Database.php";
 
 $initialDatabaseObjects = new Database();
 $allRequests = $initialDatabaseObjects->checkForAllRoommateRequests("");
@@ -17,5 +18,13 @@ foreach ($allRequests as $request){
         echo "<img src='".$request['pppath']."' height='50px' width='50px'>".$request["senderEmail"]."<a href='actions/approveAndDenyRoommateRequestAction.php?requestID=".$request["requestID"]."&operation=accept&sentFrom=roommatesRequests' style='color:#00f'>Accept</a>".$ignored."<br>";
         //echo "<img src='".$request['pppath']."' height='50px' width='50px'>".$request["senderEmail"]."<a href='actions/approveAndDenyRoommateRequestAction.php?requestID=".$request["requestID"]."&operation=accept' style='color:blue'>Accept</a><a href='actions/approveAndDenyRoommateRequestAction.php?requestID=".$request["requestID"]."&operation=deny' style='color:red'>Deny</a>"."<br>";
 }
+?>
 
+<h1 class="text-center my-3">Roomate requests</h1>
+<div class="container-lg d-flex flex-column align-items-center">
+    <div class="border-orange"><img src="" alt> </div>
+</div>
+
+<?php
+include "includes/footer.php";
 ?>
