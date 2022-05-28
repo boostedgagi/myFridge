@@ -2,6 +2,7 @@
 include "includes/header.php";
 include "includes/nav.php";
 include "includes/userPageAuthentication.php";
+include "includes/editUserDataModal.php";
 include "classes/Database.php";
 
 ?>
@@ -18,7 +19,11 @@ include "classes/Database.php";
             }
             ?>
             <div class="d-flex justify-content-center">
-                <button class="btn bg-orange text-cream">Edit data</button>
+                <button 
+                class="btn bg-orange text-cream" 
+                data-bs-toggle="modal"
+                data-bs-target="#editUser"
+                >Edit data</button>
             </div>
         </div>
     </div>
