@@ -29,9 +29,9 @@ include "includes/adminAddGrocerieModal.php";
             $groceries = new Database();
             foreach ($groceries->getGroceries() as $grocery) {
                 echo "<tr>
-            <td>".$grocery["sGrID"]."</td>
-            <td>".$grocery["sGrName"]."</td>
-            <td><img src='".$grocery["sGrPicPath"]."' height='50px' width='50px'></td>
+            <td>" . $grocery["sGrID"] . "</td>
+            <td>" . $grocery["sGrName"] . "</td>
+            <td><img src='" . $grocery["sGrPicPath"] . "' height='50px' width='50px'></td>
             </tr>";
             }
             ?>

@@ -175,10 +175,8 @@ class Database
         $units->execute();
         $array = array();
         foreach ($units as $unit) {
-            $newUnit = str_replace('\'','', $unit["units"]);
-            $array[] = $newUnit;
+            $array[] = str_replace("'",'',$unit['units']);
         }
         return $array;
     }
-
 }

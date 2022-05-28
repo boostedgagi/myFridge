@@ -115,14 +115,10 @@ class RegisterControl extends Register
         return true;
     }
 
-    public function uploadPictureLocation($fileName, $tempFileName, $fileError, $fileSize, $path): string
+    public function uploadPictureLocation($fileName, $tempFileName, $fileError, $fileSize): string
     {
         if ($fileError === 4) {
-            if($path===1){
-            return NO_PROF_PIC_PIC;}
-            else if($path===2){
-                return NO_PROF_PIC_PIC;
-            }
+            return NO_PROF_PIC_PIC;
         }
 
         if ($this->checkForAllowedFormats($this->makeExtensionUsable($fileName)) === false) {
@@ -140,16 +136,12 @@ class RegisterControl extends Register
 
         $actualExtension = $this->makeExtensionUsable($fileName);
         $finalDestination = "";
-//ovaj deo mora da se menja zbog uploada slika namirnica
 
         $newFileName = uniqid('', true) . "." . $actualExtension;
-        if ($path === 1) {
-            $finalDestination = SHORT_PATH_PROF_PIC . $newFileName;//FULL_PATH, SHORT_PATH su konstante iz fajla constants, vazi za oba bloka
-            move_uploaded_file($tempFileName, FULL_PATH_PROF_PIC . $newFileName);
-        } else if ($path === 2) {
-            $finalDestination = SHORT_PATH_GROC_PIC . $newFileName;
-            move_uploaded_file($tempFileName, FULL_PATH_GROC_PIC . $newFileName);
-        }
+
+        $finalDestination = SHORT_PATH_PROF_PIC . $newFileName;//FULL_PATH, SHORT_PATH su konstante iz fajla constants, vazi za oba bloka
+        move_uploaded_file($tempFileName, FULL_PATH_PROF_PIC . $newFileName);
+
         return $finalDestination;
     }
 
@@ -165,8 +157,7 @@ class RegisterControl extends Register
     private function makeExtensionUsable($fileName): string
     {
         $extension = explode('.', $fileName);
-        $actualExtension = strtolower(end($extension));
-        return $actualExtension;
+        return strtolower(end($extension));
     }
 
     private function checkFNameLength(): bool
