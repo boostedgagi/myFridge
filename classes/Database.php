@@ -162,5 +162,23 @@ class Database
         return $groceries->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getGrocerieUnits(): array
+    {
+        $query = "SELECT DISTINCT SUBSTRING_INDEX(SUBSTRING_INDEX(SUBSTRING(COLUMN_TYPE, 7, LENGTH(COLUMN_TYPE) - 8), '" . ',' . "', 1 + units.i + tens.i * 10) , '" . ',' . "', -1) as units
+        FROM INFORMATION_SCHEMA.COLUMNS
+        CROSS JOIN (SELECT 0 AS i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) units
+        CROSS JOIN (SELECT 0 AS i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) tens
+        WHERE TABLE_NAME = 'suggestedGroceries' 
+        AND COLUMN_NAME = 'suggGrocUnit';";
+
+        $units = $this->connect()->prepare($query);
+        $units->execute();
+        $array = array();
+        foreach ($units as $unit) {
+            $newUnit = str_replace('\'','', $unit["units"]);
+            $array[] = $newUnit;
+        }
+        return $array;
+    }
 
 }

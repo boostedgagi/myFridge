@@ -25,7 +25,7 @@ echo "<div class='d-flex justify-content-center'><a href='roommatesRequests.php'
 
     <div id="roommateSearch" class="d-flex justify-content-center my-3">
         <input type="email" id="roommateEmailIInput" onkeyup="showResults(this.value)">
-        <button type="submit">
+        <button type="submit" onclick="sendToActionPage()">
             <img src="images/roommateSearchIcon.png" height="32" width="32" border="0px">
         </button>
     </div>
@@ -59,10 +59,10 @@ echo "<div class='d-flex justify-content-center'><a href='roommatesRequests.php'
             list+='';
             for (i; i < terms.length; i++) {
                 //actions/addnewroommateaction.php?receiverEmail='+terms[i]+' OVO JE BILO U href-u
-                list += '<li class="my-2">Add your roommate here: <span>' + terms[i] + '</span></li>';
+                list += '<li class="my-2">Click here<span><b> ' + terms[i] + '</b><span></li>';
             }
             result.innerHTML = '<ul id="resultList">' + list + '</ul>';
-                
+
             //Upisivanje email adrese u polje za dodavanje roomate na klik na mejl
 
                 const mail = document.querySelectorAll("li>span");
@@ -71,16 +71,17 @@ echo "<div class='d-flex justify-content-center'><a href='roommatesRequests.php'
                 mail.forEach(mail => {
                     mail.addEventListener("click", (e)=> {
                         input.value = e.target.innerHTML.toString();
-                        
+
                         buttonImg.src = "images/add-user.png";
                     });
-                });  
+                });
                 if(input.value === "") {
                     buttonImg.src = "images/roommateSearchIcon.png";
-                }              
-        
-            
-            
+                }
+        }
+            function sendToActionPage(){
+            var email = document.getElementById('roommateEmailIInput').value;
+            window.location='actions/addnewroommateaction.php?receiverEmail='+email+'';
         }
     </script>
 

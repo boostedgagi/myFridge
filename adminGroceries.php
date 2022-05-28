@@ -1,9 +1,11 @@
 <?php
 session_start();
+
 include "includes/adminHeader.php";
 include "includes/adminNav.php";
-include "includes/adminAddGrocerieModal.php";
 include "classes/Database.php";
+include "includes/adminAddGrocerieModal.php";
+
 ?>
     <div class="d-flex align-items-center flex-column my-3">
         <button class="btn bg-orange" data-bs-toggle="modal" data-bs-target="#adminAddGrocerie">Add new Grocerie
