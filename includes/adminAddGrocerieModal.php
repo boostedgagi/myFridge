@@ -23,7 +23,7 @@
                         <input type="text" class="form-control" id="grocerieNameId" name="grocerieName" placeholder="Apple,Banana...">
                     </div>
                     <select  name="grocerieUnit" class="form-select my-3" aria-label="selectUnit">
-                        <option selected >Select Unit</option>
+                        <option selected value="any">Select Unit</option>
                         <?php
                         $units = new Database();
                         foreach ($units->getGrocerieUnits() as $unit) {

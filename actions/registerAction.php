@@ -27,7 +27,7 @@ if (isset($_POST['regsubmit'])) {
 
     $registration = new RegisterControl($firstName, $lastName, $phone, $email, $password, $passwordRepeat, $country, $city, $fileName, $verifyingCode);
 
-    $profilePicturePath = $registration->uploadPictureLocation($fileName, $tempFileName, $fileError, $fileSize,1);
+    $profilePicturePath = $registration->uploadPictureLocation($fileName, $tempFileName, $fileError, $fileSize);
     $registration->setProfilePicturePath($profilePicturePath);
     //$registration->setVerifyingCode($verifyingCode);
     

@@ -2,7 +2,7 @@
 
 class NewGrocerieAdmin extends Database {
     protected function insertNewSuggestedGrocerie($grocerieName, $grocerieUnit, $groceriePicturePath){
-        $query = "insert into suggestedgroceries sg (sg.suggGrocName,sg.suggGrocUnit,sg.groceriePicturePath) values (?,?,?);";
+        $query = "insert into suggestedgroceries(suggGrocName,suggGrocUnit,groceriePicturePath) values (?,?,?);";
         $insert = $this->connect()->prepare($query);
         if (!$insert->execute(array($grocerieName, $grocerieUnit, $groceriePicturePath))) {
             $insert = null;

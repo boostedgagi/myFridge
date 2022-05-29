@@ -9,12 +9,10 @@ include "includes/userPageAuthentication.php";
 include "includes/login.php";
 include "includes/register.php";
 
-include "includes/addNewFridgeModal.php";
-include "includes/addNewGrocerieModal.php";
-
-
 include "classes/Database.php";
 
+include "includes/addNewFridgeModal.php";
+include "includes/addNewGrocerieModal.php";
 $listOfAllFridges = new Database();
 
 //if ($listOfAllFridges->rowCountOfFridges() > 0) {

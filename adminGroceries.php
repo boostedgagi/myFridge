@@ -32,6 +32,7 @@ include "includes/adminAddGrocerieModal.php";
             <td>" . $grocery["sGrID"] . "</td>
             <td>" . $grocery["sGrName"] . "</td>
             <td><img src='" . $grocery["sGrPicPath"] . "' height='50px' width='50px'></td>
+            <td><button onclick=\"location.href='./actions/deleteGrocerieAction.php?grocerieID=".$grocery['sGrID']."'\" class='btn btn-primary' style='background-color: #f00;'>delete</button></td>
             </tr>";
             }
             ?>
