@@ -36,25 +36,6 @@ body::-webkit-scrollbar-thumb {
 .review-text {
     font-size: 25px;
     font-family: "Playfair Display", serif;
-    display: flex;
-    
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.review-text::after, .review-text::before {
-    color: $orange;
-    display: block;
-    font-size: 80px;
-    line-height: 30px;
-}
-.review-text::after {
-    content: close-quote;
-    align-self: flex-end;
-}
-.review-text::before {
-    content: open-quote;
-    align-self: flex-start;
 }
 .bg-color {
     background-color: $yellow;
