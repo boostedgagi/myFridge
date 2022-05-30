@@ -15,33 +15,3 @@ function rotating() {
     clicked = false;
   }
 };
-
-function validation(){
-
-   let email = document.querySelector("#login-email");
-    let passwd = document.querySelector('#login-password');
-    let validRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  
-  
-    if(email.value === ""){
-      email.classList.add('is-invalid');
-    }
-    else {
-      email.classList.remove('is-invalid');
-    }
-    if(passwd.value === ""){
-      passwd.classList.add('is-invalid');
-    }
-    else {
-      passwd.classList.remove('is-invalid');
-    }
-    if(!validRegex.test(String(email).toLowerCase())){
-      email.classList.add("is-invalid");
-      document.querySelector("div > div > #login-email").value = "Please fill the right format email";
-    }
-    else{
-      email.classList.remove("is-invalid");
-      document.querySelector("div > div > #login-email").value = "Please fill the email.";
-      }
-      return passwd.value !== "" && email.value !== "" && validRegex.test(String(email).toLowerCase());
-    }

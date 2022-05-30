@@ -19,7 +19,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 #main {
-    height: auto;
+    min-height: 100vh;
 }
 .hamburger {
     display: block;

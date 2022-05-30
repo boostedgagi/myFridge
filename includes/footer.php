@@ -50,12 +50,4 @@
 ></script>
 <script src="js/main.js"></script>
 <script src="js/api.js"></script>
-<script>
-
-    let main = document.querySelector('#main').offsetHeight;
-    if(main < 965){
-        document.querySelector('#main').style.height = 100 + 'vh';
-    }
-
-</script>
 </html>

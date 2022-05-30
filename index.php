@@ -8,3 +8,4 @@ include "includes/recipes.php";
 include "includes/review.php";
 include "includes/footer.php";
 ?>
+<script src="js/loginValidation.js"></script>

@@ -16,19 +16,20 @@
                     aria-label="Close"
                 ></button>
                 <!-- LOGIN FORM -->
-                <form action="actions/loginAction.php" enctype="multipart/form-data" method="post" >
+                <form id="Login" action="actions/loginAction.php" enctype="multipart/form-data" method="post">
                     <h1 class="text-center mb-5">Log In</h1>
                     <div class="form-floating mb-3">
                         <input
-                            type="email"
+                            type="text"
                             class="form-control"
                             id="login-email"
                             name="login-email"
                             placeholder="email"
                             aria-describedby="login-email"
+                            autocomplete="off"
                         />
                         <div id="login-email" class="invalid-feedback">
-                            Please fill the email.
+                            <p id="emailError">Please fill the email.</p>
                         </div>
                         <label for="email">Email address</label>
                     </div>
@@ -41,9 +42,10 @@
                             name="login-pwd"
                             placeholder="password"
                             aria-describedby="login-password"
+                            autocomplete="off"
                         />
                         <div id="login-password" class="invalid-feedback">
-                            Please fill the password.
+                            <p>Please fill the password.</p>
                         </div>
                         <label for="login-password">Password</label>
                         <a href="passwordRecovery/passwordRecovery.php" class="mt-3">Forgot password?</a>
