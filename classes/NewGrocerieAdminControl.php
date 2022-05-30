@@ -2,7 +2,6 @@
 
 class NewGrocerieAdminControl extends NewGrocerieAdmin
 {
-
     private string $grocerieName;
     private string $grocerieUnit;
     private string $groceriePicturePath;
@@ -19,7 +18,10 @@ class NewGrocerieAdminControl extends NewGrocerieAdmin
     }
 
     public function insertNewGrocerie(){
-
+        if($this->emptyEntries()===false){
+            header("location: ../adminGroceries.php?error=empty_entries");
+            exit();
+        }
         $this->insertNewSuggestedGrocerie($this->grocerieName,$this->grocerieUnit,$this->groceriePicturePath);
     }
 
@@ -66,5 +68,21 @@ class NewGrocerieAdminControl extends NewGrocerieAdmin
     {
         $extension = explode('.', $fileName);
         return strtolower(end($extension));
+    }
+
+    private function emptyEntries():bool{
+        if(empty($this->grocerieName) || empty($this->grocerieUnit)){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    private function checkForInsertedImage():bool{
+        if($this->groceriePicturePath===""){
+            return false;
+        }
+        return true;
     }
 }

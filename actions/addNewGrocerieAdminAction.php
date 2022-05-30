@@ -1,9 +1,13 @@
 <?php
 
 include "../includes/constants.php";
-if(isset($_POST['adminGrocerieSubmit'])){
+if (isset($_POST['adminGrocerieSubmit'])) {
+
     $grocerieName = $_POST['grocerieName'];
-    $grocerieUnit = $_POST['grocerieUnit'];
+    if ($_POST['grocerieUnit'] !== 'any') {
+        $grocerieUnit = $_POST['grocerieUnit'];
+    } else
+        $grocerieUnit = "";
 
     $grocerieImage = $_FILES['grocerieImage'];
 
@@ -16,7 +20,7 @@ if(isset($_POST['adminGrocerieSubmit'])){
     include "../classes/NewGrocerieAdmin.php";
     include "../classes/NewGrocerieAdminControl.php";
 
-    $newGrocerie = new NewGrocerieAdminControl($grocerieName,$grocerieUnit,$grocerieImage);
+    $newGrocerie = new NewGrocerieAdminControl($grocerieName, $grocerieUnit, $fileName);
 
     $groceriePicturePath = $newGrocerie->uploadPictureLocation($fileName, $tempFileName, $fileError, $fileSize);
     $newGrocerie->setGrocPPPath($groceriePicturePath);
