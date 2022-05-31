@@ -19,17 +19,48 @@
                 <!-- Treba dodati action -->
                 <form method="post">
                     <h1 class="text-center mb-5">Add new Grocerie</h1>
-                    <div class="form-floating mb-3">
+                    <div class="form-floating">
                         <input
                                 type="text"
                                 class="form-control"
-                                id="floatingGrocerie"
+                                id="grocerieInput"
                                 name="grocerieName"
                                 placeholder="new grocerie name"
                         >
-                        <label for="floatingGrocerie">Insert name</label>
+                        <label for="grocerieInput">Insert name</label>
                     </div>
-                    <div class="form-floating mb-3">
+                    <div class="list-group d-flex justify-content-center" id="show-list">
+                    <script>
+
+$(document).ready(function () {
+  $("#grocerieInput").keyup(function () {
+    let searchText = $(this).val();
+    if (searchText != "") {
+      $.ajax({
+        url: "classes/GrocerieAutocomplete.php",
+        method: "post",
+        data: {
+          query: searchText,
+        },
+        success: function (response) {
+          $("#show-list").html(response);
+        },
+      });
+    } else {
+      $("#show-list").html("");
+    }
+  });
+  //Klik na jednu od ponudjenih namirnica popunjava input polje i prazni listu
+  $(document).on("click", "p", function () {
+        $("#grocerieInput").val($(this).text());
+        $("#show-list").html("");
+      
+    
+  });
+});
+                    </script>
+                    </div>
+                    <div class="form-floating my-3">
                         <select name="selectedFridge">
                             <option value="any" selected>Choose fridge</option>
                             <?php

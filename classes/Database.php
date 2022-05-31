@@ -179,4 +179,14 @@ class Database
         }
         return $array;
     }
+
+    public function GrocerieAutocomplete($inpText) {
+                $query="SELECT * FROM suggestedgroceries WHERE suggGrocName LIKE :grocerie";
+                $stmt = $this->connect()->prepare($query);
+                $stmt->execute(['grocerie' => '%' . $inpText . '%']);
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+        
+    }
 }
