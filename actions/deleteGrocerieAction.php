@@ -5,7 +5,7 @@ if(isset($_GET['grocerieID'])){
 
     include "../classes/Database.php";
     include "../classes/DeleteGrocerie.php";
-    include ".  ./classes/DeleteGrocerieControl.php";
+    include "../classes/DeleteGrocerieControl.php";
 
     $deleteGrocerie = new DeleteGrocerieControl($grocerieID);
     $deleteGrocerie->deleteGrocerie();

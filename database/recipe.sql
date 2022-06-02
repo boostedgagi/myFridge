@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: May 20, 2022 at 07:22 PM
+-- Generation Time: Jun 02, 2022 at 09:14 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -42,6 +42,21 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insertDataForPasswordRecovery` (IN 
         token,
         expires
     );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertGrocerieToFridge` (IN `grocerieName` VARCHAR(20), IN `grocerieAmount` INT(10), IN `emailAddress` VARCHAR(320), IN `fridgeName` VARCHAR(30))  BEGIN
+insert into groceries(
+    grocerieName,
+    grocerieAmount,
+    user_id,
+    fridge_id
+)
+values(
+    grocerieName,
+    grocerieAmount,
+	(select users.userID from users where users.email=emailAddress),
+    (select f.fridgeID from fridges f where f.fridgeName=fridgeName)
+);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertNewFridge` (IN `fridgeNameByUser` VARCHAR(30), IN `emailAddress` VARCHAR(320))  BEGIN
@@ -209,7 +224,8 @@ CREATE TABLE `fridgeowners` (
 INSERT INTO `fridgeowners` (`friOwnID`, `user_id`, `fridge_id`, `is_main_owner`) VALUES
 (6, 47, 6, 1),
 (7, 1, 7, 1),
-(14, 1, 14, 1);
+(14, 1, 14, 1),
+(15, 1, 15, 1);
 
 -- --------------------------------------------------------
 
@@ -230,7 +246,8 @@ CREATE TABLE `fridges` (
 INSERT INTO `fridges` (`fridgeID`, `fridgeName`, `user_id1`) VALUES
 (6, 'modalfridge1', 47),
 (7, 'fridge in restroom', 1),
-(14, 'fridge in bathroom', 1);
+(14, 'fridge in bathroom', 1),
+(15, 'vw fridge', 1);
 
 --
 -- Triggers `fridges`
@@ -289,18 +306,6 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `grocerielocation`
---
-
-CREATE TABLE `grocerielocation` (
-  `grocLocID` int(10) UNSIGNED NOT NULL,
-  `grocerie_id` int(10) UNSIGNED NOT NULL,
-  `fridge_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `groceries`
 --
 
@@ -317,8 +322,8 @@ CREATE TABLE `groceries` (
 --
 
 INSERT INTO `groceries` (`grocerieID`, `grocerieName`, `grocerieAmount`, `user_id`, `fridge_id`) VALUES
-(1, 'Apple', 7, 1, 14),
-(2, 'Banana', 20, 1, 14);
+(3, 'Potato', 10, 47, 6),
+(4, 'Apple', 10, 47, 6);
 
 -- --------------------------------------------------------
 
@@ -506,7 +511,24 @@ INSERT INTO `logevidence` (`logID`, `user_id`, `logDate`, `logTime`) VALUES
 (154, 47, '2022-05-20', '11:19:35'),
 (155, 1, '2022-05-20', '11:23:45'),
 (156, 47, '2022-05-20', '18:22:56'),
-(157, 1, '2022-05-20', '18:43:25');
+(157, 1, '2022-05-20', '18:43:25'),
+(158, 1, '2022-05-23', '12:45:50'),
+(159, 49, '2022-05-23', '13:44:19'),
+(160, 47, '2022-05-23', '14:00:47'),
+(161, 1, '2022-05-23', '14:17:23'),
+(162, 1, '2022-05-25', '00:08:38'),
+(163, 47, '2022-05-27', '21:08:04'),
+(164, 1, '2022-05-27', '21:14:54'),
+(165, 47, '2022-05-27', '21:28:38'),
+(166, 1, '2022-05-27', '21:30:55'),
+(167, 49, '2022-05-28', '12:20:38'),
+(168, 49, '2022-05-28', '12:24:39'),
+(169, 1, '2022-05-28', '12:54:55'),
+(170, 1, '2022-05-31', '12:06:14'),
+(171, 1, '2022-06-01', '14:14:49'),
+(172, 49, '2022-06-01', '14:22:38'),
+(173, 1, '2022-06-01', '14:23:23'),
+(174, 47, '2022-06-02', '08:59:37');
 
 -- --------------------------------------------------------
 
@@ -593,7 +615,8 @@ CREATE TABLE `roommates` (
 
 INSERT INTO `roommates` (`rmID`, `user1_id`, `user2_id`) VALUES
 (55, 1, 47),
-(57, 47, 49);
+(57, 47, 49),
+(59, 1, 49);
 
 -- --------------------------------------------------------
 
@@ -603,7 +626,7 @@ INSERT INTO `roommates` (`rmID`, `user1_id`, `user2_id`) VALUES
 
 CREATE TABLE `suggestedgroceries` (
   `suggGrocID` int(10) UNSIGNED NOT NULL,
-  `suggGrocName` varchar(25) NOT NULL,
+  `suggGrocName` varchar(20) NOT NULL,
   `suggGrocUnit` enum('teaspoon','tablespoon','cup','ml','l','oz','g','piece') DEFAULT NULL,
   `groceriePicturePath` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -613,8 +636,9 @@ CREATE TABLE `suggestedgroceries` (
 --
 
 INSERT INTO `suggestedgroceries` (`suggGrocID`, `suggGrocName`, `suggGrocUnit`, `groceriePicturePath`) VALUES
-(1, 'Apple', 'piece', NULL),
-(2, 'Banana', 'piece', NULL);
+(5, 'Banana', 'piece', 'groceriePictures/62923ab788ee91.00379909.jpg'),
+(12, 'Apple', 'piece', 'groceriePictures/62975bca9cc3f9.93942298.jpg'),
+(13, 'Potato', 'g', 'groceriePictures/62975c5b97c494.36670007.jpg');
 
 -- --------------------------------------------------------
 
@@ -724,14 +748,6 @@ ALTER TABLE `friendrequest`
   ADD PRIMARY KEY (`frireqID`);
 
 --
--- Indexes for table `grocerielocation`
---
-ALTER TABLE `grocerielocation`
-  ADD PRIMARY KEY (`grocLocID`),
-  ADD KEY `user_id` (`grocerie_id`),
-  ADD KEY `fridge_id` (`fridge_id`);
-
---
 -- Indexes for table `groceries`
 --
 ALTER TABLE `groceries`
@@ -825,31 +841,25 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `fridgeowners`
 --
 ALTER TABLE `fridgeowners`
-  MODIFY `friOwnID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `friOwnID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `fridges`
 --
 ALTER TABLE `fridges`
-  MODIFY `fridgeID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `fridgeID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `friendrequest`
 --
 ALTER TABLE `friendrequest`
-  MODIFY `frireqID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
-
---
--- AUTO_INCREMENT for table `grocerielocation`
---
-ALTER TABLE `grocerielocation`
-  MODIFY `grocLocID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `frireqID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `groceries`
 --
 ALTER TABLE `groceries`
-  MODIFY `grocerieID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `grocerieID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ingredients`
@@ -861,7 +871,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `logevidence`
 --
 ALTER TABLE `logevidence`
-  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
+  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
 
 --
 -- AUTO_INCREMENT for table `meals`
@@ -891,19 +901,19 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `roommates`
 --
 ALTER TABLE `roommates`
-  MODIFY `rmID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `rmID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `suggestedgroceries`
 --
 ALTER TABLE `suggestedgroceries`
-  MODIFY `suggGrocID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `suggGrocID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- Constraints for dumped tables
@@ -927,13 +937,6 @@ ALTER TABLE `fridgeowners`
 --
 ALTER TABLE `fridges`
   ADD CONSTRAINT `fridges_ibfk_1` FOREIGN KEY (`user_id1`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `grocerielocation`
---
-ALTER TABLE `grocerielocation`
-  ADD CONSTRAINT `grocerielocation_ibfk_1` FOREIGN KEY (`grocerie_id`) REFERENCES `groceries` (`grocerieID`),
-  ADD CONSTRAINT `grocerielocation_ibfk_2` FOREIGN KEY (`fridge_id`) REFERENCES `fridges` (`fridgeID`);
 
 --
 -- Constraints for table `groceries`

@@ -175,18 +175,17 @@ class Database
         $units->execute();
         $array = array();
         foreach ($units as $unit) {
-            $array[] = str_replace("'",'',$unit['units']);
+            $array[] = str_replace("'", '', $unit['units']);
         }
         return $array;
     }
 
-    public function GrocerieAutocomplete($inpText) {
-                $query="SELECT * FROM suggestedgroceries WHERE suggGrocName LIKE :grocerie";
-                $stmt = $this->connect()->prepare($query);
-                $stmt->execute(['grocerie' => '%' . $inpText . '%']);
-                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-                return $result;
-        
+    public function GrocerieAutocomplete($inpText):array{
+
+        $query = "SELECT * FROM suggestedgroceries WHERE suggGrocName LIKE ?";
+        $getGrocerie = $this->connect()->prepare($query);
+        $getGrocerie->execute(array($inpText));
+
+        return $getGrocerie->fetchAll(PDO::FETCH_ASSOC);
     }
 }
