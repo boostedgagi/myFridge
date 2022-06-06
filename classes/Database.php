@@ -188,4 +188,13 @@ class Database
 
         return $getGrocerie->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getGrocerieData():array{
+
+        $query = "SELECT * FROM grocerieData WHERE email=?";
+        $getGrocerie = $this->connect()->prepare($query);
+        $getGrocerie->execute(array($_SESSION["userEmail"]));
+
+        return $getGrocerie->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
