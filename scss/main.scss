@@ -1,224 +1,229 @@
 @import "colors";
-body, html {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: $cream;
-    height: auto;
-    //Mozilla scrollbar
-    scrollbar-color:$orange $cream;
-    scrollbar-width: thin; 
+body,
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: $cream;
+  height: auto;
+  //Mozilla scrollbar
+  scrollbar-color: $orange $cream;
+  scrollbar-width: thin;
 }
 body::-webkit-scrollbar {
-    width: 10px;
-    background-color: $cream;
+  width: 10px;
+  background-color: $cream;
 }
 body::-webkit-scrollbar-thumb {
-    background-color: $orange;
-    border-radius: 5px;
+  background-color: $orange;
+  border-radius: 5px;
 }
 
 #main {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 .hamburger {
-    display: block;
-    background-color: $gray;
-    width: 22px;
-    height: 3px;
-    margin: 4px 0;
-    transition: 0.2s ease-in-out;
+  display: block;
+  background-color: $gray;
+  width: 22px;
+  height: 3px;
+  margin: 4px 0;
+  transition: 0.2s ease-in-out;
 }
 #review {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 .review-text {
-    font-size: 25px;
-    font-family: "Playfair Display", serif;
+  font-size: 25px;
+  font-family: "Playfair Display", serif;
 }
 .bg-color {
-    background-color: $yellow;
+  background-color: $yellow;
 }
 #footer {
-    margin-top:auto;
+  margin-top: auto;
 }
 .logo {
-    width: 100%;
-    height: auto;
-    display: flex;
-    justify-content: flex-end;
-    padding: 20px 50px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 50px;
 }
 
 #resultDiv {
-    ul {
-        list-style: none;
-    }
+  ul {
+    list-style: none;
+  }
 }
 #fridges {
-    .row {
-        border-radius: 20px;
-        .FridgeList {
-            border-radius: 20px;
-        }
+  .row {
+    border-radius: 20px;
+    .FridgeList {
+      border-radius: 20px;
     }
-    width: 100%;
-    height: auto;
-    .container-lg {
+  }
+  width: 100%;
+  height: auto;
+  .container-lg {
     .fridges {
-        background-color: $white;
+      background-color: $white;
+      width: 100%;
+      border-radius: 20px;
+      height: auto;
+      margin-top: 20px;
+
+      .fridge-list {
+        list-style: none;
+        margin: 0;
+        padding: 20px 0;
         width: 100%;
-        border-radius: 20px;
-        height: auto;
-        margin-top: 20px;
-        
-       
-        .fridge-list {
-            list-style: none;
-            margin: 0;
-            padding: 20px 0;
-            width: 100%;
-            display: flex;
-            
-            .fridge-item {
-                float: left;
-                margin-left: 40px;
-                width: 100px;
-                padding: 5px 0;
-                cursor: pointer;
-                border-radius: 20px;
-            }
-            .add-fridge {
-                background-color: $red;
-                padding: 5px 0;
-                width: 100px;
-                cursor: pointer;
-                margin-right: 40px;
-                margin-left: auto;
-                border-radius: 20px;
-                a {
-                    color: $black;
-                    text-decoration: none;
-                }
-                a:hover {
-                    color: $white;
-                }
-            }
-            .add-fridge:hover {
-                color: $white;
-                
-            }
-            .fridge-item:hover {
-                background-color: $orange;
-                color: $white;
-            }
+        display: flex;
+
+        .fridge-item {
+          float: left;
+          margin-left: 40px;
+          width: 100px;
+          padding: 5px 0;
+          cursor: pointer;
+          border-radius: 20px;
         }
+        .add-fridge {
+          background-color: $red;
+          padding: 5px 0;
+          width: 100px;
+          cursor: pointer;
+          margin-right: 40px;
+          margin-left: auto;
+          border-radius: 20px;
+          a {
+            color: $black;
+            text-decoration: none;
+          }
+          a:hover {
+            color: $white;
+          }
+        }
+        .add-fridge:hover {
+          color: $white;
+        }
+        .fridge-item:hover {
+          background-color: $orange;
+          color: $white;
+        }
+      }
     }
     .groceries {
-        width: 100%;
-        height: auto;
-        margin-top: 20px;
-        background-color: $white;
-        border-radius: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      width: 100%;
+      height: auto;
+      margin-top: 20px;
+      background-color: $white;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-        .menu {
-            width: 100%;
-            height: 80px;
-            display: flex;
-            justify-content: center;
-            ul {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                list-style: none;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                li {
-                    margin: 20px 20px;
-                    border-radius: 20px;
-                    padding: 5px 20px;
-                    float: left;
-                    cursor: pointer;
-                }
-                #add {
-                    background-color: $orange;
-                    color: $white;
-                }
-                #add:hover {
-                    color: $black;
-                }
-                #add:focus {
-                    color: $black;
-                }
-                #show {
-                    background-color: $red;
-                }
-                #show:hover {
-                    color: $white;
-                }
-                #show:focus {
-                    color: $white;
-                }
-            }
+      .menu {
+        width: 100%;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        ul {
+          margin: 0;
+          padding: 0;
+          width: 100%;
+          list-style: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          li {
+            margin: 20px 20px;
+            border-radius: 20px;
+            padding: 5px 20px;
+            float: left;
+            cursor: pointer;
+          }
+          #add {
+            background-color: $orange;
+            color: $white;
+          }
+          #add:hover {
+            color: $black;
+          }
+          #add:focus {
+            color: $black;
+          }
+          #show {
+            background-color: $red;
+          }
+          #show:hover {
+            color: $white;
+          }
+          #show:focus {
+            color: $white;
+          }
         }
-        .items {
-            width: 800px;
-            height: auto;
-            padding: 10px 0;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            .item {
-                width: 150px;
-                height: 200px;
-                padding: 10px;
-                margin: 20px 20px;
-                background-color: $gray;
-                border-radius: 20px;
-                display: flex;
-                justify-content: center;
-                flex-direction: column;
-                justify-content: flex-end;
-                @media screen and (max-width:412px)  {
-                    margin: 20px 10px;
-                }
-                @media screen and (max-width:372px)  {
-                    margin: 20px 5px;
-                }
-            }
+      }
+      .items {
+        width: 800px;
+        height: auto;
+        padding: 10px 0;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        .item {
+          width: 150px;
+          height: 200px;
+          padding: 10px;
+          margin: 20px 20px;
+          background-color: $gray;
+          border-radius: 20px;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          justify-content: flex-end;
+          @media screen and (max-width: 412px) {
+            margin: 20px 10px;
+          }
+          @media screen and (max-width: 372px) {
+            margin: 20px 5px;
+          }
         }
+      }
     }
-}
+  }
 }
 #amount {
-    padding: 16px 12px;
-    border: 1px solid $border-color;
+  padding: 16px 12px;
+  border: 1px solid $border-color;
 }
 li {
-    list-style: none;
+  list-style: none;
 }
 
 #roomateList {
-    li {
-        width: 300px;
-    }
+  li {
+    width: 300px;
+  }
 }
 #userInfo {
-    width: 300px;
+  width: 300px;
 }
 
 #show-list {
-    p {
-        margin-top: 5px;
-        padding: 5px;
-        cursor: pointer;
-    }
-    p:hover {
-        background-color: #eee;
-    }
+  p {
+    margin-top: 5px;
+    padding: 5px;
+    cursor: pointer;
+  }
+  p:hover {
+    background-color: #eee;
+  }
+}
+
+.ingredients {
+  li {
+    list-style: disc !important;
+  }
 }
