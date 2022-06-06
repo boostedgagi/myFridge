@@ -17,7 +17,7 @@
                 ></button>
                 <!-- GROCERIE INSERT FORM -->
                 <!-- Treba dodati action -->
-                <form method="post">
+                <form method="post" action="./actions/addGrocerieToFridgeAction.php">
                     <h1 class="text-center mb-5">Add new Grocerie</h1>
                     <div class="form-floating">
                         <input
@@ -74,7 +74,8 @@ $(document).ready(function () {
                     </div>
                     <div class="text-center">
                         <div class="btn btn-primary rounded-2" id="minus"> -</div>
-                        <input type="text" id="amount" class="rounded-2 text-center" value="1 Amountunit" readonly>
+                        <input type="text" id="amount" name="grocerieAmount" class="rounded-2 text-center" value="1" readonly>
+                        <!-- ovde moramo da smislimo nacin da se prilikom kucanja menja jedinica mere koja se ne unosi u bazu -->
                         <div class="btn btn-primary rounded-2" id="plus"> +</div>
                         <br>
                     </div>

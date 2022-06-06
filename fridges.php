@@ -30,7 +30,7 @@ $listOfAllFridges = new Database();
                     <?php
                     if ($listOfAllFridges->rowCountOfFridges() > 0) {
                         foreach ($listOfAllFridges->getAllFridgesForCurrentUser() as $oneFridge) {
-                            echo "<li class='fridge-item d-flex justify-content-center align-items-center text-center'>". $oneFridge["fridgeName"] ."</li>";
+                            echo "<li class='fridge-item d-flex justify-content-center align-items-center text-center fridge-class fridge-for-js' onclick='changeMyColor()'>". $oneFridge["fridgeName"] ."</li>";
                         }
                     }
                     ?>
@@ -73,53 +73,29 @@ $listOfAllFridges = new Database();
                     </ul>
                 </div>
                 <div class="items">
-                    <div class="item">
-                        <img src="" alt>
-                        <h3>Title</h3>
-                        <p>In stock: </p>
-                    </div>
-                    <div class="item">
-                        <img src="" alt>
-                        <h3>Title</h3>
-                        <p>In stock: </p>
-                    </div>
-                    <div class="item">
-                        <img src="" alt>
-                        <h3>Title</h3>
-                        <p>In stock: </p>
-                    </div>
-                    <div class="item">
-                        <img src="" alt>
-                        <h3>Title</h3>
-                        <p>In stock: </p>
-                    </div>
 
-                    <div class="item">
-                        <img src="" alt>
-                        <h3>Title</h3>
-                        <p>In stock: </p>
-                    </div>
-                    <div class="item">
-                        <img src="" alt>
-                        <h3>Title</h3>
-                        <p>In stock: </p>
-                    </div>
-                    <div class="item">
-                        <img src="" alt>
-                        <h3>Title</h3>
-                        <p>In stock: </p>
-                    </div>
-                    <div class="item">
-                        <img src="" alt>
-                        <h3>Title</h3>
-                        <p>In stock: </p>
-                    </div>
+                    <?php
+                    $groceries = new Database();
+                    if(count($groceries->getGrocerieData())===0){
+                        echo "<h3>You don't have any groceries..</h3>";
+                    }
+                    foreach ($groceries->getGrocerieData() as $oneGrocerie) {
+                        echo "<div class='item'>
+                        <img src='".$oneGrocerie['gpp']."' alt>
+                        <h3>Title:".$oneGrocerie["grocerieName"]."</h3>
+                        <h3>Amount:".$oneGrocerie["grocerieAmount"]."</h3>
+                        <h4>Fridge:".$oneGrocerie["fridgeName"]."</h4>
+                    </div>";
+                    }
+                    ?>
+
                 </div>
             </div>
         </div>
 
     </section>
 <script src="js/amount.js"></script>
+<script src="js/fridges.js"></script>
 <?php
 include "includes/footer.php";
 ?>
