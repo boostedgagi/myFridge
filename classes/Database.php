@@ -182,9 +182,9 @@ class Database
 
     public function GrocerieAutocomplete($inpText):array{
 
-        $query = "SELECT * FROM suggestedgroceries WHERE suggGrocName LIKE ?";
+        $query = "SELECT * FROM suggestedgroceries WHERE suggGrocName LIKE :grocerie";
         $getGrocerie = $this->connect()->prepare($query);
-        $getGrocerie->execute(array($inpText));
+        $getGrocerie->execute(["grocerie" => '%' . $inpText . '%']);
 
         return $getGrocerie->fetchAll(PDO::FETCH_ASSOC);
     }

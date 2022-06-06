@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Jun 02, 2022 at 09:14 AM
+-- Generation Time: Jun 07, 2022 at 12:30 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -306,6 +306,20 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `groceriedata`
+-- (See below for the actual view)
+--
+CREATE TABLE `groceriedata` (
+`grocerieName` varchar(20)
+,`grocerieAmount` int(10) unsigned
+,`email` varchar(320)
+,`fridgeName` varchar(30)
+,`gpp` varchar(255)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `groceries`
 --
 
@@ -323,7 +337,10 @@ CREATE TABLE `groceries` (
 
 INSERT INTO `groceries` (`grocerieID`, `grocerieName`, `grocerieAmount`, `user_id`, `fridge_id`) VALUES
 (3, 'Potato', 10, 47, 6),
-(4, 'Apple', 10, 47, 6);
+(4, 'Apple', 10, 47, 6),
+(5, 'Apple', 9, 47, 6),
+(6, 'Banana', 6, 47, 6),
+(7, 'Potato', 5, 1, 14);
 
 -- --------------------------------------------------------
 
@@ -528,7 +545,12 @@ INSERT INTO `logevidence` (`logID`, `user_id`, `logDate`, `logTime`) VALUES
 (171, 1, '2022-06-01', '14:14:49'),
 (172, 49, '2022-06-01', '14:22:38'),
 (173, 1, '2022-06-01', '14:23:23'),
-(174, 47, '2022-06-02', '08:59:37');
+(174, 47, '2022-06-02', '08:59:37'),
+(175, 47, '2022-06-02', '21:00:14'),
+(176, 1, '2022-06-06', '14:04:42'),
+(177, 47, '2022-06-06', '14:49:50'),
+(178, 1, '2022-06-06', '14:56:18'),
+(179, 47, '2022-06-06', '15:02:05');
 
 -- --------------------------------------------------------
 
@@ -636,9 +658,9 @@ CREATE TABLE `suggestedgroceries` (
 --
 
 INSERT INTO `suggestedgroceries` (`suggGrocID`, `suggGrocName`, `suggGrocUnit`, `groceriePicturePath`) VALUES
-(5, 'Banana', 'piece', 'groceriePictures/62923ab788ee91.00379909.jpg'),
 (12, 'Apple', 'piece', 'groceriePictures/62975bca9cc3f9.93942298.jpg'),
-(13, 'Potato', 'g', 'groceriePictures/62975c5b97c494.36670007.jpg');
+(13, 'Potato', 'g', 'groceriePictures/62975c5b97c494.36670007.jpg'),
+(14, 'Banana', 'piece', 'groceriePictures/629df07ac2f2e7.34978875.jpg');
 
 -- --------------------------------------------------------
 
@@ -667,7 +689,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`userID`, `firstName`, `lastName`, `phoneNumber`, `email`, `hashedPassword`, `country`, `city`, `profilePicturePath`, `verifyingCode`, `verified`, `accType`) VALUES
 (1, 'Dragan', 'Jelic', '0649310515', 'dragan.02jelic@gmail.com', '$2y$10$lsT3VOjMJxn.64P8I21Lb.BHWqyrbs8s7YznQAizcxyu.sL8fTknS', '', '', 'profilePictures/6233aaffd0a6f5.27465359.jpg', 0, 1, 'admin'),
-(47, 'Milos', 'Milivojevic', '0987287878', 'gagimanijak@outlook.com', '$2y$10$volp8.3HbF1dxdoqDoTWHuT0vTzzAJ9bGSbsPz.drcn5C89vnchzq', '', '', 'profilePictures/623cef07aef1a7.27172149.jpg', 0, 1, 'user'),
+(47, 'Milos', 'Milivojevic', '0987287878', 'gagimanijak@outlook.com', '$2y$10$RtOilsZrz.sCP6DO0/YEpOazsM.8KdcrDw4DVEiFYNr4QeaeJb4Ci', '', '', 'profilePictures/623cef07aef1a7.27172149.jpg', 0, 1, 'user'),
 (49, 'Janika', 'Balaz', '0909876767', 'janika7@janika.bal', '$2y$10$OumObfOTlf8AOU90vMV8quCgt.n67d4km1zI/lr9omTwcuRgpW8AO', '', '', 'profilePictures/625c86b1ec3701.04899110.jpg', 0, 1, 'user');
 
 -- --------------------------------------------------------
@@ -698,6 +720,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `fridgeusersall`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `fridgeusersall`  AS SELECT `fo`.`friOwnID` AS `friOwnID`, `fri`.`fridgeName` AS `fridgeName`, `u`.`email` AS `email`, `fo`.`is_main_owner` AS `is_main_owner` FROM ((`fridgeowners` `fo` left join `users` `u` on(`u`.`userID` = `fo`.`user_id`)) left join `fridges` `fri` on(`fri`.`fridgeID` = `fo`.`fridge_id`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `groceriedata`
+--
+DROP TABLE IF EXISTS `groceriedata`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `groceriedata`  AS SELECT `gr`.`grocerieName` AS `grocerieName`, `gr`.`grocerieAmount` AS `grocerieAmount`, `u`.`email` AS `email`, `f`.`fridgeName` AS `fridgeName`, `sg`.`groceriePicturePath` AS `gpp` FROM (((`groceries` `gr` join `users` `u` on(`gr`.`user_id` = `u`.`userID`)) join `fridges` `f` on(`gr`.`fridge_id` = `f`.`fridgeID`)) join `suggestedgroceries` `sg` on(`gr`.`grocerieName` = `sg`.`suggGrocName`)) ;
 
 -- --------------------------------------------------------
 
@@ -859,7 +890,7 @@ ALTER TABLE `friendrequest`
 -- AUTO_INCREMENT for table `groceries`
 --
 ALTER TABLE `groceries`
-  MODIFY `grocerieID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `grocerieID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `ingredients`
@@ -871,7 +902,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `logevidence`
 --
 ALTER TABLE `logevidence`
-  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
+  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
 
 --
 -- AUTO_INCREMENT for table `meals`
@@ -883,7 +914,7 @@ ALTER TABLE `meals`
 -- AUTO_INCREMENT for table `passwordreset`
 --
 ALTER TABLE `passwordreset`
-  MODIFY `pwdResetID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `pwdResetID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `recipes`
@@ -907,7 +938,7 @@ ALTER TABLE `roommates`
 -- AUTO_INCREMENT for table `suggestedgroceries`
 --
 ALTER TABLE `suggestedgroceries`
-  MODIFY `suggGrocID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `suggGrocID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `users`
