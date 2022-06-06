@@ -94,7 +94,8 @@
   border: 1px solid #FF6966;
 }
 
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
@@ -385,5 +386,9 @@ li {
 
 #show-list p:hover {
   background-color: #eee;
+}
+
+.ingredients li {
+  list-style: disc !important;
 }
 /*# sourceMappingURL=main.css.map */

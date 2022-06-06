@@ -26,6 +26,7 @@
                                 id="grocerieInput"
                                 name="grocerieName"
                                 placeholder="new grocerie name"
+                                autocomplete="off"
                         >
                         <label for="grocerieInput">Insert name</label>
                     </div>
