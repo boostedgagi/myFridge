@@ -22,10 +22,10 @@ $listOfAllFridges = new Database();
 //    }
 //}
 ?>
-    <section id="fridges">
+    <section id="fridges" class="w-100">
         <div class="container-lg d-flex justify-content-center align-items-center flex-column ">
-            <div class="row fridges d-none d-lg-inline">
-                <ul class="fridge-list">
+            <div class="row fridges d-none d-lg-inline w-100 bg-white">
+                <ul class="fridge-list m-0 d-flex w-100">
 <!--                <li class="fridge-item text-center">Fridge1</li>-->
                     <?php
                     if ($listOfAllFridges->rowCountOfFridges() > 0) {
@@ -34,7 +34,7 @@ $listOfAllFridges = new Database();
                         }
                     }
                     ?>
-                    <li class="text-center add-fridge">
+                    <li class="text-center add-fridge bg-red">
                         <a
                                 href="#"
                                 data-bs-toggle="modal"
@@ -65,14 +65,14 @@ $listOfAllFridges = new Database();
                     </li>
                     </ul>
                 </div>
-            <div class="row groceries justify-content-center">
-                <div class="menu">
-                    <ul>
+            <div class="row groceries justify-content-center align-items-center bg-white w-100">
+                <div class="menu w-100 d-flex justify-content-center">
+                    <ul class="m-0 p-0 w-100 d-flex justify-content-center align-items-center">
                         <li id="add" class="text-center" data-bs-toggle="modal" data-bs-target="#addNewGrocerieModal">Add new grocerie</li>
                         <li id="show" class="text-center">Show recipes</li>
                     </ul>
                 </div>
-                <div class="items">
+                <div class="items d-flex justify-content-center flex-wrap">
 
                     <?php
                     $groceries = new Database();
@@ -80,7 +80,7 @@ $listOfAllFridges = new Database();
                         echo "<h3>You don't have any groceries..</h3>";
                     }
                     foreach ($groceries->getGrocerieData() as $oneGrocerie) {
-                        echo "<div class='item d-flex flex-column align-items-center'>
+                        echo "<div class='item d-flex flex-column align-items-center bg-gray'>
                         <img class='img-fluid' src='".$oneGrocerie['gpp']."' alt>
                         <h4 class='m-0 my-1'>Title:".$oneGrocerie["grocerieName"]."</h4>
                         <p class='m-0 align-self-start'>Amount: x".$oneGrocerie["grocerieAmount"]."</p>

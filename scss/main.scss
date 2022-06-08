@@ -30,10 +30,6 @@ body::-webkit-scrollbar-thumb {
   margin: 4px 0;
   transition: 0.2s ease-in-out;
 }
-#review {
-  display: flex;
-  justify-content: center;
-}
 .review-text {
   font-size: 25px;
   font-family: "Playfair Display", serif;
@@ -47,8 +43,6 @@ body::-webkit-scrollbar-thumb {
 .logo {
   width: 100%;
   height: auto;
-  display: flex;
-  justify-content: flex-end;
   padding: 20px 50px;
 }
 
@@ -64,22 +58,17 @@ body::-webkit-scrollbar-thumb {
       border-radius: 20px;
     }
   }
-  width: 100%;
   height: auto;
   .container-lg {
     .fridges {
       background-color: $white;
-      width: 100%;
       border-radius: 20px;
       height: auto;
       margin-top: 20px;
 
       .fridge-list {
         list-style: none;
-        margin: 0;
         padding: 20px 0;
-        width: 100%;
-        display: flex;
 
         .fridge-item {
           float: left;
@@ -90,7 +79,6 @@ body::-webkit-scrollbar-thumb {
           border-radius: 20px;
         }
         .add-fridge {
-          background-color: $red;
           padding: 5px 0;
           width: 100px;
           cursor: pointer;
@@ -116,28 +104,14 @@ body::-webkit-scrollbar-thumb {
     }
 
     .groceries {
-      width: 100%;
       height: auto;
       margin-top: 20px;
-      background-color: $white;
       border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
 
       .menu {
-        width: 100%;
         height: 80px;
-        display: flex;
-        justify-content: center;
         ul {
-          margin: 0;
-          padding: 0;
-          width: 100%;
           list-style: none;
-          display: flex;
-          justify-content: center;
-          align-items: center;
           li {
             margin: 20px 20px;
             border-radius: 20px;
@@ -170,15 +144,11 @@ body::-webkit-scrollbar-thumb {
         width: 800px;
         height: auto;
         padding: 10px 0;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
         .item {
           width: 150px;
           height: 220px;
           padding: 10px;
           margin: 20px 20px;
-          background-color: $gray;
           border-radius: 20px;
           @media screen and (max-width: 412px) {
             margin: 20px 10px;

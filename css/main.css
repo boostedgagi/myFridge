@@ -130,15 +130,6 @@ body::-webkit-scrollbar-thumb {
   transition: 0.2s ease-in-out;
 }
 
-#review {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
 .review-text {
   font-size: 25px;
   font-family: "Playfair Display", serif;
@@ -155,12 +146,6 @@ body::-webkit-scrollbar-thumb {
 .logo {
   width: 100%;
   height: auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
   padding: 20px 50px;
 }
 
@@ -169,7 +154,6 @@ body::-webkit-scrollbar-thumb {
 }
 
 #fridges {
-  width: 100%;
   height: auto;
 }
 
@@ -183,7 +167,6 @@ body::-webkit-scrollbar-thumb {
 
 #fridges .container-lg .fridges {
   background-color: #FFFDFA;
-  width: 100%;
   border-radius: 20px;
   height: auto;
   margin-top: 20px;
@@ -191,12 +174,7 @@ body::-webkit-scrollbar-thumb {
 
 #fridges .container-lg .fridges .fridge-list {
   list-style: none;
-  margin: 0;
   padding: 20px 0;
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
 }
 
 #fridges .container-lg .fridges .fridge-list .fridge-item {
@@ -209,7 +187,6 @@ body::-webkit-scrollbar-thumb {
 }
 
 #fridges .container-lg .fridges .fridge-list .add-fridge {
-  background-color: #FF6966;
   padding: 5px 0;
   width: 100px;
   cursor: pointer;
@@ -237,47 +214,17 @@ body::-webkit-scrollbar-thumb {
 }
 
 #fridges .container-lg .groceries {
-  width: 100%;
   height: auto;
   margin-top: 20px;
-  background-color: #FFFDFA;
   border-radius: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
 }
 
 #fridges .container-lg .groceries .menu {
-  width: 100%;
   height: 80px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
 }
 
 #fridges .container-lg .groceries .menu ul {
-  margin: 0;
-  padding: 0;
-  width: 100%;
   list-style: none;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
 }
 
 #fridges .container-lg .groceries .menu ul li {
@@ -317,14 +264,6 @@ body::-webkit-scrollbar-thumb {
   width: 800px;
   height: auto;
   padding: 10px 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
 }
 
 #fridges .container-lg .groceries .items .item {
@@ -332,7 +271,6 @@ body::-webkit-scrollbar-thumb {
   height: 220px;
   padding: 10px;
   margin: 20px 20px;
-  background-color: #6C757D;
   border-radius: 20px;
 }
 

@@ -1,4 +1,4 @@
-<section id="review" class="bg-cream">
+<section id="review" class="bg-cream d-flex justify-content-center">
         <div class="container my-5">
             <div class="row">
                 <div class="col-6">
