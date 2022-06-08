@@ -329,24 +329,11 @@ body::-webkit-scrollbar-thumb {
 
 #fridges .container-lg .groceries .items .item {
   width: 150px;
-  height: 200px;
+  height: 220px;
   padding: 10px;
   margin: 20px 20px;
   background-color: #6C757D;
   border-radius: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
 }
 
 @media screen and (max-width: 412px) {
@@ -361,13 +348,13 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
+#fridges .container-lg .groceries .items .item img {
+  border-radius: 20px;
+}
+
 #amount {
   padding: 16px 12px;
   border: 1px solid #ced4da;
-}
-
-li {
-  list-style: none;
 }
 
 #roomateList li {

@@ -115,8 +115,6 @@ body::-webkit-scrollbar-thumb {
       }
     }
 
-    
-
     .groceries {
       width: 100%;
       height: auto;
@@ -177,20 +175,20 @@ body::-webkit-scrollbar-thumb {
         flex-wrap: wrap;
         .item {
           width: 150px;
-          height: 200px;
+          height: 220px;
           padding: 10px;
           margin: 20px 20px;
           background-color: $gray;
           border-radius: 20px;
-          display: flex;
-          justify-content: center;
-          flex-direction: column;
-          justify-content: flex-end;
           @media screen and (max-width: 412px) {
             margin: 20px 10px;
           }
           @media screen and (max-width: 372px) {
             margin: 20px 5px;
+          }
+
+          img {
+            border-radius: 20px;
           }
         }
       }
@@ -201,9 +199,6 @@ body::-webkit-scrollbar-thumb {
   padding: 16px 12px;
   border: 1px solid $border-color;
 }
-li {
-  list-style: none;
-}
 
 #roomateList {
   li {
@@ -213,7 +208,6 @@ li {
 #userInfo {
   width: 300px;
 }
-
 #show-list {
   p {
     margin-top: 5px;

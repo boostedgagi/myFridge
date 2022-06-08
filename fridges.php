@@ -65,7 +65,7 @@ $listOfAllFridges = new Database();
                     </li>
                     </ul>
                 </div>
-            <div class="row groceries">
+            <div class="row groceries justify-content-center">
                 <div class="menu">
                     <ul>
                         <li id="add" class="text-center" data-bs-toggle="modal" data-bs-target="#addNewGrocerieModal">Add new grocerie</li>
@@ -80,11 +80,11 @@ $listOfAllFridges = new Database();
                         echo "<h3>You don't have any groceries..</h3>";
                     }
                     foreach ($groceries->getGrocerieData() as $oneGrocerie) {
-                        echo "<div class='item'>
-                        <img src='".$oneGrocerie['gpp']."' alt>
-                        <h3>Title:".$oneGrocerie["grocerieName"]."</h3>
-                        <h3>Amount:".$oneGrocerie["grocerieAmount"]."</h3>
-                        <h4>Fridge:".$oneGrocerie["fridgeName"]."</h4>
+                        echo "<div class='item d-flex flex-column align-items-center'>
+                        <img class='img-fluid' src='".$oneGrocerie['gpp']."' alt>
+                        <h4 class='m-0 my-1'>Title:".$oneGrocerie["grocerieName"]."</h4>
+                        <p class='m-0 align-self-start'>Amount: x".$oneGrocerie["grocerieAmount"]."</p>
+                        <p class='m-0'>Fridge: ".$oneGrocerie["fridgeName"]."</p>
                     </div>";
                     }
                     ?>
