@@ -93,11 +93,6 @@ class Database
 
         $getAllFridges = $this->connect()->prepare($query);
         $getAllFridges->execute(array($userEmail));
-//        if($getAllFridges->rowCount()==0){
-//            $getAllFridges=null;
-//            header("location: ./fridges.php?error=1");
-//            exit();
-//        }
         return $getAllFridges->fetchAll(PDO::FETCH_ASSOC);
     }
 
