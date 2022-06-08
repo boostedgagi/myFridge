@@ -81,7 +81,7 @@ $listOfAllFridges = new Database();
                     }
                     foreach ($groceries->getGrocerieData() as $oneGrocerie) {
                         echo "<div class='item d-flex flex-column align-items-center bg-gray'>
-                        <img class='img-fluid' src='".$oneGrocerie['gpp']."' alt>
+                        <img src='".$oneGrocerie['gpp']."' width='130' height='85' alt=''>
                         <h4 class='m-0 my-1'>Title:".$oneGrocerie["grocerieName"]."</h4>
                         <p class='m-0 align-self-start'>Amount: x".$oneGrocerie["grocerieAmount"]."</p>
                         <p class='m-0'>Fridge: ".$oneGrocerie["fridgeName"]."</p>

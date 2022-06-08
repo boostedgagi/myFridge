@@ -194,3 +194,16 @@ body::-webkit-scrollbar-thumb {
     list-style: disc !important;
   }
 }
+
+.filters {
+  border-radius: 20px;
+  min-height: 80vh;
+}
+.recipe-list {
+  border-radius: 20px;
+  min-height: 80vh;
+}
+.recipeSearch {
+  border-radius: 20px !important;
+  padding: 10px 15px;
+}
