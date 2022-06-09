@@ -43,27 +43,28 @@ $listOfAllFridges = new Database();
                 </ul>
 
             </div>
-            <div class="row fridges dropdown d-lg-none d-inline">
-                <button class="btn bg-white dropdown-toggle" type="button" id="FridgeList" data-bs-toggle="dropdown"
+            <div class="row fridges dropdown d-lg-none d-inline col-12">
+                <button class="btn bg-white dropdown-toggle p-2" type="button" id="FridgeList" data-bs-toggle="dropdown"
                         aria-expanded="false">
                     Fridge List
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="FridgeList">
+                <div class="dropdown-menu p-2" aria-labelledby="FridgeList">
                     <?php
                     if ($listOfAllFridges->rowCountOfFridges() > 0) {
                         foreach ($listOfAllFridges->getAllFridgesForCurrentUser() as $oneFridge) {
-                            echo "<li class='fridge-item text-center my-2'>" . $oneFridge["fridgeName"] . "</li>";
+                            echo "<div class='fridge-item text-center pb-2'><a class='btn bg-cream w-100'>" . $oneFridge["fridgeName"] . "</a></div>";
                         }
                     }
                     ?>
-                    <li class="fridge-item text-center add-fridge my-2">
+                    <div class="fridge-item text-center add-fridge pb-2">
                         <a
                                 href="#"
                                 data-bs-toggle="modal"
+                                class="btn bg-orange w-100"
                                 data-bs-target="#addNewFridgeModal">Add new fridge
                         </a>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
             <div class="row groceries justify-content-center align-items-center bg-white w-100">
                 <div class="menu w-100 d-flex justify-content-center">
@@ -83,7 +84,7 @@ $listOfAllFridges = new Database();
                     }
                     foreach ($groceries->getGrocerieData() as $oneGrocerie) {
                         echo "<div class='item d-flex flex-column align-items-center bg-gray'>
-                        <img class='img-fluid' src='" . $oneGrocerie['gpp'] . "' alt>
+                        <img width='130' height='90' src='" . $oneGrocerie['gpp'] . "' alt>
                         <h4 class='m-0 my-1'>Title:" . $oneGrocerie["grocerieName"] . "</h4>
                         <p class='m-0 align-self-start'>Amount: x" . $oneGrocerie["grocerieAmount"] . "</p>
                         <p class='m-0'>Fridge: " . $oneGrocerie["fridgeName"] . "</p>
