@@ -337,8 +337,31 @@ body::-webkit-scrollbar-thumb {
   color: #DD7230;
 }
 
-.recipeCard {
-  height: 200px;
+.recipeCardTemplate {
+  height: 300px;
+}
+
+.recipeCardTemplate .recipeCard {
   background-color: #6C757D;
+  border-radius: 20px;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+.recipeCardTemplate .recipeCard h3 {
+  margin: 0;
+}
+
+.recipeCardTemplate .recipeCard div {
+  height: 50%;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.recipeCardTemplate .recipeCard:hover {
+  -webkit-box-shadow: 10px 10px 0px 0px #E7E393;
+  box-shadow: 10px 10px 0px 0px #E7E393;
+  -webkit-transform: translate(5px, 10px);
+          transform: translate(5px, 10px);
 }
 /*# sourceMappingURL=main.css.map */

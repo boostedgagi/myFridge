@@ -64,19 +64,28 @@ include "includes/register.php";
                 <h1 class="text-center">Recipes</h1>
                 <div class="container-fluid">
                     <div class="row row-cols-4">
-                        <div class="col-lg-3 p-3">
-                            <div class="w-100 h-25 bg-gray recipeCard">
-                                <h1 class=" text-center">Title</h1>
+                        <div class="col-lg-3 p-3 recipeCardTemplate">
+                            <div class="h-100 recipeCard">
+                                <h3 class=" text-center">Title</h3>
                             </div>
                         </div>
-                        <div class="col-lg-3 p-3 recipeCard">
-                            <h1 class="bg-orange text-center">Title</h1>
+                        <div class="col-lg-3 p-3 recipeCardTemplate">
+                            <div class="h-100 recipeCard">
+                                <div class="bg-orange">nesto</div>
+                                <p>Breakfast</p>
+                                <h3 class=" text-center">Title</h3>
+                                <p class="h5 align-self-bottom"><i class="bi bi-clock-history"></i>&nbsp;20 min</p>
+                            </div>
                         </div>
-                        <div class="col-lg-3 p-3 recipeCard">
-                            <h1 class="bg-orange text-center">Title</h1>
+                        <div class="col-lg-3 p-3 recipeCardTemplate">
+                            <div class="h-100 recipeCard">
+                                <h3 class=" text-center">Title</h3>
+                            </div>
                         </div>
-                        <div class="col-lg-3 p-3 recipeCard">
-                            <h1 class="bg-orange text-center">Title</h1>
+                        <div class="col-lg-3 p-3 recipeCardTemplate">
+                            <div class="h-100 recipeCard">
+                                <h3 class=" text-center">Title</h3>
+                            </div>
                         </div>
                     </div>
                 </div>

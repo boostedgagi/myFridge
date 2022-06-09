@@ -211,7 +211,26 @@ body::-webkit-scrollbar-thumb {
 .accordion-button:not(.collapsed) {
   color: $orange;
 }
-.recipeCard {
-  height: 200px;
-  background-color: $gray;
+.recipeCardTemplate {
+  height: 300px;
+  .recipeCard {
+    background-color: $gray;
+    border-radius: 20px;
+    // padding: 10px;
+    transition: 0.2s ease-in-out;
+    h3 {
+      margin: 0;
+    }
+    div {
+      height: 50%;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+
+    }
+  }
+  .recipeCard:hover {
+    -webkit-box-shadow: 10px 10px 0px 0px $cream; 
+    box-shadow: 10px 10px 0px 0px $cream;
+    transform: translate(5px, 10px);
+  }
 }
