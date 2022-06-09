@@ -14,7 +14,7 @@ include "classes/Database.php";
         </div>
 
     </div>
-    <form action="" id="add-ingredients">
+    <form action="./actions/newRecipeAction.php" method="POST" id="add-ingredients">
         <div id="form-items">
             <div class="row justify-content-center mb-2">
                 <div class="text-end align-self-center col-2 col-md-2 col-lg-1 col-form-label">
@@ -86,18 +86,17 @@ include "classes/Database.php";
                         <button class="btn bg-orange" type="button" id="add">Add</button>
                     </div>
                 </div>
-
-
             </div>
         </div>
         <div class="row justify-content-center mb-2">
             <div class="col-10 col-md-8 col-lg-5 text-end">
-                <input type="submit" class="btn bg-orange" id="submit" name="submit">
+                <input type="submit" name="ingredients[]" class="btn bg-orange" id="submit" name="submit">
             </div>
         </div>
     </form>
 </div>
 <?php
+
 include 'includes/footer.php';
 ?>
 
@@ -118,10 +117,11 @@ include 'includes/footer.php';
         });
         $('submit').click(function() {
             $.ajax({
-                url: "promena.php",
+                url: "../actions/newRecipeAction.php",
                 method: "POST",
                 data: $("add-ingredients").serialize(),
                 success: function(data) {
+                    alert(data);
                     $('#add-ingredients')[0].reset();
                 }
             });

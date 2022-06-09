@@ -4,17 +4,18 @@ if(isset($_POST["submitRecipe"])){
     session_start();
     $title = $_POST["recipeTitle"];
     $lastName = $_POST["recipeCategory"];//id
-    $phoneNumber = $_POST["recipeMail"];//id
+    $recipeTime = $_POST["recipeTime"];//id
     $oldPicture = $_POST["oldPicture"];
-    $email = $_SESSION["userEmail"];
+    $arrayOfIngredients = $_POST["ingredients"];
+    foreach ($arrayOfIngredients as $arrayOfIngredient) {
+        echo $arrayOfIngredient;
+    }
+    $file = $_FILES['recipePicture'];
 
-    $file = $_FILES['edit-prof-img-path'];
-
-    $fileName = $_FILES['edit-prof-img-path']['name'];
-    $tempFileName = $_FILES['edit-prof-img-path']['tmp_name'];
-    $fileError = $_FILES['edit-prof-img-path']['error'];
-    $fileSize = $_FILES['edit-prof-img-path']['size'];
-
+    $fileName = $_FILES['recipePicture']['name'];
+    $tempFileName = $_FILES['recipePicture']['tmp_name'];
+    $fileError = $_FILES['recipePicture']['error'];
+    $fileSize = $_FILES['recipePicture']['size'];
 
     include "../classes/Database.php";
     include "../classes/EditUser.php";
