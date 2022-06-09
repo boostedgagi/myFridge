@@ -24,14 +24,13 @@ if (isset($_POST['regsubmit'])) {
     include "../classes/Database.php";
     include "../classes/Register.php";
     include "../classes/RegisterControl.php";
+    include "../classes/Image.php";
 
-    $registration = new RegisterControl($firstName, $lastName, $phone, $email, $password, $passwordRepeat, $country, $city, $fileName, $verifyingCode);
+    $image = new Image($fileName, $tempFileName, $fileError, $fileSize,'registerUser');
+    $registration = new RegisterControl($firstName, $lastName, $phone, $email, $password, $passwordRepeat, $country, $city,$image->handlePictureAndItsLocation(), $verifyingCode);
 
-    $profilePicturePath = $registration->uploadPictureLocation($fileName, $tempFileName, $fileError, $fileSize);
-    $registration->setProfilePicturePath($profilePicturePath);
-    //$registration->setVerifyingCode($verifyingCode);
-    
-    //ovo ce se kod unosa novih slika namirnica upisivati naknadno kao i ovde samo u klasi za upis namirnica
+    //$registration->setProfilePicturePath($image->handlePictureAndItsLocation());
+    $registration->setVerifyingCode($verifyingCode);
 
     $registration->registerNewUser();
     header("location: ../index.php?registered_successfully");

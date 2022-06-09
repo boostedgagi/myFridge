@@ -21,7 +21,7 @@ class LoginControl extends Login{
             exit();
         }
         if($this->checkForUserAllowanceStatus()===false){
-            header("location:../index.php?error=you_are_not_allowed_to_log_in");
+            header("location:../index.php?error=log_in_is_not_possible");
             exit();
         }
         $this->logInUserBase($this->email, $this->password);

@@ -1,12 +1,13 @@
 <?php
 include "includes/header.php";
 include "includes/nav.php";
-include "includes/userPageAuthentication.php";
-include "includes/editUserDataModal.php";
 include "classes/Database.php";
 
+include "includes/userPageAuthentication.php";
+include "includes/editUserDataModal.php";
+
 ?>
-    <h3 class="text-center">Hi <?php echo $_SESSION["userFirstName"] . ", this is your info."; ?></h3>
+    <h3 class="text-center">Hi <?php echo $_SESSION["userFirstName"] . ", this is your data."; ?></h3>
     <div class="userInfoContainer d-flex align-items-center flex-column my-3">
         <div class="p-3 bg-white rounded-2" id="userInfo">
             <?php
@@ -19,11 +20,13 @@ include "classes/Database.php";
             }
             ?>
             <div class="d-flex justify-content-center">
-                <button 
-                class="btn bg-orange text-cream" 
-                data-bs-toggle="modal"
-                data-bs-target="#editUser"
-                >Edit data</button>
+                <button
+                        name="editUserDataButton"
+                        class="btn bg-orange text-cream"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editUser"
+                >Edit data
+                </button>
             </div>
         </div>
     </div>
