@@ -19,14 +19,48 @@ include "includes/register.php";
         </div>
     <div id="collapseOne" class="accordion-collapse collapse container-fluid p-0" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
       <div class="accordion-body bg-white filters">
-            <div class="row">
-                <div class="col-4">
+            <div class="row row-cols-3">
+                <div class="col-12 col-md-6 col-lg-4 my-2">
                 <div class="input-group">
-                    <input type="number" class="form-control" placeholder="Price limit">
+                    <input type="number" class="form-control" placeholder="Price limit" min="0">
                     <label class="input-group-text">$</label>
+                    <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" value="" id="budget" aria-label="Checkbox for following text input">
+                    <label for="budget"> &nbsp Budget</label>
+                    </div>
                 </div>
                 </div>
+
+                <div class="col-12 col-md-6 col-lg-4 my-2">
+                <select class="form-select" name="category" id="category">
+            <option selected>Select category</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+        </select>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 my-2">
+                <select class="form-select" name="meal" id="meal">
+            <option selected>Select Meal</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+        </select>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 my-2">
+                <div class="input-group">
+                    <input type="number" class="form-control" placeholder="Est. Time" min="0">
+                    <label class="input-group-text">min</label>
+                </div>
+                </div>
+            
             </div>
+
+
+            
+                
+                
+            
       </div>
     </div>
     </div>
@@ -35,8 +69,26 @@ include "includes/register.php";
     <div class="col-12 col-sm-10 col-lg-9">
     <div class="bg-white recipe-list p-3">
         <h1 class="text-center">Recipes</h1>
+        <div class="container-fluid">
+            <div class="row row-cols-4">
+                <div class="col-lg-3 p-3">
+                    <h1 class="bg-orange">Hello</h1>
+                </div>
+                <div class="col-lg-3 p-3">
+                    <h1 class="bg-orange">Hello</h1>
+                </div>
+                <div class="col-lg-3 p-3">
+                    <h1 class="bg-orange">Hello</h1>
+                </div>
+                <div class="col-lg-3 p-3">
+                    <h1 class="bg-orange">Hello</h1>
+                </div>
+            </div>
+        </div>
     </div>
+    
     </div>
+    
 </div>
 </div>
 

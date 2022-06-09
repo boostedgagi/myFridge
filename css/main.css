@@ -332,4 +332,8 @@ body::-webkit-scrollbar-thumb {
   border-radius: 20px !important;
   padding: 10px 15px;
 }
+
+.accordion-button:not(.collapsed) {
+  color: #DD7230;
+}
 /*# sourceMappingURL=main.css.map */

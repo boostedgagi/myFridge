@@ -10,7 +10,7 @@ $usernamesListForAutocomplete = $dbObj1->getAllUsernames();
 $dbObj2 = new Database();
 $newRoommateRequests =$dbObj2->checkForNewRoommateRequests(" limit 1");
 
-
+echo "<div class='container-lg'>";
 
 foreach ($newRoommateRequests as $request){
     echo "Your newest roommate request!<br>";
@@ -22,17 +22,22 @@ echo "<div class='d-flex justify-content-center'><a href='roommatesRequests.php'
     <h3 class="text-center my-3">Add your roommate, and cook together with him!</h3>
     <!--riki ovo ces
     ovde ti da menjas i da trpas sve na sredinu, ja sam stavio minimalmo stvari koje su mi potrebne za izradu funkcionalnosti-->
-
-    <div id="roommateSearch" class="d-flex justify-content-center my-3">
-        <input type="email" id="roommateEmailIInput" onkeyup="showResults(this.value)">
+    <div class="row justify-content-center my-1">
+        <div class="col-6">
+    <div id="roommateSearch" class="d-flex justify-content-center mt-3">
+        <input type="email" id="roommateEmailIInput" class="form-control" onkeyup="showResults(this.value)">
         <button type="submit" onclick="sendToActionPage()">
             <img src="images/roommateSearchIcon.png" height="32" width="32" border="0px">
         </button>
+        
     </div>
-    <div id="resultDiv" class="text-center mt-3">
-
+    <div id="show-list" class="text-center d-flex justify-content-center">
+    
     </div>
-    <!--script src="js/roommates.js"-->
+    </div>
+    </div>
+    
+    <!-- <script src="js/roommates.js"></script> -->
     <script>
 
         let autocompleteArray = JSON.parse('<?php echo json_encode($usernamesListForAutocomplete);?>');
@@ -51,7 +56,8 @@ echo "<div class='d-flex justify-content-center'><a href='roommatesRequests.php'
         }
 
         function showResults(val) {
-            let result = document.getElementById("resultDiv");
+            let result = document.getElementById("show-list");
+            let resultList = document.querySelector("#list-result");
             result.innerHTML = '';
             let list = '';
             let terms = autocompleteMatch(val);
@@ -59,26 +65,25 @@ echo "<div class='d-flex justify-content-center'><a href='roommatesRequests.php'
             list+='';
             for (i; i < terms.length; i++) {
                 //actions/addnewroommateaction.php?receiverEmail='+terms[i]+' OVO JE BILO U href-u
-                list += '<li class="my-2">Click here<span><b> ' + terms[i] + '</b><span></li>';
+                list += '<div class="my-2 border-bottom">Click here<span><b> ' + terms[i] + '</b><span></div>';
             }
-            result.innerHTML = '<ul id="resultList">' + list + '</ul>';
+            result.innerHTML ='<div class="bg-white p-3 w-100 rounded-2" id="list-result">' +  list + '</div>';
+            
+             //Upisivanje email adrese u polje za dodavanje roomate na klik na mejl
 
-            //Upisivanje email adrese u polje za dodavanje roomate na klik na mejl
-
-                const mail = document.querySelectorAll("li>span");
+                const mail = document.querySelectorAll("div>span>b");
                 const input = document.querySelector("#roommateEmailIInput");
                 const buttonImg = document.querySelector("button>img");
                 mail.forEach(mail => {
                     mail.addEventListener("click", (e)=> {
                         input.value = e.target.innerHTML.toString();
-
                         buttonImg.src = "images/add-user.png";
                     });
                 });
                 if(input.value === "") {
                     buttonImg.src = "images/roommateSearchIcon.png";
                 }
-        }
+            }
             function sendToActionPage(){
             var email = document.getElementById('roommateEmailIInput').value;
             window.location='actions/addnewroommateaction.php?receiverEmail='+email+'';
@@ -95,6 +100,8 @@ echo "<div class='d-flex justify-content-center'><a href='roommatesRequests.php'
         ?>
         </ul>
     </div>
+
 <?php
+echo "</div>";
 include "includes/footer.php";
 ?>
