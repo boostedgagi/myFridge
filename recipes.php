@@ -65,16 +65,18 @@ include "includes/register.php";
                 <div class="container-fluid">
                     <div class="row row-cols-4">
                         <div class="col-lg-3 p-3">
-                            <h1 class="bg-orange">Hello</h1>
+                            <div class="w-100 h-25 bg-gray recipeCard">
+                                <h1 class=" text-center">Title</h1>
+                            </div>
                         </div>
-                        <div class="col-lg-3 p-3">
-                            <h1 class="bg-orange">Hello</h1>
+                        <div class="col-lg-3 p-3 recipeCard">
+                            <h1 class="bg-orange text-center">Title</h1>
                         </div>
-                        <div class="col-lg-3 p-3">
-                            <h1 class="bg-orange">Hello</h1>
+                        <div class="col-lg-3 p-3 recipeCard">
+                            <h1 class="bg-orange text-center">Title</h1>
                         </div>
-                        <div class="col-lg-3 p-3">
-                            <h1 class="bg-orange">Hello</h1>
+                        <div class="col-lg-3 p-3 recipeCard">
+                            <h1 class="bg-orange text-center">Title</h1>
                         </div>
                     </div>
                 </div>

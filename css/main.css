@@ -336,4 +336,9 @@ body::-webkit-scrollbar-thumb {
 .accordion-button:not(.collapsed) {
   color: #DD7230;
 }
+
+.recipeCard {
+  height: 200px;
+  background-color: #6C757D;
+}
 /*# sourceMappingURL=main.css.map */

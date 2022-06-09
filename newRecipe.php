@@ -120,8 +120,9 @@ include 'includes/footer.php';
             $.ajax({
                 url: "promena.php",
                 method: "POST",
-                data: $("add-ingredients").serialize(),
+                data: $("add-ingredients"),
                 success: function(data) {
+                    alert(data);
                     $('#add-ingredients')[0].reset();
                 }
             });
