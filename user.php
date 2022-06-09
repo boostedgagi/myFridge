@@ -13,10 +13,10 @@ include "includes/editUserDataModal.php";
             <?php
             $userData = new Database();
             foreach ($userData->getUserData() as $dataRow) {
-                echo "<ul class='d-flex align-items-center flex-column p-0'><li class='mb-1'><img src=" . $dataRow["pppath"] . " class='rounded-circle border-3 border-orange' height='80px' width='80px'></li>";
-                echo "<li class='mb-2'><h3>" . $dataRow["firstName"] . " " . $dataRow["lastName"] . "</h3></li>";
-                echo "<li class='mb-2'>" . $dataRow["email"] . "</li>";
-                echo "<li class='mb-2'>" . $dataRow["phoneNumber"] . "</li></ul>";
+                echo "<div class='d-flex align-items-center flex-column p-0'><div class='mb-1'><img src=" . $dataRow["pppath"] . " class='rounded-circle border-3 border-orange' height='80px' width='80px'></div>";
+                echo "<div class='mb-2'><h3>" . $dataRow["firstName"] . " " . $dataRow["lastName"] . "</h3></div>";
+                echo "<div class='mb-2'>" . $dataRow["email"] . "</div>";
+                echo "<div class='mb-2'>" . $dataRow["phoneNumber"] . "</div></div>";
             }
             ?>
             <div class="d-flex justify-content-center">

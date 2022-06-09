@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Jun 07, 2022 at 12:30 AM
+-- Generation Time: Jun 09, 2022 at 01:25 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -151,6 +151,17 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sendRoommateRequest` (IN `senderEma
     );
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateUserData` (IN `newFirstName` VARCHAR(30), IN `newLastName` VARCHAR(40), IN `newPhoneNumber` VARCHAR(10), IN `newProfPicPath` VARCHAR(255), IN `oldEmail` VARCHAR(320))  BEGIN
+    UPDATE users u
+SET 
+    u.firstName = newFirstName,
+    u.lastName = newLastName,
+    u.phoneNumber = newPhoneNumber,
+    u.profilePicturePath = newProfPicPath
+WHERE
+    email=oldEmail;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `verifyRegisteredUser` (IN `emailAddress` VARCHAR(320), IN `verificationCode` INT(10))  BEGIN
     UPDATE users SET verified=1, verifyingCode = 0 where email=emailAddress and verifyingCode=verificationCode;
 END$$
@@ -191,7 +202,8 @@ CREATE TABLE `allowedusers` (
 INSERT INTO `allowedusers` (`allowedUsersID`, `user_id`) VALUES
 (5, 1),
 (8, 47),
-(9, 49);
+(9, 49),
+(50, 55);
 
 -- --------------------------------------------------------
 
@@ -550,7 +562,13 @@ INSERT INTO `logevidence` (`logID`, `user_id`, `logDate`, `logTime`) VALUES
 (176, 1, '2022-06-06', '14:04:42'),
 (177, 47, '2022-06-06', '14:49:50'),
 (178, 1, '2022-06-06', '14:56:18'),
-(179, 47, '2022-06-06', '15:02:05');
+(179, 47, '2022-06-06', '15:02:05'),
+(180, 1, '2022-06-08', '21:50:28'),
+(181, 47, '2022-06-08', '21:55:07'),
+(182, 1, '2022-06-09', '09:54:56'),
+(183, 47, '2022-06-09', '10:27:09'),
+(184, 1, '2022-06-09', '12:54:32'),
+(185, 55, '2022-06-09', '13:02:39');
 
 -- --------------------------------------------------------
 
@@ -650,17 +668,16 @@ CREATE TABLE `suggestedgroceries` (
   `suggGrocID` int(10) UNSIGNED NOT NULL,
   `suggGrocName` varchar(20) NOT NULL,
   `suggGrocUnit` enum('teaspoon','tablespoon','cup','ml','l','oz','g','piece') DEFAULT NULL,
-  `groceriePicturePath` varchar(255) DEFAULT NULL
+  `groceriePicturePath` varchar(255) DEFAULT NULL,
+  `price` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `suggestedgroceries`
 --
 
-INSERT INTO `suggestedgroceries` (`suggGrocID`, `suggGrocName`, `suggGrocUnit`, `groceriePicturePath`) VALUES
-(12, 'Apple', 'piece', 'groceriePictures/62975bca9cc3f9.93942298.jpg'),
-(13, 'Potato', 'g', 'groceriePictures/62975c5b97c494.36670007.jpg'),
-(14, 'Banana', 'piece', 'groceriePictures/629df07ac2f2e7.34978875.jpg');
+INSERT INTO `suggestedgroceries` (`suggGrocID`, `suggGrocName`, `suggGrocUnit`, `groceriePicturePath`, `price`) VALUES
+(17, 'Banana', 'g', 'groceriePictures/62a1d17f1c1af1.27889228.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -680,17 +697,19 @@ CREATE TABLE `users` (
   `profilePicturePath` varchar(255) DEFAULT NULL,
   `verifyingCode` int(10) UNSIGNED DEFAULT NULL,
   `verified` int(1) UNSIGNED DEFAULT NULL,
-  `accType` enum('admin','user') NOT NULL
+  `accType` enum('admin','user') NOT NULL,
+  `wallet` int(10) UNSIGNED DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userID`, `firstName`, `lastName`, `phoneNumber`, `email`, `hashedPassword`, `country`, `city`, `profilePicturePath`, `verifyingCode`, `verified`, `accType`) VALUES
-(1, 'Dragan', 'Jelic', '0649310515', 'dragan.02jelic@gmail.com', '$2y$10$lsT3VOjMJxn.64P8I21Lb.BHWqyrbs8s7YznQAizcxyu.sL8fTknS', '', '', 'profilePictures/6233aaffd0a6f5.27465359.jpg', 0, 1, 'admin'),
-(47, 'Milos', 'Milivojevic', '0987287878', 'gagimanijak@outlook.com', '$2y$10$RtOilsZrz.sCP6DO0/YEpOazsM.8KdcrDw4DVEiFYNr4QeaeJb4Ci', '', '', 'profilePictures/623cef07aef1a7.27172149.jpg', 0, 1, 'user'),
-(49, 'Janika', 'Balaz', '0909876767', 'janika7@janika.bal', '$2y$10$OumObfOTlf8AOU90vMV8quCgt.n67d4km1zI/lr9omTwcuRgpW8AO', '', '', 'profilePictures/625c86b1ec3701.04899110.jpg', 0, 1, 'user');
+INSERT INTO `users` (`userID`, `firstName`, `lastName`, `phoneNumber`, `email`, `hashedPassword`, `country`, `city`, `profilePicturePath`, `verifyingCode`, `verified`, `accType`, `wallet`) VALUES
+(1, 'Dragan', 'Jelic', '0649310515', 'dragan.02jelic@gmail.com', '$2y$10$lsT3VOjMJxn.64P8I21Lb.BHWqyrbs8s7YznQAizcxyu.sL8fTknS', '', '', 'profilePictures/6233aaffd0a6f5.27465359.jpg', 0, 1, 'admin', NULL),
+(47, 'Filip', 'Marjan', '0983333000', 'gagimanijak@outlook.com', '$2y$10$RtOilsZrz.sCP6DO0/YEpOazsM.8KdcrDw4DVEiFYNr4QeaeJb4Ci', '', '', 'profilePictures/62a1d1498b49c1.84240377.jpg', 0, 1, 'user', NULL),
+(49, 'Sladjan', 'Delibasic', '0645632514', 'janika7@janika.bal', '$2y$10$OumObfOTlf8AOU90vMV8quCgt.n67d4km1zI/lr9omTwcuRgpW8AO', '', '', '', 0, 1, 'user', NULL),
+(55, 'adnjela', 'jokic', '0987676767', 'jokic@jokic.jokic', '$2y$10$3rI8fEObNX0xa5id/r2ayOfLeaTneYJcLWuofujVrPKkUfS8SFXLq', '', '', 'profilePictures/62a1d425e530b5.39667141.jpg', 0, 1, 'user', 0);
 
 -- --------------------------------------------------------
 
@@ -860,7 +879,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `allowedusers`
 --
 ALTER TABLE `allowedusers`
-  MODIFY `allowedUsersID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `allowedUsersID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -902,7 +921,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `logevidence`
 --
 ALTER TABLE `logevidence`
-  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
+  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=186;
 
 --
 -- AUTO_INCREMENT for table `meals`
@@ -938,13 +957,13 @@ ALTER TABLE `roommates`
 -- AUTO_INCREMENT for table `suggestedgroceries`
 --
 ALTER TABLE `suggestedgroceries`
-  MODIFY `suggGrocID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `suggGrocID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- Constraints for dumped tables
