@@ -21,21 +21,14 @@ include "includes/register.php";
       <div class="accordion-body bg-white filters">
             <div class="row">
                 <div class="col-4">
-                    <input type="text">
+                <div class="input-group">
+                    <input type="number" class="form-control" placeholder="Price limit">
+                    <label class="input-group-text">$</label>
+                </div>
                 </div>
             </div>
       </div>
     </div>
- 
-
-        <!-- <div class="collapse w-100 bg-white filters my-2" id="collapseExample">
-        <form action="">
-            <div class="input-group">
-            <input type="number" class="form-control">
-            <label class="input-group-text">$</label>
-            </div>
-        </form>
-        </div> -->
     </div>
 </div>
 <div class="row g-3 justify-content-center">
