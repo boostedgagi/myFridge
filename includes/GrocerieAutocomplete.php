@@ -17,4 +17,3 @@ if(isset($_POST['query'])){
     echo "<p class='rounded-1 border-bottom border-1'>No results</p>";
     }
 }
-?>
