@@ -209,4 +209,24 @@ class Database
 
         return $meals->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function allowUserAndSeeTheirData(): array
+    {
+        $query = "
+        SELECT
+            u.firstName AS firstName,
+            u.lastName AS lastName,
+            u.email AS email,
+            u.phoneNumber AS phoneNumber,
+            u.profilePicturePath as pppath
+        FROM
+            users u
+        WHERE
+            email = ?
+        ";
+        $userData = $this->connect()->prepare($query);
+        $userData->execute(array($_SESSION['userEmail']));
+
+        return $userData->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

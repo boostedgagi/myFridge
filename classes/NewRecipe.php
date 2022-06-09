@@ -19,7 +19,7 @@ class NewRecipe extends Database
         $last_id = $this->makeNewRecipe($title, $categoryID, $mealID, $time, $userEmail, $recipeImagePath);
         foreach($ingredients as $ingredient){
             $insertIngredients = $this->connect()->prepare('call insertIngredient(?,?,?)');
-            
+
         }
     }
 
