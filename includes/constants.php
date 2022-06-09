@@ -9,7 +9,7 @@ define('COUNTRY_LENGTH',30);
 define('CITY_LENGTH',20);
 define('FNAME_LENGTH',30);
 define('LNAME_LENGTH',40);
-define('PHONE_NUMBER-LENGTHS',array(9,10));
+define('PHONE_NUMBER_LENGTHS',array(9,10));
 define('NO_PROF_PIC_PIC','images/johnDoe.png');
 define('NO_GROC_PIC_PIC','groceriePictures/grocDoe.png');
 define('CODE_MIN',100000000);

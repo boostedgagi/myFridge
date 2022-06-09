@@ -20,11 +20,13 @@ include "includes/editUserDataModal.php";
             }
             ?>
             <div class="d-flex justify-content-center">
-                <button 
-                class="btn bg-orange text-cream" 
-                data-bs-toggle="modal"
-                data-bs-target="#editUser"
-                >Edit data</button>
+                <button
+                        name="editUserDataButton"
+                        class="btn bg-orange text-cream"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editUser"
+                >Edit data
+                </button>
             </div>
         </div>
     </div>

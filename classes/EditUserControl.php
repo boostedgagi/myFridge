@@ -17,10 +17,63 @@ class EditUserControl extends EditUser{
         $this->email = $email;
     }
 
+    public function updateUser(){
+        if ($this->emptyEntries() === false) {
+            header("location: ../user.php?error=no_empty_entries_allowed");
+            exit();
+        }
+        if ($this->checkFNameLength() === false) {
+            header("location: ../user.php?error=first_name_is_too_long");
+            exit();
+        }
+        if ($this->checkLNameLength() === false) {
+            header("location: ../user.php?error=last_name_is_too_long");
+            exit();
+        }
+        if ($this->validPhoneNumber() === false) {
+            header("location: ../user.php?error=phone_length_is_invalid");
+            exit();
+        }
 
-    //empty entries
+        $this->updateUserBase($this->firstName,$this->lastName,$this->phoneNumber,$this->profPicPath,$this->email);
+    }
 
-    //provera slova i validnosti podataka, email se hvata na osnovu sessiona
+    public function setProfPicPath(string $profPicPath): void
+    {
+        $this->profPicPath = $profPicPath;
+    }
 
-    //povlacenje putanje za sliku i ostalo
+    private function emptyEntries(): bool
+    {
+        if(empty($this->firstName) || empty($this->lastName) || empty($this->phoneNumber)){
+            return false;
+        }
+        return true;
+    }
+
+    private function checkFNameLength(): bool
+    {
+        require_once "../includes/constants.php";
+        if (strlen($this->firstName) < FNAME_LENGTH) {
+            return true;
+        }
+        return false;
+    }
+
+    private function checkLNameLength(): bool
+    {
+        require_once "../includes/constants.php";
+        if(strlen($this->lastName) < LNAME_LENGTH) {
+            return true;
+        }
+        return false;
+    }
+
+    private function validPhoneNumber(): bool
+    {
+        if (in_array(strlen($this->phoneNumber), PHONE_NUMBER_LENGTHS)) {
+            return true;
+        }
+        return false;
+    }
 }

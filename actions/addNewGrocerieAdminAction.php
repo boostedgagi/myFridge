@@ -19,12 +19,12 @@ if (isset($_POST['adminGrocerieSubmit'])) {
     include "../classes/Database.php";
     include "../classes/NewGrocerieAdmin.php";
     include "../classes/NewGrocerieAdminControl.php";
+    include "../classes/Image.php";
 
-    $newGrocerie = new NewGrocerieAdminControl($grocerieName, $grocerieUnit, $fileName);
+    $image = new Image($fileName, $tempFileName, $fileError, $fileSize,'adminGrocerie');
 
-    $groceriePicturePath = $newGrocerie->uploadPictureLocation($fileName, $tempFileName, $fileError, $fileSize);
-    $newGrocerie->setGrocPPPath($groceriePicturePath);
+    $newGrocerie = new NewGrocerieAdminControl($grocerieName, $grocerieUnit,$image->handlePictureAndItsLocation());
 
     $newGrocerie->insertNewGrocerie();
-    header("location: ../adminGroceries.php?status=insert_succedded");
+    header("location: ../adminGroceries.php?status=insert_succeeded");
 }

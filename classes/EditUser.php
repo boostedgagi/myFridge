@@ -1,7 +1,7 @@
 <?php
 
 class EditUser extends Database{
-    protected function updateUserData($firstName,$lastName,$phoneNumber,$profPicPath,$email):void{
+    protected function updateUserBase($firstName,$lastName,$phoneNumber,$profPicPath,$email):void{
         $query = "call updateUserData(?,?,?,?,?)";
         $insertGrocerie = $this->connect()->prepare($query);
 
