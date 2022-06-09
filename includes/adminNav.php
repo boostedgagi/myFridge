@@ -24,7 +24,7 @@
                     </ul>
                 </li>
                 <li class="nav-item ms-1">
-                    <a href="#" class="nav-link text-black">Users</a>
+                    <a href="./adminUsers.php" class="nav-link text-black">Users</a>
                 </li>
                 <li class="nav-item ms-1">
                     <a href="adminGroceries.php" class="nav-link text-black">Groceries</a>
