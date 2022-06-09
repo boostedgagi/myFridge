@@ -35,8 +35,12 @@ session_start();
                     <a href="fridges.php" class="nav-link text-black">Fridges</a>
                 </li>
                 <li class="nav-item ms-1">
+                    <a href="recipes.php" class="nav-link text-black">Recipes</a>
+                </li>
+                <li class="nav-item ms-1">
                     <a href="roommates.php" class="nav-link text-black">Roommates</a>
                 </li>
+                
                 <!--li class="nav-item d-inline d-md-none ms-1">
                     <a
                             href="#"
