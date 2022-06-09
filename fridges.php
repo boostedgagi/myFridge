@@ -44,7 +44,7 @@ $listOfAllFridges = new Database();
                 </ul>
                 
             </div>
-            <div class="row fridges dropdown d-lg-none d-inline">
+            <div class="row fridges dropdown d-lg-none d-inline w-100">
                 <button class="btn bg-white dropdown-toggle" type="button" id="FridgeList" data-bs-toggle="dropdown" aria-expanded="false">
                  Fride List
                 </button>
@@ -52,7 +52,7 @@ $listOfAllFridges = new Database();
                 <?php
                     if ($listOfAllFridges->rowCountOfFridges() > 0) {
                         foreach ($listOfAllFridges->getAllFridgesForCurrentUser() as $oneFridge) {
-                            echo "<li class='fridge-item text-center my-2'>". $oneFridge["fridgeName"] ."</li>";
+                            echo "<li class='fridge-item text-center my-2'><a class='btn bg-cream'>". $oneFridge["fridgeName"] ."</a></li>";
                         }
                     }
                     ?>
@@ -60,10 +60,11 @@ $listOfAllFridges = new Database();
                         <a
                                 href="#"
                                 data-bs-toggle="modal"
+                                class="btn bg-orange"
                                 data-bs-target="#addNewFridgeModal">Add new fridge
                         </a>
                     </li>
-                    </ul>
+                </il>
                 </div>
             <div class="row groceries justify-content-center align-items-center bg-white w-100">
                 <div class="menu w-100 d-flex justify-content-center">

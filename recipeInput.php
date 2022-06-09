@@ -12,7 +12,8 @@ include "includes/register.php";
         </div>
         
     </div>
-    <form action="" method="POST">
+    <form action="" id="add-ingredients">
+        <div id="form-items">
     <div class="row justify-content-center mb-2">
         <div class="text-end align-self-center col-2 col-md-2 col-lg-1 col-form-label">
             <label for="text" class="m-0 h6">Title</label>
@@ -58,7 +59,6 @@ include "includes/register.php";
         </div>
     </div>
 
-
     <div class="row justify-content-center mb-2">
     <div class="text-end align-self-center col-2 col-md-2 col-lg-1 col-form-label">
     <label for="formFile" class="form-label h6">Image</label>
@@ -69,13 +69,54 @@ include "includes/register.php";
     </div>
 
     <div class="row justify-content-center mb-2">
+        <div class="text-end align-self-center col-2 col-md-2 col-lg-1 col-form-label">
+            <label for="text" class="m-0 h6">Ingredient</label>
+        </div>
+        <div class="col-10 col-md-6 col-lg-4">
+        <div class="input-group">
+        <input type="text" class="form-control" placeholder="Ingredient name example" aria-label="Ingredient name example" aria-describedby="add">
+        <button class="btn bg-orange" type="button" id="add">Add</button>
+        </div>
+        </div> 
+
+        
+    </div>
+    </div>
+    <div class="row justify-content-center mb-2">
         <div class="col-10 col-md-8 col-lg-5 text-end">
-        <input type="submit" class="btn bg-orange">
+        <input type="submit" class="btn bg-orange" id="submit" name="submit">
         </div>
     </div>
     </form>
 </div>
-
 <?php
 include 'includes/footer.php';
 ?>
+
+
+<script>
+    $(document).ready(function (){
+        let i = 1;
+        $("#add").click(function(){
+            i++;
+            $("#form-items").append('<div class="row justify-content-center mb-2" id="row'+i+'"><div class="text-end align-self-center col-2 col-md-2 col-lg-1 col-form-label"><label for="text" class="m-0 h6">Ingredient</label></div><div class="col-10 col-md-6 col-lg-4"><div class="input-group"><input type="text" class="form-control" placeholder="Ingredient name example" aria-label="Ingredient name example" aria-describedby="add"><button class="btn btn-danger btn-remove" type="button" id="'+i+'">X</button></div></div>');
+            
+        });
+        $(document).on('click', '.btn-remove', function(){
+            const buttonId = $(this).attr('id');
+            $('#row'+buttonId+'').remove(); 
+            $(this).remove();
+        });
+        $('submit').click(function(){
+            $.ajax({
+                url: "promena.php",
+                method: "POST",
+                data: $("add-ingredients").serialize(),
+                success: function(data)
+                {
+                    $('#add-ingredients')[0].reset();
+                }
+            });
+        });
+    });
+</script>
