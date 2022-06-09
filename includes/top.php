@@ -10,7 +10,7 @@
                 </div>
 
 
-                <a href="#" class="btn bg-orange btn-lg text-cream mt-3">Find recipes</a>
+                <a href="./recipes.php" class="btn bg-orange btn-lg text-cream mt-3">Find recipes</a>
             </div>
             <div class="col-md-5 text-center d-none d-md-block">
                 <img src="images/slika1.png" alt="Hamburger" class="img-fluid" />

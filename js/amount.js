@@ -20,20 +20,3 @@ minus.addEventListener("click", () => {
     amount.value = number.toString() + " Amountunit";
   }
 });
-
-add.addEventListener("click", () => (amount.value = "1"));
-
-plus.addEventListener("click", () => {
-  let number = parseInt(amount.value);
-  number += 1;
-  amount.value = number.toString();
-});
-
-minus.addEventListener("click", () => {
-  let number = parseInt(amount.value);
-  if (number <= 0) {
-  } else {
-    number -= 1;
-    amount.value = number.toString();
-  }
-});
