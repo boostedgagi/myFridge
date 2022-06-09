@@ -14,7 +14,7 @@ include "classes/Database.php";
         </div>
 
     </div>
-    <form id="add-ingredients" name="add-ingredients" method="POST">
+    <form id="add-ingredients" action="./actions/newRecipeAction.php" enctype="multipart/form-data" name="add-ingredients" method="POST">
         <div id="form-items">
             <div class="row justify-content-center mb-2">
                 <div class="text-end align-self-center col-2 col-md-2 col-lg-1 col-form-label">
@@ -115,7 +115,7 @@ include "classes/Database.php";
                 method: "POST",
                 data: $("#add-ingredients").serialize(),
                 success: function(data) {
-                    alert(data);
+                    //alert(data);
                     $('#add-ingredients')[0].reset();
                 }
             });
