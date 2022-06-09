@@ -61,10 +61,10 @@ include "includes/register.php";
 
     <div class="row justify-content-center mb-2">
     <div class="text-end align-self-center col-2 col-md-2 col-lg-1 col-form-label">
-    <label for="formFile" class="form-label h6">Image</label>
+    <label for="recipeImg" class="form-label h6">Image</label>
         </div>
         <div class="col-10 col-md-6 col-lg-4">
-        <input class="form-control" type="file" id="formFile">
+        <input class="form-control" type="file" id="recipeImg">
         </div>
     </div>
 
@@ -95,6 +95,7 @@ include 'includes/footer.php';
 
 
 <script>
+    'use strict';
     $(document).ready(function (){
         let i = 1;
         $("#add").click(function(){

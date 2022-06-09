@@ -1,8 +1,8 @@
-let fridge = document.getElementsByClassName('fridge-for-js');
+"use strict";
+let fridge = document.getElementsByClassName("fridge-for-js");
 
-let clicked=0;
+let clicked = 0;
 
-function changeMyColor(){
-    this.style="color:#f00;";
+function changeMyColor() {
+  this.style = "color:#f00;";
 }
-
