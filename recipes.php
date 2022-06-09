@@ -64,27 +64,49 @@ include "includes/register.php";
                 <h1 class="text-center">Recipes</h1>
                 <div class="container-fluid">
                     <div class="row row-cols-4">
-                        <div class="col-lg-3 p-3 recipeCardTemplate">
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 p-3 recipeCardTemplate">
                             <div class="h-100 recipeCard">
-                                <h3 class=" text-center">Title</h3>
+                                <!-- Content -->
+                                <div><img src="./images/recept2.jpg" alt="recepat" class="recipeImg"></div>
+                                <div class="w-100 p-3 pt-2 d-flex flex-column">
+                                    <p class="m-0">Breakfast</p>
+                                    <h3 class="text-center my-3">Title</h3>
+                                    <p class="h5"><i class="bi bi-clock-history"></i>&nbsp;20 min</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 p-3 recipeCardTemplate">
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3  p-3 recipeCardTemplate">
                             <div class="h-100 recipeCard">
-                                <div class="bg-orange">nesto</div>
-                                <p>Breakfast</p>
-                                <h3 class=" text-center">Title</h3>
-                                <p class="h5 align-self-bottom"><i class="bi bi-clock-history"></i>&nbsp;20 min</p>
+                                <!-- Content -->
+                                <div><img src="./images/recept2.jpg" alt="recepat" class="recipeImg"></div>
+                                <div class="w-100 p-3 pt-2 d-flex flex-column">
+                                    <p class="m-0">Breakfast</p>
+                                    <h3 class="text-center my-3">Title</h3>
+                                    <p class="h5"><i class="bi bi-clock-history"></i>&nbsp;20 min</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 p-3 recipeCardTemplate">
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 p-3 recipeCardTemplate">
                             <div class="h-100 recipeCard">
-                                <h3 class=" text-center">Title</h3>
+                                <!-- Content -->
+                                <div><img src="./images/recept2.jpg" alt="recepat" class="recipeImg"></div>
+                                <div class="w-100 p-3 pt-2 d-flex flex-column">
+                                    <p class="m-0">Breakfast</p>
+                                    <h3 class="text-center my-3">Title</h3>
+                                    <p class="h5"><i class="bi bi-clock-history"></i>&nbsp;20 min</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 p-3 recipeCardTemplate">
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 p-3 recipeCardTemplate">
                             <div class="h-100 recipeCard">
-                                <h3 class=" text-center">Title</h3>
+                                <!-- Content -->
+                                <div><img src="./images/recept2.jpg" alt="recepat" class="recipeImg"></div>
+                                <div class="w-100 p-3 pt-2 d-flex flex-column">
+                                    <p class="m-0">Breakfast</p>
+                                    <h3 class="text-center my-3">Title</h3>
+                                    <p class="h5"><i class="bi bi-clock-history"></i>&nbsp;20 min</p>
+                                </div>
+
                             </div>
                         </div>
                     </div>

@@ -55,8 +55,12 @@ echo "<div class='d-flex justify-content-center'><a href='roommatesRequests.php'
     }
 
     function showResults(val) {
-        let result = document.getElementById("show-list");
-        let resultList = document.querySelector("#list-result");
+        const result = document.getElementById("show-list");
+        const resultList = document.querySelector("#list-result");
+        const mail = document.querySelectorAll("div>span>b");
+        const input = document.querySelector("#roommateEmailIInput");
+        const buttonImg = document.querySelector("button>img");
+
         result.innerHTML = '';
         let list = '';
         let terms = autocompleteMatch(val);
@@ -70,9 +74,7 @@ echo "<div class='d-flex justify-content-center'><a href='roommatesRequests.php'
 
         //Upisivanje email adrese u polje za dodavanje roomate na klik na mejl
 
-        const mail = document.querySelectorAll("div>span>b");
-        const input = document.querySelector("#roommateEmailIInput");
-        const buttonImg = document.querySelector("button>img");
+
         mail.forEach(mail => {
             mail.addEventListener("click", (e) => {
                 input.value = e.target.innerHTML.toString();

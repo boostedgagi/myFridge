@@ -221,16 +221,21 @@ body::-webkit-scrollbar-thumb {
     h3 {
       margin: 0;
     }
-    div {
+    div:first-of-type {
       height: 50%;
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
-
+      .recipeImg {
+        width: 100%;
+        height: 100%;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+      }
     }
   }
   .recipeCard:hover {
-    -webkit-box-shadow: 10px 10px 0px 0px $cream; 
-    box-shadow: 10px 10px 0px 0px $cream;
+    -webkit-box-shadow: 10px 10px 0px 0px $orange; 
+    box-shadow: 10px 10px 0px 0px $orange;
     transform: translate(5px, 10px);
   }
 }
