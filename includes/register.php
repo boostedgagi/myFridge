@@ -1,20 +1,9 @@
 <!-- REGISTER MODAL -->
-<div
-    class="modal fade"
-    id="registermodal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
->
+<div class="modal fade" id="registermodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body">
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                ></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <!-- REGISTER FORM -->
                 <form action="actions/registerAction.php" enctype="multipart/form-data" method="post">
                     <h1 class="text-center mb-5">Register</h1>
@@ -22,61 +11,31 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-floating mb-3">
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="name"
-                                        name="reg-f-name"
-                                        placeholder="name"
-                                    />
+                                    <input type="text" class="form-control" id="name" name="reg-f-name" placeholder="name" />
                                     <label for="name">First Name</label>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-floating">
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="lastname"
-                                        name="reg-l-name"
-                                        placeholder="lastname"
-                                    />
+                                    <input type="text" class="form-control" id="lastname" name="reg-l-name" placeholder="lastname" />
                                     <label for="lastname">Last name</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input
-                                        type="email"
-                                        class="form-control"
-                                        id="register-email"
-                                        name="reg-email"
-                                        placeholder="email"
-                                    />
+                                    <input type="email" class="form-control" id="register-email" name="reg-email" placeholder="email" />
                                     <label for="email">Email</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input
-                                        type="password"
-                                        class="form-control"
-                                        id="register-password"
-                                        name="reg-pwd"
-                                        placeholder="password"
-                                    />
+                                    <input type="password" class="form-control" id="register-password" name="reg-pwd" placeholder="password" />
                                     <label for="password">Password</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input
-                                        type="password"
-                                        class="form-control"
-                                        id="confirmpassword"
-                                        name="reg-pwd-repeat"
-                                        placeholder="confirmpassword"
-                                    />
+                                    <input type="password" class="form-control" id="confirmpassword" name="reg-pwd-repeat" placeholder="confirmpassword" />
                                     <label for="confirmpassword">Confirm password</label>
                                 </div>
                             </div>
@@ -96,13 +55,7 @@
                             <!-- class mt-3 -->
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="phone"
-                                        name="reg-phone"
-                                        placeholder="phone"
-                                    />
+                                    <input type="text" class="form-control" id="phone" name="reg-phone" placeholder="phone" />
                                     <label for="phone">Phone number</label>
                                 </div>
                             </div>
@@ -111,11 +64,7 @@
                                 <input class="form-control" type="file" name="reg-prof-img-path" id="formFile">
                             </div>
                             <div>
-                                <button
-                                    type="submit"
-                                    class="btn-lg btn-primary my-3 rounded-pill"
-                                    name = 'regsubmit'
-                                >
+                                <button type="submit" class="btn-lg btn-primary my-3 rounded-pill" name='regsubmit'>
                                     Register
                                 </button>
                             </div>
@@ -123,10 +72,8 @@
                     </div>
                     <div class="modal-footer justify-content-center">
                         <p class="">
-                            Already have an account?<a href="#" class="link-primary" data-bs-toggle="modal"
-                                                       data-bs-target="#loginmodal">
-                                Log In</a
-                            >
+                            Already have an account?<a href="#" class="link-primary" data-bs-toggle="modal" data-bs-target="#loginmodal">
+                                Log In</a>
                         </p>
                     </div>
                 </form>
