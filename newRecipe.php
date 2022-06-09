@@ -14,7 +14,7 @@ include "classes/Database.php";
         </div>
 
     </div>
-    <form action="./actions/newRecipeAction.php" method="POST" id="add-ingredients">
+    <form id="add-ingredients" name="add-ingredients" method="POST">
         <div id="form-items">
             <div class="row justify-content-center mb-2">
                 <div class="text-end align-self-center col-2 col-md-2 col-lg-1 col-form-label">
@@ -82,7 +82,7 @@ include "classes/Database.php";
                 </div>
                 <div class="col-10 col-md-6 col-lg-4">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Ingredient name" aria-label="Ingredient name example" aria-describedby="add">
+                        <input type="text" class="form-control" name="name[]" placeholder="Ingredient name" aria-label="Ingredient name example" aria-describedby="add">
                         <button class="btn bg-orange" type="button" id="add">Add</button>
                     </div>
                 </div>
@@ -90,24 +90,18 @@ include "classes/Database.php";
         </div>
         <div class="row justify-content-center mb-2">
             <div class="col-10 col-md-8 col-lg-5 text-end">
-                <input type="submit" name="ingredients[]" class="btn bg-orange" id="submit" name="submit">
+                <input type="submit" class="btn bg-orange" id="submit" name="submit">
             </div>
         </div>
     </form>
 </div>
-<?php
-
-include 'includes/footer.php';
-?>
-
-
 <script>
     'use strict';
     $(document).ready(function() {
         let i = 1;
         $("#add").click(function() {
             i++;
-            $("#form-items").append('<div class="row justify-content-center mb-2" id="row' + i + '"><div class="text-end align-self-center col-2 col-md-2 col-lg-1 col-form-label"><label for="text" class="m-0 h6">Ingredient</label></div><div class="col-10 col-md-6 col-lg-4"><div class="input-group"><input type="text" class="form-control" placeholder="Ingredient name example" aria-label="Ingredient name example" aria-describedby="add"><button class="btn btn-danger btn-remove" type="button" id="' + i + '">X</button></div></div>');
+            $("#form-items").append('<div class="row justify-content-center mb-2" id="row' + i + '"><div class="text-end align-self-center col-2 col-md-2 col-lg-1 col-form-label"><label for="text" class="m-0 h6">Ingredient</label></div><div class="col-10 col-md-6 col-lg-4"><div class="input-group"><input type="text" name="name[]" class="form-control" placeholder="Ingredient name example" aria-label="Ingredient name example" aria-describedby="add"><button class="btn btn-danger btn-remove" type="button" id="' + i + '">X</button></div></div>');
 
         });
         $(document).on('click', '.btn-remove', function() {
@@ -115,11 +109,11 @@ include 'includes/footer.php';
             $('#row' + buttonId + '').remove();
             $(this).remove();
         });
-        $('submit').click(function() {
+        $('#submit').click(function() {
             $.ajax({
-                url: "../actions/newRecipeAction.php",
+                url: "./actions/newRecipeAction.php",
                 method: "POST",
-                data: $("add-ingredients"),
+                data: $("#add-ingredients").serialize(),
                 success: function(data) {
                     alert(data);
                     $('#add-ingredients')[0].reset();
@@ -128,3 +122,7 @@ include 'includes/footer.php';
         });
     });
 </script>
+<?php
+
+include 'includes/footer.php';
+?>
