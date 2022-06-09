@@ -24,10 +24,14 @@ include "includes/register.php";
                             <div class="input-group">
                                 <input type="number" class="form-control" placeholder="Price limit" min="0">
                                 <label class="input-group-text">$</label>
-                                <div class="input-group-text">
+                                <?php
+                                if (isset($_SESSION["userEmail"])) {
+                                    echo '<div class="input-group-text">
                                     <input class="form-check-input mt-0" type="checkbox" value="" id="budget" aria-label="Checkbox for following text input">
                                     <label for="budget"> &nbsp Budget</label>
-                                </div>
+                                    </div>';
+                                }
+                                ?>
                             </div>
                         </div>
 

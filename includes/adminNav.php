@@ -4,7 +4,7 @@
             <span class="fw-bold text-black"> Administrator </span>
         </a>
         <!-- Nav for mobile -->
-        <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation" onclick="rotating()">
+        <button class="navbar-toggler bg-yellow" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation" onclick="rotating()">
             <span class="hamburger"></span>
             <span class="hamburger"></span>
             <span class="hamburger"></span>
