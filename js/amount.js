@@ -1,3 +1,4 @@
+"use strict";
 const add = document.querySelector("#add");
 const plus = document.querySelector("#plus");
 const minus = document.querySelector("#minus");

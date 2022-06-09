@@ -9,8 +9,8 @@
     </svg>
     <div class="container-lg">
         <div class="text-center">
-            <h2>Popular recipes</h2>
-            <p class="lead text-muted">Choose one of our popular recipes</p>
+            <h1>Popular recipes</h1>
+            <p class="lead text-brown">Choose one of our popular recipes</p>
         </div>
         <div class="row my-5 align-items-center justify-content-center g-4">
             <div class=" col-md-7 col-xl-4">
@@ -21,7 +21,7 @@
                             alt="pancakes"
                     />
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
+                        <h4 class="card-title">Card title</h4>
                         <p class="card-text">
                             Some quick example text to build on the card title and make up
                             the bulk of the card's content.
@@ -39,7 +39,7 @@
                             alt="pancakes"
                     />
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
+                        <h4 class="card-title">Card title</h4>
                         <p class="card-text">
                             Some quick example text to build on the card title and make up
                             the bulk of the card's content.
@@ -57,7 +57,7 @@
                             alt="pancakes"
                     />
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
+                        <h4 class="card-title">Card title</h4>
                         <p class="card-text">
                             Some quick example text to build on the card title and make up
                             the bulk of the card's content.
