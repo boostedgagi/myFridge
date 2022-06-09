@@ -1,11 +1,14 @@
 <?php
 
 define('ALLOWEDFORMATS', array('jpg', 'jpeg','png'));
-define('PROF_PIC_DIR','profilePictures/');
-define('SHORT_PATH_PROF_PIC',PROF_PIC_DIR);
-define('FULL_PATH_PROF_PIC','../'.PROF_PIC_DIR);
+define('SHORT_PATH_PROF_PIC','profilePictures/');
+define('FULL_PATH_PROF_PIC','../profilePictures/');
 define('SHORT_PATH_GROC_PIC','groceriePictures/');
 define('FULL_PATH_GROC_PIC','../groceriePictures/');
+
+define('NO_RECIPE_PIC','images/recipeDoe.png');
+define('SHORT_PATH_RECIPE_PIC','recipePictures/');
+define('FULL_PATH_RECIPE_PIC','../recipePictures/');
 define('COUNTRY_LENGTH',30);
 define('CITY_LENGTH',20);
 define('FNAME_LENGTH',30);

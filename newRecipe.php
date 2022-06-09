@@ -3,6 +3,8 @@ include "includes/header.php";
 include "includes/nav.php";
 include "includes/login.php";
 include "includes/register.php";
+include "classes/Database.php";
+
 ?>
 
 <div class="container-lg">
@@ -19,7 +21,7 @@ include "includes/register.php";
             <label for="text" class="m-0 h6">Title</label>
         </div>
         <div class="col-10 col-md-6 col-lg-4">
-        <input type="text" name="text" id="text" class="form-control" placeholder="Example Title">
+        <input type="text" name="recipeTitle" id="text" class="form-control" placeholder="Title">
         </div> 
     </div>
     <div class="row justify-content-center mb-2">
@@ -27,11 +29,15 @@ include "includes/register.php";
             <label for="category" class="m-0 h6">Category</label>
         </div>
         <div class="col-10 col-md-6 col-lg-4">
-        <select class="form-select" name="category" id="category">
-            <option selected>Select category</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+        <select class="form-select" name="recipeCategory" id="category">
+            <?php
+            $categories = new Database();
+            echo "<option selected value='any'>Select category</option>";
+            foreach ($categories->getCategories() as $category){
+                echo "<option value=".$category["categoryID"].">".$category["categoryName"]."</option>";
+
+            }
+            ?>
         </select>
         </div>
     </div>
@@ -41,11 +47,14 @@ include "includes/register.php";
             <label for="meal" class="m-0 h6">Meal</label>
         </div>
         <div class="col-10 col-md-6 col-lg-4">
-        <select class="form-select" name="meal" id="meal">
-            <option selected>Select Meal</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+        <select class="form-select" name="recipeMeal" id="meal">
+            <?php
+            $meals = new Database();
+            echo "<option selected value='any'>Select meal</option>";
+            foreach ($meals->getMeals() as $meal){
+                echo "<option value=".$meal["mealID"].">".$meal["mealName"]."</option>";
+            }
+            ?>
         </select>
         </div>
     </div>
@@ -55,7 +64,7 @@ include "includes/register.php";
             <label for="time" class="m-0 h6">Est. Time</label>
         </div>
         <div class="col-10 col-md-6 col-lg-4">
-        <input type="text" name="time" id="time" class="form-control" placeholder="ecd. 10min">
+        <input type="text" name="recipeTime" id="time" class="form-control" placeholder="ecd. 10min">
         </div>
     </div>
 
@@ -64,7 +73,7 @@ include "includes/register.php";
     <label for="recipeImg" class="form-label h6">Image</label>
         </div>
         <div class="col-10 col-md-6 col-lg-4">
-        <input class="form-control" type="file" id="recipeImg">
+        <input class="form-control" name="recipePicture" type="file" id="recipeImg">
         </div>
     </div>
 
@@ -74,7 +83,7 @@ include "includes/register.php";
         </div>
         <div class="col-10 col-md-6 col-lg-4">
         <div class="input-group">
-        <input type="text" class="form-control" placeholder="Ingredient name example" aria-label="Ingredient name example" aria-describedby="add">
+        <input type="text" class="form-control" placeholder="Ingredient name" aria-label="Ingredient name example" aria-describedby="add">
         <button class="btn bg-orange" type="button" id="add">Add</button>
         </div>
         </div> 

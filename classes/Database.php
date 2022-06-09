@@ -184,12 +184,29 @@ class Database
         return $getGrocerie->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getGrocerieData():array{
+    public function getGrocerieData():array
+    {
 
         $query = "SELECT * FROM grocerieData WHERE email=?";
         $getGrocerie = $this->connect()->prepare($query);
         $getGrocerie->execute(array($_SESSION["userEmail"]));
 
         return $getGrocerie->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getCategories():array{
+        $query = "SELECT categoryID,categoryName FROM categories;";
+        $categories = $this->connect()->prepare($query);
+        $categories->execute();
+
+        return $categories->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getMeals():array{
+        $query = "SELECT mealID,mealName FROM meals;";
+        $meals = $this->connect()->prepare($query);
+        $meals->execute();
+
+        return $meals->fetchAll(PDO::FETCH_ASSOC);
     }
 }

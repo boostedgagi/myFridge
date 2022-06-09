@@ -36,7 +36,7 @@ echo "<div class='d-flex justify-content-center'><a href='roommatesRequests.php'
     <script>
 
         let autocompleteArray = JSON.parse('<?php echo json_encode($usernamesListForAutocomplete);?>');
-        console.log(autocompleteArray);
+        //console.log(autocompleteArray);
 
         function autocompleteMatch(input) {
             if (input === '') {

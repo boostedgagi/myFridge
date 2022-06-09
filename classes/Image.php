@@ -18,13 +18,12 @@ class Image{
     }
 
 
-    public function handlePictureAndItsLocation(/*string $fileName, string $tempFileName, string $fileError, int $fileSize*/): string
+    public function handlePictureAndItsLocation(): string
     {
-        if ($this->fileError === 4) {
+        if ($this->fileError == 4) {
             return $this->operationHandler()[0];
         }
-
-        if ($this->checkForAllowedFormats($this->makeExtensionUsable($this->fileName)) === false) {
+        if ($this->checkForAllowedFormats($this->makeExtensionUsable()) === false) {
             header("location: ../index.php?error=these_files_are_not_allowed");
             exit();
         }
@@ -32,15 +31,16 @@ class Image{
             header("location: ../index.php?error=upload_failed");
             exit();
         }
-        if ($this->fileError > 5000000) {
+        if ($this->fileSize > 5000000) {
             header("location: ../index.php?error=picture_is_too_big");
             exit();
         }
 
-        $actualExtension = $this->makeExtensionUsable($this->fileName);
+        $actualExtension = $this->makeExtensionUsable();
         //$finalDestination = "";
 
-        $newFileName = uniqid('', true) . "." . $actualExtension;
+        $newFileName = uniqid('', true) . "." . $this->makeExtensionUsable();
+//        $newFileName = uniqid('', true) . "." . $actualExtension;
 
         //$finalDestination = SHORT_PATH_PROF_PIC . $newFileName;//FULL_PATH, SHORT_PATH su konstante iz fajla constants, vazi za oba bloka
         move_uploaded_file($this->tempFileName, $this->operationHandler()[1] . $newFileName);
@@ -79,11 +79,17 @@ class Image{
             case "updateGrocerie":
                 //return [NO_GROC_PIC_PIC,FULL_PATH_PROF_PIC,SHORT_PATH_PROF_PIC,''];
                 break;
+            case "newRecipe":
+                return [NO_RECIPE_PIC,FULL_PATH_RECIPE_PIC,SHORT_PATH_RECIPE_PIC,''];
+                break;
         }
     }
 
-    public function unlink($oldImagePath){
-        unlink('../'.$oldImagePath);
+    public function unlink($path): void
+    {
+        if($path!==NO_PROF_PIC_PIC || $path!==NO_RECIPE_PIC || $path!==NO_GROC_PIC_PIC) {
+            unlink('../' . $path);
+        }
     }
 
 

@@ -70,7 +70,8 @@ class EditUserControl extends EditUser{
     }
 
     private function validPhoneNumber(): bool
-    {
+    {        require_once "../includes/constants.php";
+
         if (in_array(strlen($this->phoneNumber), PHONE_NUMBER_LENGTHS)) {
             return true;
         }
