@@ -1,8 +1,9 @@
 <?php
 
 define('ALLOWEDFORMATS', array('jpg', 'jpeg','png'));
-define('SHORT_PATH_PROF_PIC','profilePictures/');
-define('FULL_PATH_PROF_PIC','../profilePictures/');
+define('PROF_PIC_DIR','profilePictures/');
+define('SHORT_PATH_PROF_PIC',PROF_PIC_DIR);
+define('FULL_PATH_PROF_PIC','../'.PROF_PIC_DIR);
 define('SHORT_PATH_GROC_PIC','groceriePictures/');
 define('FULL_PATH_GROC_PIC','../groceriePictures/');
 define('COUNTRY_LENGTH',30);
