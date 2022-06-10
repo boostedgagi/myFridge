@@ -220,23 +220,21 @@ class Database
 
     public function allowUserAndSeeTheirData(): array
     {
-        $query = "
-        SELECT
-            u.firstName AS firstName,
-            u.lastName AS lastName,
-            u.email AS email,
-            u.phoneNumber AS phoneNumber,
-            u.profilePicturePath as pppath
+        $query = "SELECT
+        u.userID AS ID,
+        u.firstName AS firstName,
+        u.lastName AS lastName,
+        u.email AS email,
+        u.profilePicturePath AS pppath
         FROM
-            users u
-        WHERE
-            email = ?
-        ";
+        users u
+        LEFT JOIN allowedusers ON allowedusers.user_id = u.userID;";
         $userData = $this->connect()->prepare($query);
         $userData->execute(array($_SESSION['userEmail']));
 
         return $userData->fetchAll(PDO::FETCH_ASSOC);
     }
+
     public function recipesAutocomplete($inpText)
     {
         $query = "SELECT u.recipeID as recipeID, u.recipeTitle as recipeTitle, u.estTimeInMinutes as estTime, u.recipeImagePath as img, m.mealName as mealName FROM recipes u, meals m 
@@ -248,12 +246,13 @@ class Database
     }
 
 
-    public function getWallet($user){
-        $query = "select wallet from users where email=?";
+    public function getWallet($user)
+    {
+        $query = "select wallet as wt from users where email=?";
         $wallet = $this->connect()->prepare($query);
         $wallet->execute(array($user));
 
-        return $wallet->fetchAll(PDO::FETCH_ASSOC);
+        return $wallet->fetch();
     }
 
     public function InsertBudget($email, $budget)

@@ -1,7 +1,8 @@
 <?php
+include "classes/Database.php";
 include "includes/header.php";
 include "includes/nav.php";
-include "classes/Database.php";
+
 
 include "includes/userPageAuthentication.php";
 include "includes/editUserDataModal.php";

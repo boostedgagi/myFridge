@@ -24,7 +24,7 @@ include "includes/adminAddGrocerieModal.php";
                 <td>Marko</td>
                 <td>eduardo@pingpong.com</td>
                 <td>Allowed</td>
-                <td><button class="btn btn-success">Allow</button> <button class="btn btn-danger">Deny</button></td>
+                <td><button class="btn btn-success" onclick="location.href=''">Allow</button> <button class="btn btn-danger">Deny</button></td>
             </tr>
         </tbody>
     </table>

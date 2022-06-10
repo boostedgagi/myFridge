@@ -1,6 +1,6 @@
 <?php
 //session_start();
-
+include "classes/Database.php";
 
 include "includes/header.php";
 include "includes/nav.php";
@@ -8,7 +8,7 @@ include "includes/userPageAuthentication.php";
 include "includes/login.php";
 include "includes/register.php";
 
-include "classes/Database.php";
+
 
 include "includes/addNewFridgeModal.php";
 include "includes/addNewGrocerieModal.php";

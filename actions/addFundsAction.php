@@ -1,8 +1,11 @@
 <?php
 if (isset($_POST['newFundSubmit'])) {
-    include "../Database.php";
+    session_start();
+    include "../classes/Database.php";
     $budget = $_POST['funds'];
     $email = $_SESSION["userEmail"];
     $db = new Database();
-    $result = $db->InsertBudget($email, $budget);
+    $db->InsertBudget($email, $budget);
+
+    header("location: ../index.php");
 }
