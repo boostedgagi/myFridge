@@ -17,9 +17,9 @@ class Database
         }
     }
 
-    protected function lastId():int{
+    protected function lastId(): int
+    {
         return $this->connect()->lastInsertId();
-
     }
 
     public function getAllUsernames(): array
@@ -55,7 +55,7 @@ class Database
             where fr.receiverID=(select us.userID from users us where us.email=?)
             and fr.ignored=0
             and fr.requestDateTime > DATE_SUB(NOW(), INTERVAL 24 HOUR)
-            order by fr.requestDateTime desc limit 1;';//ovde uzeti u obzir ako bude trebalo da se doda ako je korisnik ignorisao zaahtev
+            order by fr.requestDateTime desc limit 1;'; //ovde uzeti u obzir ako bude trebalo da se doda ako je korisnik ignorisao zaahtev
 
         $roommateRequests = $this->connect()->prepare($query);
         $roommateRequests->execute(array($receiverEmail));
@@ -76,7 +76,7 @@ class Database
             left join friendrequest fr
             on u.userID=fr.senderID
             where fr.receiverID=(select us.userID from users us where us.email=?)
-            order by fr.requestDateTime desc;';//ovde uzeti u obzir ako bude trebalo da se doda ako je korisnik ignorisao zaahtev
+            order by fr.requestDateTime desc;'; //ovde uzeti u obzir ako bude trebalo da se doda ako je korisnik ignorisao zaahtev
 
         $roommateRequests = $this->connect()->prepare($query);
         $roommateRequests->execute(array($receiverEmail));
@@ -180,7 +180,8 @@ class Database
         return $array;
     }
 
-    public function GrocerieAutocomplete($inpText):array{
+    public function GrocerieAutocomplete($inpText): array
+    {
 
         $query = "SELECT * FROM suggestedgroceries WHERE suggGrocName LIKE :grocerie";
         $getGrocerie = $this->connect()->prepare($query);
@@ -189,7 +190,7 @@ class Database
         return $getGrocerie->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getGrocerieData():array
+    public function getGrocerieData(): array
     {
 
         $query = "SELECT * FROM grocerieData WHERE email=?";
@@ -199,7 +200,8 @@ class Database
         return $getGrocerie->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getCategories():array{
+    public function getCategories(): array
+    {
         $query = "SELECT categoryID,categoryName FROM categories;";
         $categories = $this->connect()->prepare($query);
         $categories->execute();
@@ -207,7 +209,8 @@ class Database
         return $categories->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getMeals():array{
+    public function getMeals(): array
+    {
         $query = "SELECT mealID,mealName FROM meals;";
         $meals = $this->connect()->prepare($query);
         $meals->execute();
@@ -233,5 +236,13 @@ class Database
         $userData->execute(array($_SESSION['userEmail']));
 
         return $userData->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function recipesAutocomplete()
+    {
+        $query = "SELECT * FROM recipes";
+        $recipes = $this->connect()->prepare($query);
+        $recipes->execute();
+
+        return $recipes->fetchAll(PDO::FETCH_ASSOC);
     }
 }

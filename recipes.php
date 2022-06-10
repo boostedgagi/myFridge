@@ -1,4 +1,5 @@
 <?php
+include "classes/Database.php";
 include "includes/header.php";
 include "includes/nav.php";
 include "includes/login.php";
@@ -8,6 +9,7 @@ include "includes/register.php";
 <div class="container-lg my-5">
 
     <div class="row justify-content-center my-2 mt-4">
+        //SEARCH
         <div class="col-12 col-sm-10 col-lg-9">
             <input type="text" name="recipeName" id="recipeName" class="form-control recipeSearch" placeholder="Start typing...">
         </div>
@@ -120,6 +122,32 @@ include "includes/register.php";
     </div>
 </div>
 
+<script>
+    $(document).ready(function() {
+        $("#recipeName").keyup(function() {
+            let searchText = $(this).val();
+            if (searchText != "") {
+                $.ajax({
+                    url: "includes/recipesAutocomplete.php",
+                    method: "post",
+                    data: {
+                        query: searchText,
+                    },
+                    success: function(response) {
+                        $(".recipeCardTemplate").html(response);
+                    },
+                });
+            } else {
+                $(".recipeCardTemplate").html("");
+            }
+        });
+        //Klik na jednu od ponudjenih namirnica popunjava input polje i prazni listu
+        $(document).on("click", "p", function() {
+            $("#recipeName").val($(this).text());
+            $(".recipeCardTemplate").html("");
+        });
+    });
+</script>
 <?php
 include 'includes/footer.php';
 ?>
