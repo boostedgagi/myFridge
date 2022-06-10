@@ -82,8 +82,11 @@ include "classes/Database.php";
                 </div>
                 <div class="col-10 col-md-6 col-lg-4">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="name[]" placeholder="Ingredient name" aria-label="Ingredient name example" aria-describedby="add">
+                        <input type="text" class="form-control autocomplete" id="ingredient_1" name="name[]" placeholder="Ingredient name">
                         <button class="btn bg-orange" type="button" id="add">Add</button>
+                    </div>
+                    <div class="d-flex justify-content-center" id="ingredientsList_1">
+
                     </div>
                 </div>
             </div>
@@ -101,7 +104,7 @@ include "classes/Database.php";
         let i = 1;
         $("#add").click(function() {
             i++;
-            $("#form-items").append('<div class="row justify-content-center mb-2" id="row' + i + '"><div class="text-end align-self-center col-2 col-md-2 col-lg-1 col-form-label"><label for="text" class="m-0 h6">Ingredient</label></div><div class="col-10 col-md-6 col-lg-4"><div class="input-group"><input type="text" name="name[]" class="form-control" placeholder="Ingredient name example" aria-label="Ingredient name example" aria-describedby="add"><button class="btn btn-danger btn-remove" type="button" id="' + i + '">X</button></div></div>');
+            $("#form-items").append('<div class="row justify-content-center mb-2" id="row' + i + '"><div class="text-end align-self-center col-2 col-md-2 col-lg-1 col-form-label"><label for="text" class="m-0 h6">Ingredient</label></div><div class="col-10 col-md-6 col-lg-4"><div class="input-group"><input type="text" id="ingredient_' + i + '" name="name[]" class="form-control autocomplete" placeholder="Ingredient name example"><button class="btn btn-danger btn-remove" type="button" id="' + i + '">X</button></div><div class="d-flex justify-content-center" id="ingredientsList_' + i + '"></div></div>');
 
         });
         $(document).on('click', '.btn-remove', function() {
@@ -120,6 +123,39 @@ include "classes/Database.php";
                 }
             });
         });
+        //autocomplete
+
+        $(document).on('focus', '.autocomplete', autocomplete);
+
+
+        function autocomplete() {
+            let selected = $(this);
+            let selectedId = selected.attr("id");
+            let selectedIdNumber = selectedId.trim("_");
+            let number = selectedIdNumber[selectedIdNumber.length - 1];
+            $("#" + selectedId).keyup(function() {
+                let searchText = $(this).val();
+                if (searchText != "") {
+                    $.ajax({
+                        url: "classes/GrocerieAutocomplete.php",
+                        method: "post",
+                        data: {
+                            query: searchText,
+                        },
+                        success: function(response) {
+                            $("#ingredientsList_" + number).html(response);
+                        },
+                    });
+                } else {
+                    $("#ingredientsList_" + number).html("");
+                }
+            });
+            //Klik na jednu od ponudjenih namirnica popunjava input polje i prazni listu
+            $(document).on("click", "div#ingredientsList_" + number + " > p", function() {
+                $("#ingredient_" + number).val($(this).text());
+                $("#ingredientsList_" + number).html("");
+            });
+        }
     });
 </script>
 <?php

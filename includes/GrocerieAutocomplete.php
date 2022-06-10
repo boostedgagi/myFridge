@@ -2,8 +2,6 @@
 
 include_once "Database.php";
 
-//NISAM SIGURAN DA LI OVAJ FAJL TREBA DA BUDE U FOLDERU classes!!!
-//MZD TREBA U includes?
 
 if(isset($_POST['query'])){
     $inpText = $_POST['query'];
