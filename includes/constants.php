@@ -6,7 +6,7 @@ define('FULL_PATH_PROF_PIC', '../profilePictures/');
 define('SHORT_PATH_GROC_PIC', 'groceriePictures/');
 define('FULL_PATH_GROC_PIC', '../groceriePictures/');
 
-define('NO_RECIPE_PIC', 'images/recipeDoe.jpg');
+define('NO_RECIPE_PIC', 'images/recipeDoe.png');
 define('SHORT_PATH_RECIPE_PIC', 'recipePictures/');
 define('FULL_PATH_RECIPE_PIC', '../recipePictures/');
 define('COUNTRY_LENGTH', 30);
