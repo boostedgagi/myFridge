@@ -5,7 +5,7 @@
             <div class="modal-body">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <!-- FUND INSERT FORM -->
-                <form action="actions/addFunds.php" method="post">
+                <form action="actions/addFundsAction.php" method="post">
                     <h1 class="text-center mb-5">Add funds</h1>
                     <div class="form-floating mb-3">
                         <input type="number" class="form-control" id="floatingFund" name="funds" placeholder="new funds value">

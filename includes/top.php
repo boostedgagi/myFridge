@@ -6,7 +6,7 @@
 
                 <div class="display-2 fw-normal text-black">MyFridge</div>
                 <div class="display-5 text-brown">
-                    Lorem ipsum dolor sit amet.
+                    Explore, create, enjoy!
                 </div>
 
 
