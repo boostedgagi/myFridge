@@ -81,6 +81,9 @@ session_start();
                             <?php echo "Admin page"; ?>
                         </a>
                     </li>
+                    <li class="nav-item d-md-inline m-1">
+                        <p class="m-0 text-center">Budget: 0</p>
+                    </li>
                 <?php
                 }
                 ?>

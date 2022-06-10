@@ -11,7 +11,7 @@ include "includes/register.php";
     <div class="row justify-content-center my-2 mt-4">
         <!-- SEARCH -->
         <div class="col-12 col-sm-10 col-lg-9">
-            <input type="text" name="recipeName" id="recipeName" class="form-control recipeSearch" placeholder="Start typing...">
+            <input type="text" name="recipeName" id="recipeName" class="form-control recipeSearch" placeholder="Start typing..." autofocus>
         </div>
     </div>
     <div class="row justify-content-center mb-2">
@@ -71,15 +71,7 @@ include "includes/register.php";
                 <div class="container-fluid">
                     <div class="row row-cols-4 listOfAllRecipes">
                         <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 p-3 recipeCardTemplate">
-                            <div class="h-100 recipeCard">
-                                <!-- Content -->
-                                <div><img src="./images/recept2.jpg" alt="recepat" class="recipeImg"></div>
-                                <div class="w-100 p-3 pt-2 d-flex flex-column">
-                                    <p class="m-0">Breakfast</p>
-                                    <h3 class="text-center my-3">Title</h3>
-                                    <p class="h5"><i class="bi bi-clock-history"></i>&nbsp;20 min</p>
-                                </div>
-                            </div>
+
                         </div>
 
 
