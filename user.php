@@ -5,6 +5,7 @@ include "classes/Database.php";
 
 include "includes/userPageAuthentication.php";
 include "includes/editUserDataModal.php";
+include "includes/addFundsModal.php";
 
 ?>
 <h3 class="text-center">Hi <?php echo $_SESSION["userFirstName"] . ", this is your data."; ?></h3>
@@ -22,6 +23,10 @@ include "includes/editUserDataModal.php";
         <div class="d-flex justify-content-center">
             <button name="editUserDataButton" class="btn bg-orange text-cream" data-bs-toggle="modal" data-bs-target="#editUser">Edit data
             </button>
+
+            <a href="#" data-bs-toggle="modal" class="ms-2 btn btn-primary" data-bs-target="#addFundsModal">Add Funds
+            </a>
+
         </div>
     </div>
 </div>

@@ -19,6 +19,6 @@ if (isset($_POST['query'])) {
                     </div></div>';
         }
     } else {
-        echo "<p class='text-danger'>No results</p>";
+        echo "<div class='text-center w-100'><p class='h1 text-center text-danger'>No results</p></div>";
     }
 }
