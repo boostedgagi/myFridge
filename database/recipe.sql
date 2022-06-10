@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Jun 09, 2022 at 03:47 PM
+-- Generation Time: Jun 10, 2022 at 02:17 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -59,6 +59,18 @@ values(
 );
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertIngredient` (IN `recipeID` INT(10), IN `ingredientID` INT(10), IN `grAmount` INT(10))  BEGIN
+    INSERT INTO ingredients(
+        recipe_id,
+        grocerie_id,
+        amount
+    )
+VALUES(
+    recipeID,
+    ingredientID,
+    grAmount);
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertNewFridge` (IN `fridgeNameByUser` VARCHAR(30), IN `emailAddress` VARCHAR(320))  BEGIN
 insert into fridges(
     fridgeName,
@@ -95,6 +107,31 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insertUsers` (IN `regFName` VARCHAR
         regVerCode,
         'user'
         );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `makeNewRecipe` (IN `title` VARCHAR(40), IN `categoryID` INT(10), IN `mealID` VARCHAR(10), IN `estTime` VARCHAR(30), IN `userEmail` VARCHAR(320), IN `recipeImagePath` VARCHAR(255))  BEGIN
+    INSERT INTO recipes(
+        recipeTitle,
+        category_id,
+        meal_id,
+        estTimeInMinutes,
+        user_id,
+        recipeImagePath
+    )
+VALUES(
+    title,
+    categoryID,
+    mealID,
+    estTime,
+    (
+        SELECT
+        userID
+    FROM
+        users
+    WHERE
+        email = userEmail
+	),
+recipeImagePath);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `recordLog` (IN `emailAddress` VARCHAR(320))  BEGIN
@@ -365,7 +402,8 @@ INSERT INTO `groceries` (`grocerieID`, `grocerieName`, `grocerieAmount`, `user_i
 (5, 'Apple', 9, 47, 6),
 (6, 'Banana', 6, 47, 6),
 (7, 'Potato', 5, 1, 14),
-(8, 'Melon', 7, 58, 17);
+(8, 'Melon', 7, 58, 17),
+(9, 'Melon', 7, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -585,7 +623,8 @@ INSERT INTO `logevidence` (`logID`, `user_id`, `logDate`, `logTime`) VALUES
 (187, 47, '2022-06-09', '13:38:09'),
 (188, 58, '2022-06-09', '14:19:04'),
 (189, 58, '2022-06-09', '14:19:14'),
-(190, 58, '2022-06-09', '14:37:01');
+(190, 58, '2022-06-09', '14:37:01'),
+(191, 1, '2022-06-09', '23:12:21');
 
 -- --------------------------------------------------------
 
@@ -632,7 +671,7 @@ CREATE TABLE `passwordreset` (
 CREATE TABLE `recipes` (
   `recipeID` int(10) UNSIGNED NOT NULL,
   `recipeTitle` varchar(40) NOT NULL,
-  `numberOfViews` int(10) UNSIGNED NOT NULL,
+  `numberOfViews` int(10) UNSIGNED DEFAULT 0,
   `category_id` int(10) UNSIGNED NOT NULL,
   `meal_id` int(10) UNSIGNED NOT NULL,
   `estTimeInMinutes` int(4) NOT NULL,
@@ -641,6 +680,13 @@ CREATE TABLE `recipes` (
   `approved` int(1) UNSIGNED NOT NULL,
   `dateOfApproval` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `recipes`
+--
+
+INSERT INTO `recipes` (`recipeID`, `recipeTitle`, `numberOfViews`, `category_id`, `meal_id`, `estTimeInMinutes`, `user_id`, `recipeImagePath`, `approved`, `dateOfApproval`) VALUES
+(4, 'Strudle', 0, 5, 3, 40, 1, 'images/recipeDoe.png', 0, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -929,7 +975,7 @@ ALTER TABLE `friendrequest`
 -- AUTO_INCREMENT for table `groceries`
 --
 ALTER TABLE `groceries`
-  MODIFY `grocerieID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `grocerieID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `ingredients`
@@ -941,7 +987,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `logevidence`
 --
 ALTER TABLE `logevidence`
-  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
+  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=192;
 
 --
 -- AUTO_INCREMENT for table `meals`
@@ -959,7 +1005,7 @@ ALTER TABLE `passwordreset`
 -- AUTO_INCREMENT for table `recipes`
 --
 ALTER TABLE `recipes`
-  MODIFY `recipeID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `recipeID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `reviews`

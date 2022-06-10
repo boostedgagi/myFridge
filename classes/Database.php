@@ -17,6 +17,11 @@ class Database
         }
     }
 
+    protected function lastId():int{
+        return $this->connect()->lastInsertId();
+
+    }
+
     public function getAllUsernames(): array
     {
         $currentLoggedUser = $_SESSION["userEmail"];

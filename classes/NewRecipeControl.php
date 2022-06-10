@@ -19,6 +19,28 @@ class NewRecipeControl extends NewRecipe {
         $this->recipeImagePath = $recipeImagePath;
     }
 
+    public function makeNewRecipe()
+    {
+        if ($this->emptyEntries() === false) {
+            header("location: ../newRecipe.php?error=empty_entries");
+            exit();
+        }
+
+
+        $this->makeNewRecipeBase($this->title, $this->categoryID, $this->mealID, $this->time, $this->userEmail, $this->recipeImagePath);
+
+    }
+
+
+    private function emptyEntries(){
+        if(empty($this->title)||empty($this->categoryID)||empty($this->mealID)||empty($this->time)||empty($this->userEmail)){
+            return false;
+        }
+        return true;
+    }
+
+
+
 
 
 
