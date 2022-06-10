@@ -237,11 +237,12 @@ class Database
 
         return $userData->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function recipesAutocomplete()
+    public function recipesAutocomplete($inpText)
     {
-        $query = "SELECT * FROM recipes";
+        $query = "SELECT u.recipeID as recipeID, u.recipeTitle as recipeTitle, u.estTimeInMinutes as estTime, u.recipeImagePath as img, m.mealName as mealName FROM recipes u, meals m 
+        WHERE u.meal_id = m.mealID AND u.recipeTitle LIKE :recipe";
         $recipes = $this->connect()->prepare($query);
-        $recipes->execute();
+        $recipes->execute(["recipe" => '%' . $inpText . '%']);
 
         return $recipes->fetchAll(PDO::FETCH_ASSOC);
     }
