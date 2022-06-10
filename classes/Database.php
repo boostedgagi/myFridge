@@ -247,11 +247,25 @@ class Database
         return $recipes->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
     public function getWallet(){
         $query = "select wallet from users where email=?";
         $wallet = $this->connect()->prepare($query);
         $user = $_SESSION["userEmail"];
         $wallet->execute(array($user));
 
+        return $wallet->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    public function InsertBudget($email, $budget)
+    {
+        $query = "UPDATE users u 
+        SET 
+            u.wallet = u.wallet + ?
+        where u.email = ?;";
+
+        $wallet = $this->connect()->prepare($query);
+        $wallet->execute(array($budget, $email));
     }
 }
