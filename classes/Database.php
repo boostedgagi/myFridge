@@ -239,16 +239,39 @@ class Database
     }
     public function recipesAutocomplete($inpText)
     {
-        $query = "SELECT u.recipeID as recipeID, u.recipeTitle as recipeTitle, u.estTimeInMinutes as estTime, u.recipeImagePath as img, m.mealName as mealName FROM recipes u, meals m 
-        WHERE u.meal_id = m.mealID AND u.recipeTitle LIKE :recipe";
+        $query = "SELECT u.recipeID as recipeID, u.category_id as category_id, u.recipeTitle as recipeTitle, u.estTimeInMinutes as estTime, u.recipeImagePath as img, m.mealName as mealName, c.categoryID as categoryID, c.categoryName as categoryName FROM recipes u, meals m, categories c 
+        WHERE u.meal_id = m.mealID AND u.category_id = c.categoryID AND u.recipeTitle LIKE :recipe";
         $recipes = $this->connect()->prepare($query);
         $recipes->execute(["recipe" => '%' . $inpText . '%']);
 
         return $recipes->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function recipeFiller($recipeID)
+    {
+        $query = "SELECT
+        u.recipeID AS recipeID,
+        u.category_id AS category_id,
+        u.recipeTitle AS recipeTitle,
+        u.estTimeInMinutes AS estTime,
+        u.recipeImagePath AS img,
+        m.mealName AS mealName,
+        c.categoryID AS categoryID,
+        c.categoryName AS categoryName
+    FROM
+        recipes u
+    inner join meals m on 
+    m.mealID=u.meal_id
+    inner join categories c on 
+    c.categoryID=u.category_id
+    where u.recipeID = ?";
+        $recipe = $this->connect()->prepare($query);
+        $recipe->execute(array($recipeID));
 
-    public function getWallet($user){
+        return $recipe->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getWallet($user)
+    {
         $query = "select wallet from users where email=?";
         $wallet = $this->connect()->prepare($query);
         $wallet->execute(array($user));
