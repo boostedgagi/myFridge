@@ -246,4 +246,14 @@ class Database
 
         return $recipes->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function InsertBudget($email, $budget)
+    {
+        $query = "UPDATE users u 
+        SET 
+            u.wallet = u.wallet + ?
+        where u.email = ?;";
+
+        $budget = $this->connect()->prepare($query);
+        $budget->execute(array($budget, $email));
+    }
 }
