@@ -85,7 +85,7 @@ include "classes/Database.php";
                         <input type="text" class="form-control autocomplete" id="ingredient_1" name="name[]" placeholder="Ingredient name">
                         <button class="btn bg-orange" type="button" id="add">Add</button>
                     </div>
-                    <div class="d-flex justify-content-center" id="ingredientsList_1">
+                    <div class="d-flex align-items-center flex-column" id="ingredientsList_1">
 
                     </div>
                 </div>
@@ -104,7 +104,7 @@ include "classes/Database.php";
         let i = 1;
         $("#add").click(function() {
             i++;
-            $("#form-items").append('<div class="row justify-content-center mb-2" id="row' + i + '"><div class="text-end align-self-center col-2 col-md-2 col-lg-1 col-form-label"><label for="text" class="m-0 h6">Ingredient</label></div><div class="col-10 col-md-6 col-lg-4"><div class="input-group"><input type="text" id="ingredient_' + i + '" name="name[]" class="form-control autocomplete" placeholder="Ingredient name example"><button class="btn btn-danger btn-remove" type="button" id="' + i + '">X</button></div><div class="d-flex justify-content-center" id="ingredientsList_' + i + '"></div></div>');
+            $("#form-items").append('<div class="row justify-content-center mb-2" id="row' + i + '"><div class="text-end align-self-center col-2 col-md-2 col-lg-1 col-form-label"><label for="text" class="m-0 h6">Ingredient</label></div><div class="col-10 col-md-6 col-lg-4"><div class="input-group"><input type="text" id="ingredient_' + i + '" name="name[]" class="form-control autocomplete" placeholder="Ingredient name example"><button class="btn btn-danger btn-remove" type="button" id="' + i + '">X</button></div><div class="d-flex align-items-center flex-column" id="ingredientsList_' + i + '"></div></div>');
 
         });
         $(document).on('click', '.btn-remove', function() {

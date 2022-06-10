@@ -101,9 +101,9 @@ include "includes/register.php";
             }
         });
         //Klik na jednu od ponudjenih namirnica popunjava input polje i prazni listu
-        $(document).on("click", "p", function() {
-            $("#recipeName").val($(this).text());
-            $(".listOfAllRecipes").html("");
+        $(document).on("click", ".recipeCardTemplate", function() {
+            window.location.href = "recipe.php?recipeID=" + $(this).attr("data-recipe");
+            return false;
         });
     });
 </script>

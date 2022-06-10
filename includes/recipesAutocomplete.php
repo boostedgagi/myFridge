@@ -7,7 +7,7 @@ if (isset($_POST['query'])) {
     $result = $db->recipesAutocomplete($inpText);
     if ($result) {
         foreach ($result as $row) {
-            echo '<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 p-3 recipeCardTemplate">
+            echo '<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 p-3 recipeCardTemplate" data-recipe="' . $row["recipeID"] . '">
                     <div class="h-100 recipeCard">
                     <!-- Content -->
                     <div><img src="' . $row["img"] . '" alt="recepat" class="recipeImg"></div>
