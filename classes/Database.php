@@ -246,4 +246,12 @@ class Database
 
         return $recipes->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getWallet(){
+        $query = "select wallet from users where email=?";
+        $wallet = $this->connect()->prepare($query);
+        $user = $_SESSION["userEmail"];
+        $wallet->execute(array($user));
+
+    }
 }
