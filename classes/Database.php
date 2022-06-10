@@ -248,15 +248,13 @@ class Database
     }
 
 
-    public function getWallet(){
+    public function getWallet($user){
         $query = "select wallet from users where email=?";
         $wallet = $this->connect()->prepare($query);
-        $user = $_SESSION["userEmail"];
         $wallet->execute(array($user));
 
         return $wallet->fetchAll(PDO::FETCH_ASSOC);
     }
-
 
     public function InsertBudget($email, $budget)
     {
