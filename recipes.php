@@ -72,10 +72,8 @@ include "includes/register.php";
                     <div class="row row-cols-4 listOfAllRecipes">
                         <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 p-3 recipeCardTemplate">
 
+
                         </div>
-
-
-
                     </div>
                 </div>
             </div>
