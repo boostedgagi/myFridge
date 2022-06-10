@@ -29,7 +29,7 @@ if (isset($_POST["submit"])) {
     $recipe = new NewRecipeControl($title,$category,$meal,$time,$userEmail,$image->handlePictureAndItsLocation());
 
     $recipe->makeNewRecipe();
-    echo $recipe->lastInsertedId()." last inserted id";
+    echo $recipe->()." last inserted id";
 
     //ovde ce ici prvo unos recepta preko poziva funkcije
     //zatim povratna vrednost ce biti last inserted id i preko njega ce se pisati u recept svi potrebni sastojci
