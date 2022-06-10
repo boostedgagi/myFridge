@@ -84,10 +84,15 @@ session_start();
 
                 <?php
                 }
+
+                if (isset($_SESSION["userEmail"])) {
+                    echo '<li class="nav-item d-md-inline m-1">
+                        <p class="m-0 text-center">Budget: 0</p>
+                    </li>';
+                }
+
                 ?>
-                <li class="nav-item d-md-inline m-1">
-                    <p class="m-0 text-center">Budget: 0</p>
-                </li>
+
             </ul>
         </div>
     </div>
