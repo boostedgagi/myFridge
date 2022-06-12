@@ -11,7 +11,9 @@ include "includes/register.php";
     <div class="row justify-content-center my-2 mt-4">
         <!-- SEARCH -->
         <div class="col-12 col-sm-10 col-lg-9">
-            <input type="text" name="recipeName" id="recipeName" class="form-control recipeSearch" placeholder="Start typing..." autofocus>
+            <div class="input-group">
+            <input type="text" name="recipeName" id="recipeName" aria-label="add" aria-describedby="add" class="form-control recipeSearch" placeholder="Start typing..." autofocus>
+                <button class="btn bg-orange rounded-pill" id="add" onclick="location.href='newRecipe.php'">+</button>
         </div>
     </div>
     <div class="row justify-content-center mb-2">

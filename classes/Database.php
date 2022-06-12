@@ -245,6 +245,29 @@ class Database
         return $recipes->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function recipeFiller($recipeID)
+    {
+        $query = "SELECT
+        u.recipeID AS recipeID,
+        u.category_id AS category_id,
+        u.recipeTitle AS recipeTitle,
+        u.estTimeInMinutes AS estTime,
+        u.recipeImagePath AS img,
+        m.mealName AS mealName,
+        c.categoryID AS categoryID,
+        c.categoryName AS categoryName
+    FROM
+        recipes u
+    inner join meals m on 
+    m.mealID=u.meal_id
+    inner join categories c on 
+    c.categoryID=u.category_id
+    where u.recipeID = ?";
+        $recipe = $this->connect()->prepare($query);
+        $recipe->execute(array($recipeID));
+
+        return $recipe->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     public function getWallet($user)
     {

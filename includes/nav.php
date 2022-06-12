@@ -88,11 +88,12 @@ session_start();
                 ?>
                 <li class="nav-item d-md-inline m-1">
                     <p class="m-0 text-center"><?php
-
-                        $budget = new Database();
-                        $user = $_SESSION["userEmail"];
-                        $money = $budget->getWallet($user);
-                        echo $money["wt"];
+                        if (isset($_SESSION["userEmail"])) {
+                            $budget = new Database();
+                            $user = $_SESSION["userEmail"];
+                            $money = $budget->getWallet($user);
+                            echo $money["wt"];
+                        }
                     ?></p>
                 </li>
             </ul>

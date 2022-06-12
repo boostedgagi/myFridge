@@ -1,9 +1,10 @@
 <?php
+include "classes/Database.php";
 include "includes/header.php";
 include "includes/nav.php";
 include "includes/login.php";
 include "includes/register.php";
-include "classes/Database.php";
+
 
 ?>
 

@@ -1,9 +1,10 @@
 <?php
+include "classes/Database.php";
 include "includes/header.php";
 include "includes/nav.php";
 include "includes/userPageAuthentication.php";
 
-include "classes/Database.php";
+
 $dbObj1 = new Database();
 $usernamesListForAutocomplete = $dbObj1->getAllUsernames();
 

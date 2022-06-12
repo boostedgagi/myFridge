@@ -1,10 +1,13 @@
 <?php
+include "classes/Database.php";
 include "includes/header.php";
 include "includes/nav.php";
+include "includes/userPageAuthentication.php";
+
 include "includes/login.php";
 include "includes/register.php";
 include "includes/recipesAutocomplete.php";
-include "classes/Database.php";
+
 if (isset($_GET["recipeID"])) {
     $recipeID = $_GET["recipeID"];
     $db = new Database();
@@ -61,6 +64,7 @@ if (isset($_GET["recipeID"])) {
                     <p class="p-3 border-bottom mb-1">0 Comments</p>
                 </div>
             </div>
+        <?php if(isset($_SESSION["userEmail"])){ ?>
             <div class="comments row justify-content-center p-3">
                 <div class="col-10 col-md-8 col-lg-4">
                     <p class="p-3 pb-0 m-0">New Comment</p>
@@ -69,7 +73,7 @@ if (isset($_GET["recipeID"])) {
                     <button class="btn bg-orange">Submit</button>
                 </div>
             </div>
-
+<?php } ?>
             <div class="row justify-content-center p-3 mb-5">
                 <div class="col-4 col-md-2 col-lg-2 col-xxl-1 col-xs-4">
                     <div class="bg-orange w-100" style="height: 100px;">Profile image</div>
@@ -85,5 +89,6 @@ if (isset($_GET["recipeID"])) {
 <?php
     }
 }
+
 include 'includes/footer.php';
 ?>
