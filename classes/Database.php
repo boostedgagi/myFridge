@@ -313,4 +313,20 @@ class Database
             return false;
         }
     }
+
+    public function AllowUser($userID)
+    {
+        $query = "INSERT INTO allowedusers(user_id) VALUES (?)";
+
+        $allow = $this->connect()->prepare($query);
+        $allow->execute(array($userID));
+    }
+
+    public function DenyUser($userID)
+    {
+        $query = "DELETE FROM allowedusers WHERE user_id = ?";
+
+        $deny = $this->connect()->prepare($query);
+        $deny->execute(array($userID));
+    }
 }
