@@ -5,6 +5,7 @@ include "includes/adminHeader.php";
 include "includes/adminNav.php";
 include "classes/Database.php";
 include "includes/addRecipeCategoryModal.php";
+include "includes/editRecipeCategoryModal.php";
 ?>
 <div class="container-lg">
     <a href="#" data-bs-toggle="modal" class="ms-2 btn bg-orange" data-bs-target="#addCatModal">Add Category
@@ -26,7 +27,7 @@ include "includes/addRecipeCategoryModal.php";
                 echo '<tr>
                         <td>' . $row["categoryID"] . '</td>
                         <td>' . $row["categoryName"] . '</td>
-                        <td><button class="btn btn-danger delete" dataId = ' . $row["categoryID"] . '>Delete</button> <button class="btn btn-warning" dataId = ' . $row["categoryID"] . '>Edit</button></td>
+                        <td><button class="btn btn-danger delete" dataId = ' . $row["categoryID"] . '>Delete</button> <button class="btn btn-warning edit" dataId = ' . $row["categoryID"] . ' dataName = ' . $row["categoryName"] . ' data-bs-target="#editCatModal" data-bs-toggle="modal">Edit</button></td>
                       </tr>';
             }
         }
@@ -36,11 +37,19 @@ include "includes/addRecipeCategoryModal.php";
 </div>
 <script>
     $(document).ready(function() {
-        $(document).on("click", "button.delete", function() {
-            window.location.href = "./actions/deleteCategoryAction.php?categoryID=" + $(this).attr("dataId");
-            return false;
+        $('#editCatModal').on('show.bs.modal', function(e) {
+            var rowid = $(e.relatedTarget).attr("dataId");
+            $.ajax({
+                type: 'post',
+                url: '../actions/GetCategoryById.php', //Here you will fetch records 
+                data: 'categoryID=' + rowid, //Pass $id
+                success: function(data) {
+                    alert("hello");
+                    $("#editCatModal").show();
+                    $('input#editCatModal').val(data); //Show fetched data from database
+                }
+            });
         });
-
     });
 </script>
 <?php

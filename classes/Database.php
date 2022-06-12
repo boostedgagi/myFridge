@@ -336,11 +336,27 @@ class Database
         $cat = $this->connect()->prepare($query);
         $cat->execute(array($categoryName));
     }
+
     public function deleteCategoryAction($categoryID)
     {
         $query = "DELETE FROM categories WHERE categoryID = ?";
 
         $deleteCat = $this->connect()->prepare($query);
         $deleteCat->execute(array($categoryID));
+    }
+
+    public function GetCategoryById($categoryID)
+    {
+        $query = "SELECT categoryName FROM categories WHERE categoryID = ?";
+        $fill = $this->connect()->prepare($query);
+        $fill->execute(array($categoryID));
+        return $fill->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function EditCategoryById($categoryID, $newCatName)
+    {
+        $query = "UPDATE categories SET categoryName= ? WHERE categoryID = ?";
+        $fill = $this->connect()->prepare($query);
+        $fill->execute(array($newCatName, $categoryID));
     }
 }
