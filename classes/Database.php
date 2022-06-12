@@ -289,4 +289,28 @@ class Database
         $wallet = $this->connect()->prepare($query);
         $wallet->execute(array($budget, $email));
     }
+
+    public function ListUsers()
+    {
+        $query = "SELECT * FROM users WHERE accType = 'user'";
+
+        $users = $this->connect()->prepare($query);
+        $users->execute();
+
+        return $users->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function IsAllowed($userID)
+    {
+        $query = "SELECT users.userID, allowedusers.user_id FROM allowedusers INNER JOIN users ON allowedusers.user_id = users.userID AND users.userID = ?";
+
+        $user = $this->connect()->prepare($query);
+        $user->execute(array($userID));
+
+        if ($user->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
