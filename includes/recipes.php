@@ -11,7 +11,7 @@
         <div class="row my-5 align-items-center justify-content-center g-4">
             <div class=" col-md-7 col-xl-4">
                 <div class="card">
-                    <img src="images/slika2.jpg" class="card-img-top img-fluid" alt="pancakes" />
+                    <img src="images/recept2.jpg" class="card-img-top img-fluid" alt="pancakes" />
                     <div class="card-body">
                         <h4 class="card-title">Card title</h4>
                         <p class="card-text">
@@ -25,7 +25,7 @@
 
             <div class=" col-md-7 col-xl-4">
                 <div class="card">
-                    <img src="images/Slika3.jpg" class="card-img-top img-fluid" alt="pancakes" />
+                    <img src="images/recept3.jpg" class="card-img-top img-fluid" alt="pancakes" />
                     <div class="card-body">
                         <h4 class="card-title">Card title</h4>
                         <p class="card-text">
@@ -39,7 +39,7 @@
 
             <div class=" col-md-7 col-xl-4">
                 <div class="card">
-                    <img src="images/Slika4.jpg" class="card-img-top img-fluid" alt="pancakes" />
+                    <img src="images/recept5.jpg" class="card-img-top img-fluid" alt="pancakes" />
                     <div class="card-body">
                         <h4 class="card-title">Card title</h4>
                         <p class="card-text">

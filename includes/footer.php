@@ -28,6 +28,9 @@
             <div class="col-12">
                 <small class="text-brown">&copy; 2022 Dragan and David</small>
             </div>
+            <div class="col-12">
+                <a href="https://www.flaticon.com/free-icons/kitchen" title="kitchen icons">Kitchen icons created by Freepik - Flaticon</a>
+            </div>
         </div>
     </div>
     <div class="logo text-end">
