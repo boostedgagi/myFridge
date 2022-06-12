@@ -288,4 +288,74 @@ class Database
         $wallet = $this->connect()->prepare($query);
         $wallet->execute(array($budget, $email));
     }
+
+    public function ListUsers()
+    {
+        $query = "SELECT * FROM users WHERE accType = 'user'";
+
+        $users = $this->connect()->prepare($query);
+        $users->execute();
+
+        return $users->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function IsAllowed($userID)
+    {
+        $query = "SELECT users.userID, allowedusers.user_id FROM allowedusers INNER JOIN users ON allowedusers.user_id = users.userID AND users.userID = ?";
+
+        $user = $this->connect()->prepare($query);
+        $user->execute(array($userID));
+
+        if ($user->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function AllowUser($userID)
+    {
+        $query = "INSERT INTO allowedusers(user_id) VALUES (?)";
+
+        $allow = $this->connect()->prepare($query);
+        $allow->execute(array($userID));
+    }
+
+    public function DenyUser($userID)
+    {
+        $query = "DELETE FROM allowedusers WHERE user_id = ?";
+
+        $deny = $this->connect()->prepare($query);
+        $deny->execute(array($userID));
+    }
+
+    public function InsertCategory($categoryName)
+    {
+        $query = "INSERT INTO categories(categoryName) VALUES (?)";
+        $cat = $this->connect()->prepare($query);
+        $cat->execute(array($categoryName));
+    }
+
+    public function deleteCategoryAction($categoryID)
+    {
+        $query = "DELETE FROM categories WHERE categoryID = ?";
+
+        $deleteCat = $this->connect()->prepare($query);
+        $deleteCat->execute(array($categoryID));
+    }
+
+    public function GetCategoryById($categoryID)
+    {
+        $query = "SELECT categoryName FROM categories WHERE categoryID = ?";
+        $fill = $this->connect()->prepare($query);
+        $fill->execute(array($categoryID));
+        return $fill->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function EditCategoryById($categoryID, $newCatName)
+    {
+        $query = "UPDATE categories SET categoryName= ? WHERE categoryID = ?";
+        $fill = $this->connect()->prepare($query);
+        $fill->execute(array($newCatName, $categoryID));
+    }
 }
