@@ -19,7 +19,7 @@ class NewRecipeControl extends NewRecipe {
         $this->recipeImagePath = $recipeImagePath;
     }
 
-    public function makeNewRecipe()
+    public function makeNewRecipe():string
     {
         if ($this->emptyEntries() === false) {
             header("location: ../newRecipe.php?error=empty_entries");
@@ -27,7 +27,7 @@ class NewRecipeControl extends NewRecipe {
         }
 
 
-        $this->makeNewRecipeBase($this->title, $this->categoryID, $this->mealID, $this->time, $this->userEmail, $this->recipeImagePath);
+        return $this->makeNewRecipeBase($this->title, $this->categoryID, $this->mealID, $this->time, $this->userEmail, $this->recipeImagePath);
 
     }
 
