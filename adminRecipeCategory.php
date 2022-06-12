@@ -4,9 +4,12 @@ session_start();
 include "includes/adminHeader.php";
 include "includes/adminNav.php";
 include "classes/Database.php";
-
+include "includes/addRecipeCategoryModal.php";
 ?>
 <div class="container-lg">
+    <a href="#" data-bs-toggle="modal" class="ms-2 btn bg-orange" data-bs-target="#addCatModal">Add Category
+    </a>
+
     <table id="grid-basic" class="table table-condensed table-hover table-striped">
         <thead>
             <tr>
@@ -34,7 +37,7 @@ include "classes/Database.php";
 <script>
     $(document).ready(function() {
         $(document).on("click", "button.delete", function() {
-            window.location.href = "./actions/allowUserAction.php?userID=" + $(this).attr("dataId");
+            window.location.href = "./actions/deleteCategoryAction.php?categoryID=" + $(this).attr("dataId");
             return false;
         });
 

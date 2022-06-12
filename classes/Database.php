@@ -329,4 +329,18 @@ class Database
         $deny = $this->connect()->prepare($query);
         $deny->execute(array($userID));
     }
+
+    public function InsertCategory($categoryName)
+    {
+        $query = "INSERT INTO categories(categoryName) VALUES (?)";
+        $cat = $this->connect()->prepare($query);
+        $cat->execute(array($categoryName));
+    }
+    public function deleteCategoryAction($categoryID)
+    {
+        $query = "DELETE FROM categories WHERE categoryID = ?";
+
+        $deleteCat = $this->connect()->prepare($query);
+        $deleteCat->execute(array($categoryID));
+    }
 }
