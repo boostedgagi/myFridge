@@ -22,6 +22,9 @@ include "includes/adminAddGrocerieModal.php";
                 <th data-column-id="id" data-type="numeric">ID</th>
                 <th data-column-id="sender">Grocerie name</th>
                 <th data-column-id="received" data-order="desc">Grocerie picture</th>
+                <th data-column-id="received" data-order="desc">Delete</th>
+                <th data-column-id="received" data-order="desc">Edit</th>
+
             </tr>
         </thead>
         <tbody>
@@ -40,9 +43,6 @@ include "includes/adminAddGrocerieModal.php";
         </tbody>
     </table>
 </div>
-<script>
-    $("#grid-basic").bootgrid();
-</script>
 <?php
 include "includes/adminFooter.php";
 ?>

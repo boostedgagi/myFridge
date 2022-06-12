@@ -4,7 +4,6 @@ session_start();
 include "includes/adminHeader.php";
 include "includes/adminNav.php";
 include "classes/Database.php";
-include "includes/adminAddGrocerieModal.php";
 
 if (isset($_SESSION["accountType"]) and $_SESSION["accountType"] === "admin") {
 

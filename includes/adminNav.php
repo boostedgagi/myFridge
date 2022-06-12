@@ -18,7 +18,7 @@
                         Recipes
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Categories</a></li>
+                        <li><a class="dropdown-item" href="adminRecipeCategory.php">Categories</a></li>
                         <li><a class="dropdown-item" href="#">Edit recipes</a></li>
                         <li><a class="dropdown-item" href="#">Approve recipes</a></li>
                     </ul>
