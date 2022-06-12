@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Jun 10, 2022 at 02:17 AM
+-- Generation Time: Jun 13, 2022 at 01:59 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -28,6 +28,18 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteTokenIfExists` (IN `email` VARCHAR(320))  BEGIN
 delete from passwordreset where pwdResetEmail=email;
 END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertComment` (IN `commentt` TEXT, IN `recipeID` INT(10), IN `userID` INT(10))  BEGIN
+    INSERT INTO reviews(
+        reviewText,
+        recipe_id,
+        user_id
+    )
+VALUES(
+    commentt,
+    recipeID,
+    userID );
+    END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertDataForPasswordRecovery` (IN `email` VARCHAR(320), IN `selector` TEXT, IN `token` LONGTEXT, IN `expires` VARCHAR(20))  BEGIN
     insert into passwordreset ( 
@@ -239,7 +251,7 @@ CREATE TABLE `allowedusers` (
 INSERT INTO `allowedusers` (`allowedUsersID`, `user_id`) VALUES
 (5, 1),
 (8, 47),
-(9, 49),
+(53, 49),
 (52, 58);
 
 -- --------------------------------------------------------
@@ -258,10 +270,10 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`categoryID`, `categoryName`) VALUES
-(1, 'Vegetarian'),
 (2, 'Vegan'),
 (5, 'Gluten free'),
-(6, 'Normal');
+(6, 'Normal'),
+(8, 'Vegetarian');
 
 -- --------------------------------------------------------
 
@@ -285,7 +297,9 @@ INSERT INTO `fridgeowners` (`friOwnID`, `user_id`, `fridge_id`, `is_main_owner`)
 (7, 1, 7, 1),
 (14, 1, 14, 1),
 (15, 1, 15, 1),
-(17, 58, 17, 1);
+(17, 58, 17, 1),
+(18, 49, 18, 1),
+(19, 1, 19, 1);
 
 -- --------------------------------------------------------
 
@@ -308,7 +322,9 @@ INSERT INTO `fridges` (`fridgeID`, `fridgeName`, `user_id1`) VALUES
 (7, 'fridge in restroom', 1),
 (14, 'fridge in bathroom', 1),
 (15, 'vw fridge', 1),
-(17, 'goran fridge', 58);
+(17, 'goran fridge', 58),
+(18, 'sladjan fridge', 49),
+(19, 'fridge', 1);
 
 --
 -- Triggers `fridges`
@@ -403,7 +419,10 @@ INSERT INTO `groceries` (`grocerieID`, `grocerieName`, `grocerieAmount`, `user_i
 (6, 'Banana', 6, 47, 6),
 (7, 'Potato', 5, 1, 14),
 (8, 'Melon', 7, 58, 17),
-(9, 'Melon', 7, 1, 7);
+(9, 'Melon', 7, 1, 7),
+(10, 'Tomato', 6, 1, 14),
+(11, 'Melon', 9, 1, 7),
+(12, 'Potato', 3, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -624,7 +643,20 @@ INSERT INTO `logevidence` (`logID`, `user_id`, `logDate`, `logTime`) VALUES
 (188, 58, '2022-06-09', '14:19:04'),
 (189, 58, '2022-06-09', '14:19:14'),
 (190, 58, '2022-06-09', '14:37:01'),
-(191, 1, '2022-06-09', '23:12:21');
+(191, 1, '2022-06-09', '23:12:21'),
+(192, 47, '2022-06-10', '09:06:04'),
+(193, 1, '2022-06-10', '09:49:22'),
+(194, 47, '2022-06-10', '10:13:53'),
+(195, 49, '2022-06-10', '11:03:07'),
+(196, 1, '2022-06-10', '11:04:37'),
+(197, 1, '2022-06-10', '11:20:58'),
+(198, 47, '2022-06-10', '11:54:09'),
+(199, 1, '2022-06-10', '11:55:20'),
+(200, 47, '2022-06-10', '11:58:23'),
+(201, 1, '2022-06-12', '22:03:19'),
+(202, 1, '2022-06-12', '23:28:40'),
+(203, 1, '2022-06-12', '23:38:53'),
+(204, 1, '2022-06-12', '23:50:20');
 
 -- --------------------------------------------------------
 
@@ -672,7 +704,7 @@ CREATE TABLE `recipes` (
   `recipeID` int(10) UNSIGNED NOT NULL,
   `recipeTitle` varchar(40) NOT NULL,
   `numberOfViews` int(10) UNSIGNED DEFAULT 0,
-  `category_id` int(10) UNSIGNED NOT NULL,
+  `category_id` int(10) UNSIGNED DEFAULT NULL,
   `meal_id` int(10) UNSIGNED NOT NULL,
   `estTimeInMinutes` int(4) NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
@@ -686,7 +718,17 @@ CREATE TABLE `recipes` (
 --
 
 INSERT INTO `recipes` (`recipeID`, `recipeTitle`, `numberOfViews`, `category_id`, `meal_id`, `estTimeInMinutes`, `user_id`, `recipeImagePath`, `approved`, `dateOfApproval`) VALUES
-(4, 'Strudle', 0, 5, 3, 40, 1, 'images/recipeDoe.png', 0, '0000-00-00');
+(4, 'Strudle', 0, 5, 3, 40, 1, 'images/recipeDoe.png', 0, '0000-00-00'),
+(8, 'Burek', 0, 5, 5, 90, 47, 'recipePictures/62a2ee67f30d75.71914075.jpg', 0, '0000-00-00'),
+(9, 'Pecenje', 0, NULL, 4, 240, 47, 'images/recipeDoe.png', 0, '0000-00-00'),
+(10, 'French fries', 0, 6, 5, 50, 1, 'images/recipeDoe.png', 0, '0000-00-00'),
+(11, 'Secerleme', 0, 8, 8, 49, 1, 'recipePictures/62a66f7e2f3778.20905851.jpg', 0, '0000-00-00'),
+(12, 'recipe totjl', 0, 5, 3, 50, 1, 'images/recipeDoe.png', 0, '0000-00-00'),
+(13, 'recipe totjl', 0, 5, 3, 50, 1, 'images/recipeDoe.png', 0, '0000-00-00'),
+(14, 'recipe totjl', 0, 5, 3, 50, 1, 'images/recipeDoe.png', 0, '0000-00-00'),
+(15, 'Medenjaci1', 0, 5, 4, 21, 1, 'images/recipeDoe.png', 0, '0000-00-00'),
+(16, 'Medenjaci1', 0, 5, 4, 21, 1, 'images/recipeDoe.png', 0, '0000-00-00'),
+(17, 'Oblande', 0, 2, 4, 32, 1, 'images/recipeDoe.png', 0, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -699,8 +741,16 @@ CREATE TABLE `reviews` (
   `reviewText` text NOT NULL,
   `recipe_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
-  `mark` enum('1','2','3','4','5') NOT NULL
+  `mark` enum('1','2','3','4','5') DEFAULT NULL,
+  `allowed` int(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`reviewID`, `reviewText`, `recipe_id`, `user_id`, `mark`, `allowed`) VALUES
+(1, 'Burek je samo sa mesom...', 8, 1, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -743,7 +793,9 @@ CREATE TABLE `suggestedgroceries` (
 
 INSERT INTO `suggestedgroceries` (`suggGrocID`, `suggGrocName`, `suggGrocUnit`, `groceriePicturePath`, `price`) VALUES
 (18, 'Apple', 'g', 'groceriePictures/62a1da7c1ec0f1.37340252.jpg', 0),
-(19, 'Melon', 'g', 'groceriePictures/62a1da84414e80.73002618.jpg', 0);
+(19, 'Melon', 'g', 'groceriePictures/62a1da84414e80.73002618.jpg', 0),
+(20, 'Potato', 'piece', 'groceriePictures/62a309532906e4.56498109.jpg', 0),
+(21, 'Tomato', 'g', 'groceriePictures/62a3099b29a899.34159007.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -772,9 +824,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`userID`, `firstName`, `lastName`, `phoneNumber`, `email`, `hashedPassword`, `country`, `city`, `profilePicturePath`, `verifyingCode`, `verified`, `accType`, `wallet`) VALUES
-(1, 'Dragan', 'Jelic', '0649310515', 'dragan.02jelic@gmail.com', '$2y$10$lsT3VOjMJxn.64P8I21Lb.BHWqyrbs8s7YznQAizcxyu.sL8fTknS', '', '', 'profilePictures/6233aaffd0a6f5.27465359.jpg', 0, 1, 'admin', NULL),
-(47, 'Filip', 'Marjan', '0983333000', 'gagimanijak@outlook.com', '$2y$10$RtOilsZrz.sCP6DO0/YEpOazsM.8KdcrDw4DVEiFYNr4QeaeJb4Ci', '', '', 'profilePictures/62a1d1498b49c1.84240377.jpg', 0, 1, 'user', NULL),
-(49, 'Sladjan', 'Delibasic', '0645632514', 'janika7@janika.bal', '$2y$10$OumObfOTlf8AOU90vMV8quCgt.n67d4km1zI/lr9omTwcuRgpW8AO', '', '', '', 0, 1, 'user', NULL),
+(1, 'Dragan', 'Jelic', '0649310515', 'dragan.02jelic@gmail.com', '$2y$10$lsT3VOjMJxn.64P8I21Lb.BHWqyrbs8s7YznQAizcxyu.sL8fTknS', '', '', 'profilePictures/6233aaffd0a6f5.27465359.jpg', 0, 1, 'admin', 0),
+(47, 'Filip', 'Marjan', '0983333000', 'gagimanijak@outlook.com', '$2y$10$RtOilsZrz.sCP6DO0/YEpOazsM.8KdcrDw4DVEiFYNr4QeaeJb4Ci', '', '', 'profilePictures/62a314eb432ce2.19918756.jpg', 0, 1, 'user', 1190),
+(49, 'Sladjan', 'Delibasic', '0645632514', 'janika7@janika.bal', '$2y$10$OumObfOTlf8AOU90vMV8quCgt.n67d4km1zI/lr9omTwcuRgpW8AO', '', '', 'profilePictures/62a308ec83c0c7.60858596.jpg', 0, 1, 'user', 900),
 (58, 'Jovan', 'Lazic', '0987645767', 'rango@njacme.com', '$2y$10$Ky/7R.y71zUjkKgNplIr5egzfO0e44ppwTI/evAtRd.4vz38Gl4ua', '', '', 'profilePictures/62a1e6db4baf30.24675312.jpg', 0, 1, 'user', 0);
 
 -- --------------------------------------------------------
@@ -945,25 +997,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `allowedusers`
 --
 ALTER TABLE `allowedusers`
-  MODIFY `allowedUsersID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `allowedUsersID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `categoryID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `categoryID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `fridgeowners`
 --
 ALTER TABLE `fridgeowners`
-  MODIFY `friOwnID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `friOwnID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `fridges`
 --
 ALTER TABLE `fridges`
-  MODIFY `fridgeID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `fridgeID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `friendrequest`
@@ -975,7 +1027,7 @@ ALTER TABLE `friendrequest`
 -- AUTO_INCREMENT for table `groceries`
 --
 ALTER TABLE `groceries`
-  MODIFY `grocerieID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `grocerieID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `ingredients`
@@ -987,7 +1039,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `logevidence`
 --
 ALTER TABLE `logevidence`
-  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=192;
+  MODIFY `logID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=205;
 
 --
 -- AUTO_INCREMENT for table `meals`
@@ -1005,13 +1057,13 @@ ALTER TABLE `passwordreset`
 -- AUTO_INCREMENT for table `recipes`
 --
 ALTER TABLE `recipes`
-  MODIFY `recipeID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `recipeID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `reviewID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `reviewID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `roommates`
@@ -1023,7 +1075,7 @@ ALTER TABLE `roommates`
 -- AUTO_INCREMENT for table `suggestedgroceries`
 --
 ALTER TABLE `suggestedgroceries`
-  MODIFY `suggGrocID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `suggGrocID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -1078,9 +1130,9 @@ ALTER TABLE `logevidence`
 -- Constraints for table `recipes`
 --
 ALTER TABLE `recipes`
-  ADD CONSTRAINT `recipes_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`categoryID`),
   ADD CONSTRAINT `recipes_ibfk_2` FOREIGN KEY (`meal_id`) REFERENCES `meals` (`mealID`),
-  ADD CONSTRAINT `recipes_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`userID`);
+  ADD CONSTRAINT `recipes_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`userID`),
+  ADD CONSTRAINT `recipes_ibfk_4` FOREIGN KEY (`category_id`) REFERENCES `categories` (`categoryID`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `reviews`
