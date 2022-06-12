@@ -22,12 +22,15 @@ include "includes/editRecipeCategoryModal.php";
         <?php
         $db = new Database();
         $result = $db->getCategories();
+        $deletePath = "";
         if ($result) {
             foreach ($result as $row) {
+                $deletePath="actions/deleteCategoryAction.php?categoryID=".$row["categoryID"];
                 echo '<tr>
                         <td>' . $row["categoryID"] . '</td>
                         <td>' . $row["categoryName"] . '</td>
-                        <td><button class="btn btn-danger delete" dataId = ' . $row["categoryID"] . '>Delete</button> <button class="btn btn-warning edit" dataId = ' . $row["categoryID"] . ' dataName = ' . $row["categoryName"] . ' data-bs-target="#editCatModal" data-bs-toggle="modal">Edit</button></td>
+                        <td><button class="btn btn-danger delete" dataId = ' . $row["categoryID"] . ' onclick="location.href='."'".$deletePath."'".'">Delete</button> 
+                        <button class="btn btn-warning edit" dataId = ' . $row["categoryID"] . ' dataName = ' . $row["categoryName"] . ' data-bs-target="#editCatModal" data-bs-toggle="modal">Edit</button></td>
                       </tr>';
             }
         }
@@ -35,7 +38,7 @@ include "includes/editRecipeCategoryModal.php";
         </tbody>
     </table>
 </div>
-<script>
+<script>/*
     $(document).ready(function() {
         $('#editCatModal').on('show.bs.modal', function(e) {
             var rowid = $(e.relatedTarget).attr("dataId");
@@ -50,7 +53,7 @@ include "includes/editRecipeCategoryModal.php";
                 }
             });
         });
-    });
+    });*/
 </script>
 <?php
 include "includes/adminFooter.php";

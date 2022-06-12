@@ -352,10 +352,4 @@ class Database
         return $fill->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function EditCategoryById($categoryID, $newCatName)
-    {
-        $query = "UPDATE categories SET categoryName= ? WHERE categoryID = ?";
-        $fill = $this->connect()->prepare($query);
-        $fill->execute(array($newCatName, $categoryID));
-    }
 }
