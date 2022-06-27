@@ -7,9 +7,9 @@ class Database
     protected function connect()
     {
         try {
-            $username = "root";
-            $password = "";
-            $databaseHandler = new PDO('mysql:host=localhost;port=3308;dbname=recipe', $username, $password);
+            $username = "dds";
+            $password = "yeWtFromFN89bOg";
+            $databaseHandler = new PDO('mysql:host=localhost;dbname=dds', $username, $password);
             return $databaseHandler;
         } catch (PDOException $error) {
             print "Error: " . $error->getMessage() . "<br>";
